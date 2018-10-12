@@ -1,0 +1,38 @@
+.manage-right{
+    padding:20px 8px;
+}
+
+.manage-right .form-group .checkbox-inline a{
+    text-decoration: underline;
+    color: #283bde;
+}
+
+.manage-editor {
+    width:100%;
+    height: 380px;
+}
+
+@media (max-width:992px ) {
+    #edui-dialog-image{
+        width: 80%  !important;
+        height:70%  !important;
+    }
+    .edui-dialog-image-body{
+        width: 100%  !important;
+        height:80%  !important;
+    }
+    .edui-dialog-image .edui-image-content{
+        height: 200px !important;
+    }
+    .edui-dialog-image .edui-image-searchRes{
+        height: 150px !important;
+    }
+    .edui-modal-footer .edui-btn{
+        width: 40px !important;
+    }
+    .edui-dialog-image .edui-image-searchBar .edui-image-searchTxt{
+        width:100% !important;
+    }
+}
+
+

@@ -1,0 +1,618 @@
+<?php
+//这是管理员查看的页面
+//管理员查看state为1的时候，需要分配专家
+//state为2的时候，显示专家信息
+//sate为3的时候，显示专家的评分结果，并且选择是否投递给理事会 ,如果投递的话 能state为4，且在理事会的表格上插入企业id(或者个人id)。
+// state为4的时候  显示投递给理事会的界面 这个时候index=0
+//index=-1的时候，显示理事会的意见。
+
+define('ROOT',dirname(__FILE__));
+$index=$_GET['index'];
+if($_POST['send1']=='yes') //管理员提交 必须放在重进入验证之后
+	{
+		$experts=$_POST['experts'];
+		$name=$_POST['name'];
+		$info=$_POST['info'];
+		if(count($experts)!=0)
+		{
+			for($i=0;$i<count($experts);$i++)
+			{
+				$query="insert into expert (id_p,id_f,form_category,state,name) values (".$experts[$i].",$index,$category_f,1,'$name')"; //注意这个表名没有s
+				$db->query($query);
+			}
+			$query="update $sheet set info1='$info',state=2 where id=$index";
+			$db->query($query);
+			echo "<script language=javascript>alert('分配成功！'); location.href='$loca';</script>";
+			exit();
+		}
+		else
+		{
+			echo "<script language=javascript>alert('请选择专家！');</script>";
+			exit();
+		}
+	}
+	
+     if($_POST['send3']=='yes') //管理员将专家的结果提交至理事会。
+	{
+		//$info=$_POST['info'];
+		//$info=addslashes($info);
+		$query="update $sheet set state=4 where id=$index";
+		$result=$db->query($query);
+		if($result)
+		echo "<script language=javascript>alert('提交成功！'); location.href='$loca';</script>";
+		exit();
+	}
+    if($_POST['send4']=='yes')
+	{
+     $p3=$_POST['p3'];$p4=$_POST['p4'];
+	 $p1=$_POST['p1'];$p2=$_POST['p2'];
+     $num=$_POST['num'];
+	for($i=1;$i<=$num;$i++)
+	{
+	$str="cid".$i;// 企业编号
+	$PA[$i]=$_POST[$str];
+	$PA[$i]=addslashes($PA[$i]);//存储企业编号的数组
+	$r="r".$i;
+	$RA[$i]=$_POST[$r];
+	$RA[$i]=addslashes($RA[$i]);//存储申请等级
+	$t="t".$i;
+	$TA[$i]=$_POST[$t];
+	$TA[$i]=addslashes($TA[$i]);//存储评审结果
+    $query1 = "update $sheet set state='5',result1='".$RA[$i]."',result2='".$TA[$i]."'  where id=".$PA[$i]."";
+	$result1=$db->query($query1);
+	}
+	$query = "replace into council_inform (headline1,headline2, preface,remark,state,form_category) values ('$p1','$p2','$p4','$p3','1','$category_f')";
+		$result=$db->query($query);
+		if($result && $result1)
+			echo "<script language=javascript>alert('提交成功！'); location.href='$loca';</script>";
+		else
+		{
+			echo "<script language=javascript>alert('提交失败！'); </script>";
+		exit();
+		}
+	}
+ if($_POST['send5']=='yes')//将最终结果插入企业join_form表格中的level3中
+ {
+
+    $query= "select * from $sheet where state='5'";
+	$result=$db->query($query);
+	$num_results=$result->num_rows;
+	for($i=1;$i<=$num_results;$i++)
+	{
+       $companyid="companyid".$i;
+	$companyid[$i]=$_POST[$companyid];
+	$companyid[$i]=addslashes($companyid[$i]);
+	$level="level".$i;	
+	$LE[$i]=$_POST[$level];
+	$LE[$i]=addslashes($LE[$i]);
+
+  $query1 = "update $sheet set state = '6' where id='".$companyid[$i]."'";//6表示已经处理完
+	$result1=$db->query($query1);
+    $query2 = " update join_form, $sheet set $levelfinal = '$LE[$i]' where join_form.id_p = $sheet.id_p";
+	$result2 = $db->query($query2);
+	if (!$result1 || !$result2)
+		{
+        echo "<script language=javascript>alert('提交失败！请检查并尝试重新提交'); </script>";
+		exit();
+	
+	    }
+    }
+
+	echo" <script language=javascript>alert('提交成功！如要查看或者修改请前往企业查看模块'); </script> ";
+}
+ if($_POST['expertsend']=='yes')
+ {
+	 //上传文件
+	 $query="select id_f from expert where id = '$index' ";
+	
+	 $result=$db->query($query);
+	 $row=$result->fetch_assoc(); 
+	 $id_f=$row['id_f'];
+ if(is_uploaded_file($_FILES['file1']['tmp_name']))
+		//这一块用http://blog.csdn.net/agangdi/article/details/8351095方法会严谨一点 ，日后注意改进.
+	   //判断是否有文件上传如果没有显示必须上传文件并exit();
+	{ 
+    $name1=$_FILES['file1']['name'];//上传文件的文件名 
+    $type1=$_FILES['file1']['type'];//传文件的类型 
+    $size1=$_FILES['file1']['size'];//上传文件的大小 
+    $tmp_name1=$_FILES['file1']['tmp_name'];//上传文件的临时存放路径
+    $ext_array1=explode('.',$name1);
+    $ext1= $ext_array1[1];
+    $upfile1=ROOT."/$sheet/expert/$id+$id_f.$ext1";//$id 是专家的id id_f是wang1的id
+	
+	    if($type1!='application/msword'&&$type1!='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+		{
+       echo"<script language=javascript>alert('您上传的不是word格式'); </script> ";
+	    exit();
+	    }
+        if(!move_uploaded_file($tmp_name1,$upfile1))
+		{
+      echo"<script language=javascript>alert('未能移动成功！请联系管理员'); </script> ";
+	    exit();		
+		}
+        $query="update expert set position='$id+$id_f.$ext1' ,state='2' where id='$index'"; 
+		
+		//插入expert 文件后缀名，以及将expert的state为2
+	    $result=$db->query($query);
+	    $query1="update $sheet set state='3' where id='$id_f'";
+		
+        $result1=$db->query($query1);
+		if($result && $result1)
+		{
+		echo"<script language=javascript>alert('提交成功！'); location.href='http://www.cnass.org/space2/index.php?nav1=40';</script>";
+		exit();
+		}
+		else
+		echo"<script language=javascript>alert('出现问题！请联系管理员'); </script>";
+	}
+	else
+	 {
+     echo"<script language=javascript>alert('您未提交审核表'); </script> ";
+	 exit();
+	 }
+
+  //将wang1中的state为3
+ 
+ }
+ 
+ 
+ if($index!='-1'&&$index!='0'&&$index!='-2')//不是投递给理事会或者理事会意见反馈
+		{ 
+			if($category==5)
+			{
+			//if($category==5)
+			//{
+               $query="select * from $sheet where id=$index";
+			//}
+			//if($category==3)
+			//{
+		  // $query="select * from wang1,expert where expert.id=$index and expert.id_f=wang1.id";
+			//}
+				$result=$db->query($query);
+				$row=$result->fetch_assoc(); 
+				$state=$row['state'];
+				$id_pm=$row['id_p'];
+                $position=$row['position'];
+				$position1=$row['position1'];
+				$position2=$row['position2'];
+                $position3=$row['position3'];
+				$position4=$row['position4'];
+				$info=$row['info1'];
+				 echo"
+<div class='container-fluid hidden-xs' style=' margin-top:30px;' >
+<form enctype='multipart/form-data' action='' method='post'>
+ <table class='table table-bordered text-center table-responsive'>
+ <tbody>
+ <tr><td colspan='2'><strong>网格资质等级会员初审</strong></td></tr>
+ <tr>
+ <td>请下载文件模板:</td>
+ <td><a href='webpage/$sheet/网格结构专项资质申请表.doc'>网格结构专项资质申请表</a></td>
+ </tr>
+ <tr>
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position'>查看申请企业上传的word文档</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position1'>查看申请企业上传的pdf文档</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position2'>查看申请材料附件第一册</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td  colspan='2'>
+ <a href='webpage/$sheet/$position3'>查看申请材料附件第二册</a>
+ </td>
+ </tr>
+ <tr>
+ <td  colspan='2'>
+ <a href='webpage/$sheet/$position4'>查看申请材料附件第三册</a>
+ </td>
+ </tr>
+	
+ <input type='hidden' value='yes' name='send'> 
+</table>
+</form>
+</div>";
+
+echo"
+<div class='container-fluid visible-xs' style=' margin-top:30px;'>
+ <table class='table table-bordered text-center table-responsive'>
+ <tbody>
+ <tr><td><strong>网格资质等级会员初审</strong></td></tr>
+ <tr>
+ <td>请下载文件模板:</td></tr>
+<tr>
+ <td><a href='webpage/$sheet/网格结构专项资质申请表.doc'>网格结构专项资质申请表</a></td>
+ </tr>
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position'>查看申请企业上传的word文档</a>
+</td>
+ </tr>
+
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position1'>查看申请企业的pdf文档</a>
+</td>
+ </tr>
+ 
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position2'>申请材料附件第一册</a>
+</td>
+ </tr>
+ 
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position3'>申请材料附件第二册</a>
+</td>
+ </tr>
+
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position3'>申请材料附件第一册</a>
+</td>
+ </tr>
+</table>
+<input type='hidden' value='yes' name='send'> 
+
+</div>
+ 
+
+";				
+		switch ( $state)
+		{
+		case 1:
+		{
+		echo"
+		<div class='container-fluid'>
+	  <form enctype='' action='' method='post'>
+	
+		<select  name='experts[]' class='selectpicker show-tick form-control' multiple data-live-search='true' noneSelectedText='选择专家'>";
+											
+			//这里展开专家列表，这种格式：<option value='专家的id'> 专家的name</option >
+			$query="select id,name from user where category=3";
+			$db->query($query);
+			$result=$db->query($query);
+			$num_results=$result->num_rows;
+			for($i=0;$i<$num_results;$i++)
+			{
+				$row1=$result->fetch_assoc(); 
+				echo "<option value='".$row1['id']."'> ".$row1['name']."</option >"; //这里使用row1 ，因为下面有一个隐藏表单项还要用到row
+			}
+
+			 echo "  </select>
+					<div style='text-align: right;margin:20px 0'>
+						<input type='hidden' value='yes' name='send1'>
+						<input type='hidden' value='".$row['c1']."' name='name'>
+						<button type='submit' class='btn btn-sm btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
+						</button>
+					</div>
+				</form></div>"; 
+				break;
+				exit();
+		 }	
+	     case 2:
+		 {
+		 print_experts2($index,$category_f);
+		 break;
+		 }
+		 case 3:
+		 {
+			 echo"<form enctype='multipart/form-data' action='' method='post'>";
+       print_experts2($index,$category_f);
+      echo "					
+					
+						
+						<div style='text-align: right;margin-bottom: 2%'>
+							<input type='hidden' value='yes' name='send3'>
+							<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 投递至理事会 &nbsp; &nbsp;</button>
+						</div>
+					</form>";
+         break;exit();
+		 }
+
+	}	//结束switch	
+				
+			}
+			
+			if ($category==3)
+			{
+			$query="select $sheet.* from $sheet,expert where expert.id=$index and expert.id_f=$sheet.id";
+				$result=$db->query($query);
+				$row=$result->fetch_assoc(); 
+				$state=$row['state'];
+				$id_pm=$row['id_p'];
+                $position=$row['position'];
+				$position1=$row['position1'];
+				$position2=$row['position2'];
+                $position3=$row['position3'];
+				$position4=$row['position4'];
+				$info=$row['info1'];
+				 echo"
+<div class='container-fluid hidden-xs' style=' margin-top:30px;' >
+<form enctype='multipart/form-data' action='' method='post'>
+ <table class='table table-bordered text-center table-responsive'>
+ <tbody>
+ <tr><td colspan='2'><strong>网格资质等级会员初审</strong></td></tr>
+ <tr>
+ <td>请下载考评表:</td>
+ <td><a href='webpage/$sheet/网格结构专项资质考评表（专家评审及企业自查用).doc'>网格结构专项资质考评表（专家评审及企业自查用)</a></td>
+ </tr>
+ <tr>
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position'>查看申请企业上传的word文档</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position1'>查看申请企业上传的pdf文档</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td colspan='2'>
+ <a href='webpage/$sheet/$position2'>查看申请材料附件第一册</a>
+ </td>
+ </tr>
+ <tr>
+
+ <td  colspan='2'>
+ <a href='webpage/$sheet/$position3'>查看申请材料附件第二册</a>
+ </td>
+ </tr>
+ <tr>
+ <td  colspan='2'>
+ <a href='webpage/$sheet/$position4'>查看申请材料附件第三册</a>
+ </td>
+ </tr>
+ <tr>
+ <td>请上传考评表:</td>
+ <td><input type='file' id='file1' name='file1'><span style='font-size:10px'>【注】:请上传word格式</span></td>
+ </tr>
+	
+</table>
+<div style='text-align: right;margin-bottom: 2%'>
+							<input type='hidden' value='yes' name='expertsend'>
+							<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>
+						</div>
+</form>
+</div>";
+
+echo"
+<div class='container-fluid visible-xs' style=' margin-top:30px;'>
+<form enctype='multipart/form-data' action='' method='post'>
+ <table class='table table-bordered text-center table-responsive'>
+ <tbody>
+ <tr><td><strong>网格资质等级会员初审</strong></td></tr>
+ <tr>
+ <td>请下载评审表:</td></tr>
+<tr>
+ <td><a href='webpage/$sheet/网格结构专项资质考评表（专家评审及企业自查用).doc'>网格结构专项资质考评表（专家评审及企业自查用)</a></td>
+ </tr>
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position'>查看申请企业上传的word文档</a>
+</td>
+ </tr>
+
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position1'>查看申请企业的pdf文档</a>
+</td>
+ </tr>
+ 
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position2'>申请材料附件第一册</a>
+</td>
+ </tr>
+ 
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position3'>申请材料附件第二册</a>
+</td>
+ </tr>
+
+ <tr>
+ <td>
+ <a href='webpage/$sheet/$position3'>申请材料附件第一册</a>
+</td>
+ </tr>
+  <tr>
+ <td>请上传评审表:</td></tr>
+<tr>
+ <td><input type='file' id='file1' name='file1'><span style='font-size=10px'>【注】：请上传word格式</span></td>
+ </tr>
+</table>
+<div style='text-align: right;margin-bottom: 2%'>
+							<input type='hidden' value='yes' name='expertsend'>
+							<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;</button>
+						</div>
+</form>
+</div>
+ 
+
+";					
+			}
+			}//结束判断$index
+  else if ($index==0)
+  {
+$query = "select * from $sheet where state='4'";
+$result=$db->query($query);
+$num_results=$result->num_rows;
+if($num_results==0)
+	{
+	echo"<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
+            exit();
+    }
+echo"
+<div class='container-fluid'>
+<form enctype='multipart/form-data' action='' method='post'>
+<table class='table table-bordered table-responsive text-left' style='margin-top:1em;font-size:1.2em;'>
+<tr><td style='font-family:仿宋;' colspan='7' class='noborder-table'><strong>各位常务理事：</strong></td></tr>
+<tr><td colspan='31' class='noborder-table' style='font-family:仿宋;'>
+<strong><textarea class='form-control' name='p4' rows='10' style='font-size:1em'></textarea></strong></td>
+</table>
+	<div style='margin-top:3em'>
+    <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+	<input type='text' class='form-control noborder-input text-center input-lg' style='font-size:22px;' name='p1' value='中国钢结构协会空间结构分会'>
+<input class='form-control noborder-input text-center input-lg' style='font-size:22px' name='p2'value='网格资质企业等级会员第十七次评审暨第九次评审结果'>
+        <tr>
+            <th colspan='1' style='text-align:center;'>序号</th>
+			 <th colspan='6' style='text-align:center;width:14%'>单位名称</th>
+			  <th colspan='6' style='text-align:center;'>申报等级</th>
+              <th colspan='6' style='text-align:center;'>评审结果</th>
+            
+        </tr>";
+		//这里从mo1表中查找要投递给理事会的企业
+           $num=$num_results;
+		   $row2=$result->fetch_assoc(); 
+				for($i=1;$i<=$num_results;$i++)
+					{
+					$r="r".$i;//两个评审结果
+					$t="t".$i;//需要问孙老师，用不用修改评审结果。
+				    $p="cid".$i;
+				echo"<input type='hidden' name='$p' value='".$row2['id']."'>
+				<input type='hidden' name='num' value='$num'>";
+		  echo" 
+				<tr>
+            <td colspan='1' style='text-align:center;'>$i</td>
+			 <td colspan='6' style='text-align:center;'>
+			 ". $row2['c1']."</td>
+			 <td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;'></td>
+			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;'></td>
+        </tr> ";
+						
+		}		
+echo"
+<tr class='text-righ'>
+<td colspan='4' class='noborder-table'>审批人:</td>
+<td colspan='6' class='noborder-table'>
+</td>
+<td colspan='2' class='noborder-table'>日期：</td>
+<td colspan='6' class='noborder-table'>
+</td>
+</tr>
+<tr>
+<td colspan='4'class='noborder-table'>备注：</td>
+<td colspan='27'class='noborder-table'><input class='form-control' name='p3'></td>
+</tr>
+        </table></div>
+<div style='text-align: right;margin-bottom: 2%'>
+				<input type='hidden' value='yes' name='send4'>
+				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 投递给理事会&nbsp; &nbsp;
+				</button>
+			</div>
+		</form>
+		</div>";
+		}
+
+
+else if($index== -1)
+{
+echo" <div class='container-fluid'>
+	<form enctype='multipart/form-data' action='' method='post'>
+	<table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+	 <h3 class='text-center'style='line-height:8px'>".$row1['headline1']."</h3>
+<h3 class='text-center' style='line-height:10px'>".$row1['headline2']."</h3>
+   <tbody>
+   <tr>
+   <td colspan='1'>序号</td>
+   <td colspan='6'>公司名称</td>
+   ";
+  $query2="select name,id from user where category=4";//查找所有的常务理事
+  $result2=$db->query($query2);
+  $num_results2=$result2->num_rows;
+	for($i2=1;$i2<=$num_results2;$i2++)
+	{
+	$row2=$result2->fetch_assoc();
+	  $p[$i2]=$row2['id'];//将理事会的id依次存放在$p[]中。
+	echo" <td colspan='2'>常务理事".$row2['name']."意见</td>";
+	}
+	echo"<td>审批结果</td></tr>";
+//找出理事会已经给出意见的企业
+	$query= "select id,c1,result2 from $sheet where state='5'";
+	$result=$db->query($query);
+	$num_results=$result->num_rows;
+	for($i=1;$i<=$num_results;$i++)//大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
+	{
+	$row=$result->fetch_assoc();
+	$id=$row['id'];
+    $result2=$row['result2'];
+   $companyid="companyid".$i;
+   $level="level".$i;
+	echo"<tr>
+	<td colspan='1'>$i</td>
+	<td colspan='6'>".$row['c1']."</td>";
+  for($i2=1;$i2<=$num_results2;$i2++)
+	   {
+	  $id2=$p[$i2];
+	$query1="select result from director where form_category=3 and id_f='$id' and id_p='$id2'";//id是企业的id ,id2是常务理事的id
+	$result1=$db->query($query1);
+	$row1=$result1->fetch_assoc();
+	$re=$row1['result'];//为了和之前的result分开避免混淆。
+	echo"<td colspan='2'>";
+	if($re==1)
+		echo"同意";
+	else if($re==2)
+		echo"不同意";
+	echo"</td>";
+	    }
+    echo"
+	<td colspan='4'>
+	 <input type='text' name='$level' class='form-control text-center' style='font-size:14px;' value='$result2'>
+	</td> 
+	</tr>
+	<input type='hidden' value='$id' name='$companyid'>
+	";
+	}	
+echo"
+			</tbody>
+</table>
+<div style='text-align: right;margin-bottom: 2%'>
+				<input type='hidden' value='yes' name='send5'>
+				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
+				</button>
+			</div></form></div>";	
+	}else if($index == '-2'){
+		echo "<div class='container-fluid'>
+		        <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+				<tr>
+				  <td>序号</td>
+				  <td>公司名称</td>
+				  <td>评审结果</td>
+				</tr>";
+				$query="select j.level3,w.c1 from $sheet w,join_form j where w.state='6' and j.id_p = w.id_p";//id是企业的id ,id2是常务理事的id
+				$result=$db->query($query);
+				$num_results=$result->num_rows;
+				for($i=1;$i<=$num_results;$i++){
+					$row=$result->fetch_assoc();
+					echo"
+					  <tr>
+					    <td>".$i."</td> 
+						<td>".$row['c1']."</td>
+						<td>".$row['level3']."</td>												
+						</tr>
+					";
+				}
+				echo"</table>
+			 </div>
+		
+		";
+	}		
+		
+		
+		
+
+
+				?>

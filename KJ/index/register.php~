@@ -1,0 +1,30 @@
+<?php
+/**
+ * Author: ZhuKaihao
+ * Date: 2016/3/24
+ * Time: 18:36
+ * 注册
+ */
+?>
+
+<?php include_once 'include/function.php' ?>
+<?php
+$user_name = $_POST['user_name'];
+$user_password = $_POST['user_password'];
+$email = $_POST['email'];
+$wechat = $_POST['wechat'];
+$status = $_POST['status'];
+
+if (!$user_name || !$user_password) {
+    echo "<script language=javascript>alert('用户名密码不能为空!');location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";
+    exit();
+}
+
+$column = array('user_name', 'password', 'email', 'wechat', 'personnel_category');
+$value = array("$user_name", "$user_password", "$email", "$wechat", "$status");
+$res = insert_data_in_datatable($column, $value, 'person');
+if ($res)
+    echo "<script language=javascript>alert('注册成功!');location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";
+else
+    echo "<script language=javascript>alert('注册失败!');location.href='" . $_SERVER["HTTP_REFERER"] . "';</script>";
+?>

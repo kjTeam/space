@@ -1,0 +1,146 @@
+<?php 
+include_once "../include/function.php";
+?>
+<?php
+session_start();
+$db = connect_mysql();
+$author=$_POST['authorname'];
+$title=$_POST['papertitle'];
+$correspond=$_POST['correspondingauthor'];
+$email=$_POST['email'];
+$tel=$_POST['tel'];
+$time=date('Y-m-d H:i:s');//记录上传时间，判断用户只能在24小时以内更新。
+$timeunix=strtotime($time);
+if(!$author || !$title || !$correspond || !$email || !$tel)
+{
+echo"<script language='javascript'>alert('每一项不能为空！');location.href='submit_paper.php';</script>";
+exit();
+}
+if(is_uploaded_file($_FILES['file']['tmp_name']))
+{
+     $name1=$_FILES['file']['name'];//上传文件的名字，utf-8格式。用于存入数据库。
+	 $name=iconv('UTF-8','GBK',$name1);//文件存储到服务器，转码到GBK格式。(部署到服务器以后就不用转码了)
+     $type=$_FILES['file']['type'];//上传文件的类型 
+     $size=$_FILES['file']['size'];//上传文件的大小 
+     $tmp_name=$_FILES['file']['tmp_name'];//上传文件file的临时存放路径
+      if($type!='application/vnd.ms-office'&&$type!='application/msword'&&$type!='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+		{
+		 echo" <script language=javascript>alert('请上传word版本的文档,$type');</script>";
+		 exit();
+	    }
+	 if($size>=2100000)
+		{
+	 echo"<script language=javascript>alert('上传失败，您的文件超过2M，请对图片进行压缩');</script>";
+     exit();
+	    }
+		
+	 if($error!=0)
+		 { 
+	 echo"<script language=javascript>alert('上传文档失败，请联系管理员');</script>";
+      exit();
+	    }
+}
+    else
+    {
+      echo"<script language=javascript>alert('必须上传文档');</script>";
+      exit();
+    }
+	
+      $query="insert into submit_paper (author,title,correspond,email,tel,time) values ('$author','$title','$correspond','$email','$tel','$timeunix')";
+       $result = $db->query($query);
+        $paper_num = $db->insert_id;//insert_id 可以查到刚插入到数据库中的id.要求id是auto increase
+	 $upfile = "../upload/paper/2017CASS".$paper_num."-".$name;
+	 echo $upfile;
+	 $query="update submit_paper set paper_name = '2017CASS$paper_num-$name1' where id ='$paper_num'";
+	 echo $query;
+      $result1 = $db->query($query);
+	 if(!move_uploaded_file($tmp_name,$upfile))
+		{ 
+echo"<script language=javascript>alert('移动文档失败');</script>";
+echo $upfile;
+exit();
+		}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="css/header-rsp.css" rel="stylesheet">
+    <link href="css/footer-rsp.css" rel="stylesheet">
+    <link href="css/index-rsp.css" rel="stylesheet">
+    <link href="css/content-page.css" rel="stylesheet">
+    <LINK rel="shortcut icon" type="image/x-icon" href="../image/favicon_2.ico" media="screen"/>
+
+
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if IE 9]>
+    <script src="bootstrap/js/respond.min.js"></script>
+    <script src="bootstrap/js/html5shiv.js"></script>
+    <![endif]-->
+
+
+</head>
+<?php
+include_once "../include/function.php";
+   $res = user_name_psw_check($_COOKIE['user_name'], $_COOKIE['user_password']);
+   if ($res['user_name_psw_match'] == 'yes')
+       include "include/header-login.php";
+    else
+       include "include/header.php";
+if($result && $result1)
+{
+    echo"<div class='container-fluid text-center' >
+<div class='col-xs-6 col-xs-offset-3' style='margin-top:3%; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em;background-color:#fff; -moz-box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);
+-webkit-box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);          
+box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);'>
+<div style='margin:10px 23%;'>
+<p>
+<h3 style='line-height: 150%;letter-spacing: 0.1em'>
+<img src='../image/right.png' width='80px' height='80px' style='float:left;'>
+提交成功！<br>您的论文编号是：
+<p style='color:#f9690a'><strong>2017CASS-".$paper_num."</strong></p></h3>
+<p>[注]：您可以在24小时之内查看并更改论文</p>
+
+</p>
+
+</div>
+<div style='float:right'><a href='update_paper.php' class='btn btn-warning' role='button' style='margin-right:1em'>查看或更新已上传文件</a><a href='index.php' class='btn btn-primary' role='button'>返回首页</a><div> 
+<br>
+</div>
+</div>";
+}
+else
+{ 
+echo"<div class='container-fluid text-center' >
+<div class='col-xs-6 col-xs-offset-3' style='margin-top:3%; border-radius:1em;-moz-border-radius:1em;-webkit-border-radius:1em;background-color:#fff; -moz-box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);
+-webkit-box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);          
+box-shadow:2px 2px 2px 2px rgba(40%,40%,20%,0.2);'>
+<div style='margin:10px 23%;'>
+<p>
+<h3 style='letter-spacing: 0.1em'>
+<img src='../image/wrong.png' width='80px' height='80px' >
+&nbsp提交失败！请重试
+</h3>
+</p>
+</div>
+<div style='float:right'>
+<a href='http://localhost/cms/index/responsive/submit_paper.php' class='btn btn-primary' role='button'>返回上传界面</a><div> 
+<br>
+</div>
+</div>";
+
+}
+?>
+</html>

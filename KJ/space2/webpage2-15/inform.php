@@ -1,0 +1,47 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<meta http-equiv="REFRESH" CONTENT="1; URL=http://www.cnass.org/space2/index.php?nav1=58&nav2=52">
+<title>空间结构分会</title>
+
+<?php
+$content=$_POST['content'];
+$category=$_POST['category'];
+$db=new mysqli('localhost:3306','root','','index');
+		if(mysqli_connect_errno()){
+			//echo 'Connection to datebase failed:'.mysqli_connect_error();
+			exit();
+		}
+$query = "replace into inform2 (category, content) values ('".$category."' ,'".$content."')";
+$result=$db->query($query);
+
+if ($result)
+{
+	echo "发布成功!1秒后跳转……";
+}
+else
+{
+	echo "发布失败!请联系管理员！1秒后跳转……";
+}
+?>
+现将其隔离，用于测试用
+-->
+<!--
+<?php
+session_start();
+include('lib.php');
+$uid=$_SESSION['username'];
+$db=create_database();
+$date=date('Y-m-d');
+
+$query="select name from user where uid='$uid'";
+$result=$db->query($query);
+//echo "$query";
+$row=$result->fetch_assoc();
+$name=$row['name'];
+$db->close();
+jump_to("../kjjgweixin/send.php?name=$name");
+?>
