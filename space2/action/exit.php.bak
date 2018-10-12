@@ -1,5 +1,0 @@
-<?php
-include "../lib.php";
-session_destroy();
-jump_to("../login.php");
-?>
