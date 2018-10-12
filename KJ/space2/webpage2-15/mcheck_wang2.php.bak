@@ -1,0 +1,7 @@
+<?php
+$sheet='wang2';
+$category_f=4;
+$levelfinal=level4;
+$loca='http://localhost/cms/space2/index.php?nav1=10';
+include "mcheck_wangprocess.php";
+?>

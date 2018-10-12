@@ -1,0 +1,29 @@
+<?php
+/**
+ * User: ZhuKaihao
+ * Date: 16/5/2
+ * Time: 下午1:59
+ */
+?>
+
+<?php
+include_once "include/function.php";
+
+$token=$_GET['token'];
+$nowtime=time();
+
+$con=connect_mysql();
+$result=$con->query("select id,token_exptime from person where mail_activation_statu='0' and `token`='$token'");
+$row=$result->fetch_assoc();
+
+if($row){
+    if($nowtime>$row['token_exptime']){ //24hour
+        echo "<script language=javascript>alert('您的激活有效期已过，请登录您的帐号重新发送激活邮件');location.href='responsive/index.php';</script>";
+    }else{
+        $res=$con->query("update person set mail_activation_statu='1' where id_p={$row['id_p']}");
+        if($res!=1)die("error:\$res!=1");
+        echo "<script language=javascript>alert('激活成功!');location.href='responsive/index.php';</script>";
+    }
+}else{
+    echo "<script language=javascript>alert('激活失败!请联系管理员！');location.href='responsive/index.php';</script>";
+}

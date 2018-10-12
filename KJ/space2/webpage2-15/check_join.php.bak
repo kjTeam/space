@@ -1,0 +1,31 @@
+﻿ <?php
+$index=$_GET['index'];
+ $query="select * from join_form where id_p=$id";
+				$result=$db->query($query);
+				$row=$result->fetch_assoc(); 
+				$select=$row['state']-1;
+	$query="select * from join_form where id_p=$id";
+		$result=$db->query($query);
+		$num_results=$result->num_rows;
+		if($num_results) //如果有提交
+		{
+			$row=$result->fetch_assoc(); 
+			echo "<h4><span class='label label-info'>当前状态：";
+			switch($row['state'])
+			{
+				case 1: echo "审核中</span></h4>";break;
+				case 2: echo "审核中</span></h4>";break;
+				case 3: echo "审核中</span></h4>";break;
+				case 4: echo "审核中</span></h4>";break;
+				case 5: echo "审核中</span></h4>";break;
+                case 6: echo "等待缴费申请</span></h4>";break;
+				case 7: echo "缴费申请提交待审核</span></h4>";break;
+				case 8: echo "已入会</span></h4>";break;
+				case 9: echo "未通过审核</span></h4>";break;
+				default:break;
+			}			
+		}
+		else
+		{
+			echo "<script language=javascript>alert('尚未提交申请表');location.href='http://www.cnass.org/space2/index.php?nav1=2&nav2=1';</script>";
+		}
