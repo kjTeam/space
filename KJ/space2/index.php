@@ -283,7 +283,7 @@ textarea{outline:none;resize:none;}
 						{
 							$row=$result->fetch_assoc();
 							//foreach ($row as $key=>$age) { echo $key,': ',$age,'<br />'; } 
-							if(isset($row['link'])) echo "<li><a href='".$row['link']."'>".$row['func1_name']."</a></li>";
+							if(isset($row['link'])) echo "<li style='white-space:nowrap;width:10%;text-align:center'><a href='".$row['link']."'>".$row['func1_name']."</a></li>";
 							else echo "<li style='white-space:nowrap;width:10%;text-align:center' ><a href='index.php?nav1=".$row['id_n1']."'>".$row['func1_name']."</a></li>"; //此处用#是不行的
 						}
 					?>
