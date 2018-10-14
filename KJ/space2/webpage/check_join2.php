@@ -1,5 +1,7 @@
 <?php
 $index=$_GET['index'];
+$nav1=$_GET['nav1'];
+$nav2=$_GET['nav2'];
 if($category=='1')
 {
 	 $query="select * from join_form where id_p=$id";
@@ -495,7 +497,6 @@ echo"
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
 							<option value='1'> 提交待验证</option>
-							<option value='2'> 投递给秘书处</option>
 							<option value='3'> 秘书处意见反馈</option>
 							<option value='4'> 投递给理事会</option>
 							<option value='5'> 理事会意见反馈</option>
@@ -504,7 +505,7 @@ echo"
 							<option value='8'> 已入会</option>
 							<option value='9'> 未通过审核</option>
 					</select>
-					<script  type='text/javascript'> document.getElementById('state')[".$select."].selected=true; </script > 
+					<script  type='text/javascript'> document.getElementById('state').value = ".($select+1)."; </script > 
 				</td>
 			</tr></table>";
 			if ($select>='2')//如果秘书处投递了意见，这块应该输出秘书处的意见和管理员的意见 秘书处有多人，所以用FOR循环。
@@ -769,7 +770,48 @@ echo"
 	
 }
 
-
+//汇总名单
+if($index == '-4'){
+	$query="select *from join_form";
+    $result=$db->query($query);
+    $num_results=$result->num_rows;
+    echo<<< EOD
+    <table id="joinTable"
+    data-toggle="table"
+    data-striped="ture"
+    data-search="ture"
+    data-pagination="ture"
+    data-show-columns="true"
+    class="text-center"
+    >
+      <thead>
+	      <tr>
+		    <th data-field="num">序号</th>
+		    <th data-field="name">公司名称</th>
+		    <th data-field="company">代表人</th>
+		    <th data-field="tel">联系人</th>
+		    <th data-field="time">成立时间</th>
+			<th data-field="state">状态</th>
+			<th>操作</th>
+	      </tr>
+     </thead>
+EOD;
+    for($i=1;$i<=$num_results;$i++){
+	   $row=$result->fetch_assoc();
+	   $stateshow=state_show_join($row['state']);
+	   echo<<< EOD
+        <tr>
+            <td>$i</td>
+            <td>$row[c1]</td>
+            <td>$row[c7]</td>
+            <td>$row[c12]</td>
+			<td>$row[c19]</td>
+			<td>$stateshow</td>
+            <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]">查看</a>
+        </tr>
+EOD;
+}
+}
 if($index=='-1')//当点击理事会结果的时候，传来index=-1
 { 
 	$query= "select id,c1 from join_form where state='5'";
@@ -927,7 +969,6 @@ for($i=0;$i<$num_results;$i++)
 		 <td colspan=''>
 		 <select class='form-control' data-style='btn-primary' name='$state' id='$state'>
 							<option value='1'> 提交待验证</option>
-							<option value='2'> 投递给秘书处</option>
 							<option value='3'> 秘书处意见反馈</option>
 							<option value='4'> 投递给理事会</option>
 							<option value='5'> 理事会意见反馈</option>

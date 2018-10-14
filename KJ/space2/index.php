@@ -377,7 +377,8 @@ textarea{outline:none;resize:none;}
 						       } 
 							}
 	                        else {
-					              echo"<div id='ulside' class='list-group'>";	
+								  echo"<div id='ulside' class='list-group'>";	
+								  echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-4'> 汇总名单</a>";
                                   for($i1=1;$i1<=9;$i1++)
                                      {
 				                       $query="select id,c1 from join_form where state = $i1 ";
@@ -385,8 +386,8 @@ textarea{outline:none;resize:none;}
                                        $num_results=$result->num_rows;
 		                               switch ($i1)
 		                               {
-			                             case 1:echo"<h5 class='list-group-item'> 提交待审核<span class='badge'>".$num_results."</span></h5>";break;
-			                             case 2:echo"<h5 class='list-group-item' > 等待秘书处审核<span class='badge'>".$num_results."</span></h5>";break;
+			                             case 1:echo"<h5 class='list-group-item' > 提交待审核<span class='badge'>".$num_results."</span></h5>";break;
+			                            //  case 2:echo"<h5 class='list-group-item' > 等待秘书处审核<span class='badge'>".$num_results."</span></h5>";break;
 			                             case 3:echo"<h5 class='list-group-item' > 秘书处已审核<span class='badge'>".$num_results."</span></h5>";break;
 			                             case 4:
 			                             echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会	<span class='badge'>".$num_results."</span></a>";break;
