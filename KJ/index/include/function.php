@@ -10,9 +10,9 @@
 
 function connect_mysql()
 {
-    $mysql_servername = "localhost";
+    $mysql_servername = "localhost:3360";
     $mysql_username = "root";
-    $mysql_password = "";
+    $mysql_password = "123456";
     $mysql_database = "space";
     $con = mysqli_connect($mysql_servername, $mysql_username, $mysql_password, $mysql_database);
     if (!$con)
