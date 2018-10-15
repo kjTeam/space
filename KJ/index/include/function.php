@@ -10,7 +10,7 @@
 
 function connect_mysql()
 {
-    $mysql_servername = "127.0.0.1:3360";
+    $mysql_servername = "localhost:3360";
     $mysql_username = "root";
     $mysql_password = "123456";
     $mysql_database = "space";
