@@ -45,6 +45,15 @@ else{
 				//$managerinfo=$row['info'];
 	}
 }
+$stateSelected = '';
+if($_POST['serachByState'] == 'yes'){
+	$searchStateResult = $_POST['searchState'];
+	if(sizeof($searchStateResult)>0){
+	    if(array_search("all",$searchStateResult)===false){
+			$stateSelected = ' where state in ('.implode(',',$searchStateResult).')';
+	}
+}
+}
 if($_POST['send']=='yes')//管理员的意见
 {
        $result=$_POST['state'];
@@ -772,8 +781,54 @@ echo"
 
 //汇总名单
 if($index == '-4'){
-	$query="select *from join_form";
-    $result=$db->query($query);
+	$searchStateResultj = json_encode($searchStateResult);
+	echo<<< EOD
+	<div class="container-fluid">
+	    <form enctype='multipart/form-data' action='' method='post'>
+            <label class="checkbox-inline">
+	          <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待验证
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="3"> 秘书处意见反馈
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="4"> 投递给理事会
+            </label>
+		    <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="5"> 理事会意见反馈
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="6"> 等待缴费申请
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="7"> 缴费申请提交待审核
+            </label>
+		    <label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="8"> 已入会
+	        </label>
+	        <label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="9"> 未通过审核
+			</label>
+			<label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
+			</label>
+			<input type='hidden' value='yes' name='serachByState'/>
+			<button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
+		</form>
+	</div>
+	<script type='text/javascript'>
+	$searchStateResultj.forEach(function(v){
+	   var checkBox = document.getElementsByName('searchState[]');
+	   for(var i=0;i<checkBox.length;i++){
+	      if(checkBox[i].value == v){
+			  checkBox[i].checked = true;
+		  }
+	   }
+	})
+	</script>
+EOD;
+	$query="select *from join_form" .$stateSelected;
+	$result=$db->query($query);
     $num_results=$result->num_rows;
     echo<<< EOD
     <table id="joinTable"
