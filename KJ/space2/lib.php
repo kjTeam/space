@@ -1,7 +1,15 @@
 ﻿<?php
 	function create_database()
 	{
+<<<<<<< HEAD
 		$db=new mysqli('localhost:3360','root','123456','space');
+=======
+<<<<<<< HEAD
+		$db=new mysqli('localhost:3360','root','123456','space');
+=======
+		$db=new mysqli('localhost','root','123456','space');
+>>>>>>> 999e02c4186d6ac7e5705559b10b4e97f10ecc55
+>>>>>>> master
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
 			exit();
@@ -424,6 +432,19 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		 case 5:return '<span class="label label-success">已通过审核</span>'; break;
 		 case 6:return '<span class="label label-danger">未通过审核</span>'; break;
 		 defalut:break;
-}
+        }
+	}
+	function state_show_join($state){
+		switch($state){
+         case 1:return "<span class='label label-primary'>提交待验证</span>"; break;
+         case 3:return '<span class="label label-warning">秘书处意见反馈</span>'; break;
+		 case 4:return '<span class="label label-warning">投递给理事会</span>'; break;
+		 case 5:return '<span class="label label-warning">理事会意见反馈</span>'; break;
+		 case 6:return '<span class="label label-warning">等待缴费申请</span>'; break;
+		 case 7:return '<span class="label label-warning">缴费申请提交待审核</span>'; break;
+		 case 8:return '<span class="label label-success">已入会</span>'; break;
+		 case 9:return '<span class="label label-danger">未通过审核</span>'; break;
+		 defalut:break;
+        }
 	}
 ?>
