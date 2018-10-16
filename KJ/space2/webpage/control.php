@@ -112,11 +112,11 @@ echo"
 
 ";
 
-$PA = array('入会申请', '膜结构等级会员初审','膜结构等级会员复审','网格资质等级会员申请', '网格资质等级会员年检', '企业膜经理培训','企业膜经理申请','缴纳年费' );//将名称放入数组中
+$PA = array('入会申请', '膜结构等级会员评审','膜结构等级会员复审','网格资质等级评审', '网格资质等级年检', '膜结构工程项目经理培训班报名','膜结构工程项目经理申请','上传缴费证明' );//将名称放入数组中
 echo"<div class='container-fluid' style='margin-top:21px'>
 <table class='table table-responsive table-bordered text-center' id='tab'>
 <tbody>
-<tr>
+<tr>	
 <td colspan='6'><strong>进程控制</strong></td>
 </tr>
 <tr>
