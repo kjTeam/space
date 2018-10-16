@@ -1,14 +1,16 @@
 ﻿<?php
 	function create_database()
 	{
-<<<<<<< HEAD
 		$db=new mysqli('localhost:3360','root','123456','space');
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 		$db=new mysqli('localhost:3360','root','123456','space');
 =======
 		$db=new mysqli('localhost','root','123456','space');
 >>>>>>> 999e02c4186d6ac7e5705559b10b4e97f10ecc55
+>>>>>>> master
+=======
 >>>>>>> master
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
