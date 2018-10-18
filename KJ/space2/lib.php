@@ -113,7 +113,7 @@ function insert3($sheet,$n,$PA,$joinid) //将数据插入数据库表中，数�
 		for($i=1;$i<$n;$i++)
 			$query=$query.'c'.$i."='".$PA[$i]."',";
 		$query=$query.'state='.$state." where id_p=$id_index";
-		echo $query;
+		//echo $query;
 		$result=$db->query($query);
 		return $result;
 	}
