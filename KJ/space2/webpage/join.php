@@ -6,14 +6,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>空间结构分会</title>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap.min.css">
 <!-- 下边这个文件是网上下载的，bootstrap多选框控件，还有后边的js文件一起下载的，下载地址：http://silviomoreto.github.io/bootstrap-select/ -->
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-select.min.css">
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
-<link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-<script src="../jquery-3.0.0.min.js"></script>
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<script src="./bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src=".">
+<script>
+  function  kk() {
+    alert(1);
+        // swal({
+        //     title: '提交成功！',
+        //     text: '3秒后自动关闭。',
+        //     timer: 3000
+        // }).then(
+        //     function () {},
+        //     // handling the promise rejection
+        //     function (dismiss) {
+        //         if (dismiss === 'timer') {
+        //             console.log('I was closed by the timer')
+        //         }
+        //     }
+        // )
+    }
+</script>
 </head>
 <?php //共41个参数  p42为隐藏参数
  //首先检查目前状态，如果不再这几种状态中则可以继续提交
@@ -146,7 +165,7 @@ if($_POST["p43"]=='update')
 		$result=change2("join_form",42,$PA,1,$id);	
 		if($result) 
 		{
-			echo "<script language=javascript>alert('提交成功');</script>";
+			echo "<script language=javascript>alertAtuoClose(11223);</script>";
 			 
 		}
 		else echo "<script language=javascript>alert('出现问题，请尝试重新输入');</script>";
