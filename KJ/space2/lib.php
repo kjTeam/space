@@ -360,32 +360,29 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		$db=create_database();
 		$nav1=$_GET['nav1'];
 		$query="select * from nav_2 where id_n1=$nav1";
-			$result=$db->query($query);
-			$num_results=$result->num_rows;
-				$row=$result->fetch_assoc();
+		$result=$db->query($query);
+		$num_results=$result->num_rows;
+		$row=$result->fetch_assoc();
 		if($_POST['change_key']=='yes')
 		{			
-				$key=$_POST['key'];
-             $query="select c1 from $sheet where c1 like '%$key%'";
-			 
+			$key=$_POST['key'];
+            $query="select c1 from $sheet where c1 like '%$key%'";
 			$result=$db->query($query);
-			
 			$num_results=$result->num_rows;
 			if($num_results==0)
-				{
+			{
 			 $query="select $sheet.c1 from join_form,user where user.id = join_form.id_p and user.uid like '%$key%'";
 			 $result=$db->query($query);
 			 $num_results=$result->num_rows;
-			 }
-             for($i=0;$i<$num_results;$i++) 
-						{
+			}
+            for($i=0;$i<$num_results;$i++) 
+			{
 			$row2 = $result->fetch_assoc();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2['id']."'>
 			 ".($row2['uid'])."</a>";
-						} 
-							}
-	           else {
-					echo"<div id='ulside' class='list-group'>";	
+			} 
+		}else {
+				echo"<div id='ulside' class='list-group'>";	
                for($i1=1;$i1<=6;$i1++)
       {
 		switch ($i1)
