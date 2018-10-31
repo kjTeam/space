@@ -1,3 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>空间结构分会</title>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap.min.css">
+<!-- 下边这个文件是网上下载的，bootstrap多选框控件，还有后边的js文件一起下载的，下载地址：http://silviomoreto.github.io/bootstrap-select/ -->
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-select.min.css">
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<script src="./bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type='text/javascript'>
+     //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
+    function checkForm(){
+		console.log($('#payfile').val());
+		if(!$('#payfile').val()){
+            $('#notice').html('必须上传缴费证明');
+            $('#notice').css('display','inline-block');
+            return false;
+        }
+        var userFileType = $('#payfile').val().split('.')[1];
+        if(!(userFileType=='jpg' || userFileType=='jpge' || userFileType=='png' || userFileType=='doc' || userFileType=='docx' || userFileType=='pdf')){
+          $('#notice').html('缴费证明格式不正确！');
+          $('#notice').css('display','inline-block');
+          return false;
+        }
+        return true;
+    }
+</script>
+</head>
 <?php
 $no=control(8);
 $id=$_SESSION['id'];
@@ -103,7 +137,7 @@ if($_POST['update_pay']=='yes'){//上传成功后，修改图片
 		     echo" <script language=javascript>alert('上传失败!照片必须上传jpeg格式');</script>";
 			 exit();
 	       }
-	       if($size>=512000)
+	       if($size>=2048000)
 		    {
 	          echo"<script language=javascript>alert('上传失败!请将照片压缩至500k以下');</script>";
 			  exit();
@@ -126,10 +160,10 @@ if($_POST['update_pay']=='yes'){//上传成功后，修改图片
 }
 	
 	echo "
-	<form enctype='multipart/form-data' action='' method='post' class='form-inline'>
+	<form enctype='multipart/form-data' action='' method='post' class='form-inline' onsubmit='return checkForm()'>
 		<div class='container-fluid form-group  ' style='margin-top:25px;margin-left:10%;font-size:14px'>
-		<label for='userfile'> 上传缴费凭证[注：上传格式为JPEG格式，大小小于500KB]:</label>
-		<input type='file' class='form-control noborder-input' name='userfile' id='userfile'/>	
+		<label for='userfile'> 上传缴费凭证<span class='must_wirte'>[注：上传格式为jpg、png、pdf、doc格式，大小小于2M]:</span></label>
+		<input type='file' class='form-control noborder-input' name='userfile' id='payfile'/>	
 		</div>
 		<hr>";
 		// $query="select * from $pay where id_p =$id";
@@ -164,7 +198,7 @@ if($_POST['update_pay']=='yes'){//上传成功后，修改图片
 		
 		echo"<div style='text-align: right;margin-bottom: 2%;margin-right:10%'>
 		<input type='hidden' value='yes' name='pay'>
-		<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
+		<span class='must_wirte' id='notice' style='display:none'></span><button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
 		</button>
 		</div>
 	</form>
