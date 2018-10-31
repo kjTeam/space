@@ -55,7 +55,7 @@ if($_POST['send']=='yes')
           $result4 = $db->query($query4);
      	}*/
       if($result2)
-			echo "<script language=javascript>alert('保存成功');</script>";
+			echo "<script language=javascript>alertAtuoClose()</script>";
 		else
 			echo "<script language=javascript>alert('出现问题，请联系管理员')</script>";
   }

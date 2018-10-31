@@ -466,31 +466,116 @@ echo"
 				</button>
 			</div></form></div>";	
 	}else if($index=='-2'){
-		echo "<div class='container-fluid'>
-		<table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
-		  <h3 class='text-center'style='line-height:8px'>".$row1['headline1']."</h3>
-          <h3 class='text-center' style='line-height:10px'>".$row1['headline2']."</h3>
-		  <tbody>
-		    <tr>
-		      <td>序号</td>
-		      <td>公司名称</td>
-		      <td>审批结果</td>
-			</tr>
-			";
-			$queryT="select m.c1,j.level2 from mo1 m, join_form j where m.id_p = j.id_p and m.state = '6' ";//
-			$resultT=$db->query($queryT);
-			$num_results=$resultT->num_rows;
-			for($i=1;$i<=$num_results;$i++){
-				$rowT=$resultT->fetch_assoc();
-				echo"<tr>
-				   <td>".$i."</td>
-				   <td>".$rowT['c1']."</td>			
-				   <td>".$rowT['level2']."</td>	
-				</tr>";
-			}	
-		  echo"</tbody>
-		</table>";
-		  
+		// echo "<div class='container-fluid'>
+		// <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+		//   <h3 class='text-center'style='line-height:8px'>".$row1['headline1']."</h3>
+        //   <h3 class='text-center' style='line-height:10px'>".$row1['headline2']."</h3>
+		//   <tbody>
+		//     <tr>
+		//       <td>序号</td>
+		//       <td>公司名称</td>
+		//       <td>审批结果</td>
+		// 	</tr>
+		// 	";
+		// 	$queryT="select m.c1,j.level2 from mo1 m, join_form j where m.id_p = j.id_p and m.state = '6' ";//
+		// 	$resultT=$db->query($queryT);
+		// 	$num_results=$resultT->num_rows;
+		// 	for($i=1;$i<=$num_results;$i++){
+		// 		$rowT=$resultT->fetch_assoc();
+		// 		echo"<tr>
+		// 		   <td>".$i."</td>
+		// 		   <td>".$rowT['c1']."</td>			
+		// 		   <td>".$rowT['level2']."</td>	
+		// 		</tr>";
+		// 	}	
+		//   echo"</tbody>
+		// </table>";
+		  //汇总名单
+	$searchStateResultj = json_encode($searchStateResult);
+	echo<<< EOD
+	<div class="container-fluid">
+	    <form enctype='multipart/form-data' action='' method='post'>
+            <label class="checkbox-inline">
+	          <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待验证
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="3"> 秘书处意见反馈
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="4"> 投递给理事会
+            </label>
+		    <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="5"> 理事会意见反馈
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="6"> 等待缴费申请
+            </label>
+            <label class="checkbox-inline">
+	          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="7"> 缴费申请提交待审核
+            </label>
+		    <label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="8"> 已入会
+	        </label>
+	        <label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="9"> 未通过审核
+			</label>
+			<label class="checkbox-inline">
+		      <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
+			</label>
+			<input type='hidden' value='yes' name='serachByState'/>
+			<button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
+		</form>
+	</div>
+	<script type='text/javascript'>
+	$searchStateResultj.forEach(function(v){
+	   var checkBox = document.getElementsByName('searchState[]');
+	   for(var i=0;i<checkBox.length;i++){
+	      if(checkBox[i].value == v){
+			  checkBox[i].checked = true;
+		  }
+	   }
+	})
+	</script>
+EOD;
+	$query="select *from join_form" .$stateSelected;
+	$result=$db->query($query);
+    $num_results=$result->num_rows;
+    echo<<< EOD
+    <table id="joinTable"
+    data-toggle="table"
+    data-striped="ture"
+    data-search="ture"
+    data-pagination="ture"
+    data-show-columns="true"
+    class="text-center"
+    >
+      <thead>
+	      <tr>
+		    <th data-field="num">序号</th>
+		    <th data-field="name">公司名称</th>
+		    <th data-field="company">代表人</th>
+		    <th data-field="tel">联系人</th>
+		    <th data-field="time">成立时间</th>
+			<th data-field="state">状态</th>
+			<th>操作</th>
+	      </tr>
+     </thead>
+EOD;
+    for($i=1;$i<=$num_results;$i++){
+	   $row=$result->fetch_assoc();
+	   $stateshow=state_show_join($row['state']);
+	   echo<<< EOD
+        <tr>
+            <td>$i</td>
+            <td>$row[c1]</td>
+            <td>$row[c7]</td>
+            <td>$row[c12]</td>
+			<td>$row[c19]</td>
+			<td>$stateshow</td>
+            <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]">查看</a>
+        </tr>
+EOD;
+}
 	}
 
 		//else if($row['state']==3) //nav==3 理事会结果查看

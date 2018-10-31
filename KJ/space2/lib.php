@@ -364,8 +364,7 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 			$result=$db->query($query);
 			$num_results=$result->num_rows;
 				$row=$result->fetch_assoc();
-		if($_POST['change_key']=='yes')
-		{			
+		if($_POST['change_key']=='yes'){			
 				$key=$_POST['key'];
              $query="select c1 from $sheet where c1 like '%$key%'";
 			 
@@ -378,26 +377,28 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 			 $result=$db->query($query);
 			 $num_results=$result->num_rows;
 			 }
-             for($i=0;$i<$num_results;$i++) 
-						{
+             for($i=0;$i<$num_results;$i++) {
 			$row2 = $result->fetch_assoc();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2['id']."'>
 			 ".($row2['uid'])."</a>";
 						} 
-							}
-	           else {
+		}
+	    else {
 					echo"<div id='ulside' class='list-group'>";	
-               for($i1=1;$i1<=6;$i1++)
-      {
+					echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>";                               
+        for($i1=1;$i1<=5;$i1++){
+			$query="select id,c1 from mo1 where state = $i1 ";
+            $result=$db->query($query);
+            $num_results=$result->num_rows;
 		switch ($i1)
 		{
-			case 1:echo"<h5 class='list-group-item' >提交待审核</h5>";break;
-			case 2:echo"<h5 class='list-group-item' >等待专家打分</h5>";break;
-			case 3:echo"<h5 class='list-group-item' >专家意见</h5>";break;
+			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num_results."</span></h5>";break;
+			case 2:echo"<h5 class='list-group-item' >等待专家打分<span class='badge'>".$num_results."</span></h5>";break;
+			case 3:echo"<h5 class='list-group-item' >专家意见<span class='badge'>".$num_results."</span></h5>";break;
 			case 4:
-			echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会</a>";break;
-			case 5:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈</a>";break; 
-			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>名单汇总</a>";break; 
+			echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
+			case 5:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
+			//case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>名单汇总</a>";break; 
 			default:break;
 		}
 		echo"<div>";

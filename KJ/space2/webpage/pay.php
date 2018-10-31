@@ -62,23 +62,23 @@ if($_POST["pay"]=='yes') //检测是否是此表单提交
 			}
 			if($type!='image/pjpeg'&&$type!='image/jpeg')
 		   {
-		     echo" <script language=javascript>alert('上传失败!照片必须上传pjpeg、jpeg或png格式');</script>";
+		     echo" <script language=javascript>swal('上传失败!','照片必须上传pjpeg、jpeg或png格式');</script>";
 			 exit();
 	       }
 	       if($size>=512000)
 		    {
-	          echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
+	          echo"<script language=javascript>swal('上传失败!','请将照片压缩至500K以下');</script>";
 			  exit();
 	        }
 			if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile)){
-              echo"<script language=javascript>alert('出现问题，请联系管理员');</script>";
+              echo"<script language=javascript>swal('上传失败','出现问题，请联系管理员');</script>";
 			   exit();
 			}  //移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
            if($flag==1){
               $query="update join_form set state=7 where id_p=$id";
 			  $result=$db->query($query);
 			  if($result == null){
-                 echo"<script language=javascript>alert('出现问题，请联系管理员');</script>";
+                 echo"<script language=javascript>swal('上传失败','出现问题，请联系管理员');</script>";
 				 exit();
 			}		
 		   }   
@@ -86,11 +86,11 @@ if($_POST["pay"]=='yes') //检测是否是此表单提交
 			//SELECT DATE_FORMAT(time,'%Y-%m-%d') As date1 FROM pay2017
 			$result1=$db->query($query);
 			if($result1)
-			echo"<script language=javascript>alert('上传成功，等待管理员审核');</script>";
+			echo"<script language=javascript>alertAtuoClose2()</script>";
 	}
 	else
 	{
-		 echo"<script language=javascript>alert('请选择上传内容！');</script>";
+		 echo"<script language=javascript>swal('上传失败',请选择上传内容！');</script>";
 	}
 	
 }
@@ -100,27 +100,27 @@ if($_POST['update_pay']=='yes'){//上传成功后，修改图片
      $size=$_FILES['userfile']['size'];//上传文件的大小 
 	 if($type!='image/pjpeg'&&$type!='image/jpeg')
 		   {
-		     echo" <script language=javascript>alert('上传失败!照片必须上传jpeg格式');</script>";
+		     echo" <script language=javascript>swal('上传失败!','照片必须上传jpeg格式');</script>";
 			 exit();
 	       }
 	       if($size>=512000)
 		    {
-	          echo"<script language=javascript>alert('上传失败!请将照片压缩至500k以下');</script>";
+	          echo"<script language=javascript>swal('上传失败!','请将照片压缩至2M以下');</script>";
 			  exit();
 	        }
 			 unlink ($upfile);	
 	     if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile)){
-          echo"<script language=javascript>alert('出现问题，请联系管理员');</script>";
+          echo"<script language=javascript>swal('上传失败','出现问题，请联系管理员');</script>";
 		  exit();
 	     }  //移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
 	    //    $query="update $pay set time=now() where id_p=$id";
 			//SELECT DATE_FORMAT(time,'%Y-%m-%d') As date1 FROM pay2017
 			$result1=$db->query($query);
 			if($result1)
-			echo"<script language=javascript>alert('更改图片成功，等待管理员审核');</script>";
+			echo"<script language=javascript>swal('更改图片成功','等待管理员审核');</script>";
 	}
 	else{
-		 echo"<script language=javascript>alert('请选择上传内容！');</script>";
+		 echo"<script language=javascript>swal('上传失败','请选择上传内容！');</script>";
 	}
 
 }

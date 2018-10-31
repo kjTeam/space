@@ -40,11 +40,31 @@
    $('#year').selectindex = no1;
    });-->
 <script type='text/javascript'>
-    function alertAtuoClose(text11){
+//自动关闭弹出框方法
+    function alertAtuoClose(){
 	swal({
             title: '提交成功',
-            text: '3秒后自动关闭。',
-            timer: 3000
+            text: '3秒后自动关闭！',
+			width:500,
+            timer: 3000,
+			confirmButtonText: '确认'
+        }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+}
+function alertAtuoClose2(){
+	swal({
+            title: '提交成功',
+            text: '上传成功，等待管理员审核。3秒后自动关闭！',
+			width:500,
+            timer: 3000,
+			confirmButtonText: '确认'
         }).then(
             function () {},
             // handling the promise rejection

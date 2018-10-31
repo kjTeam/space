@@ -79,7 +79,7 @@ if($_POST['send']=='yes')//管理员的意见
 		$result=$db->query($query);
 		if($result)
 			echo "<script language=javascript>
-		alert('保存成功');location.href='index.php?nav1=5';</script>";
+			alertAtuoClose();location.href='index.php?nav1=5';</script>";
 		else
 			echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
 		exit();
@@ -94,7 +94,7 @@ if($_POST['send2']=='yes')//秘书处填写意见
 		$query = "insert into secret (id_p,id_f,result,info) values ('$id','$index','$result2','$info2')"; 
 		$result = $db->query($query);
 		if($result){
-			echo "<script language=javascript>alert('保存成功');location.href='index.php?nav1=30';</script>";
+			echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
 			}
 		else{
 			echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
@@ -127,7 +127,7 @@ $query = "update secret set info = '$info2',result='$result2'where id_f=$index a
 		$result=$db->query($query);		
 		if ($result)
 	{
-			echo"<script language=javascript>alert('保存成功');location.href='index.php?nav1=30';</script>";
+			echo"<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
 	}
 		else
 	{
@@ -149,7 +149,7 @@ if($_POST['send3']=='yes')//管理员投递给理事会的过程
 	$query = "update council_inform set preface='$p4',remark='$p3',state='1' where form_category='0'";
 		$result=$db->query($query);
 		if($result)
-			echo "<script language=javascript>alert('保存成功');location.href='index.php?nav1=5';</script>";
+			echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=5';</script>";
 		else
 			echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
 		exit();
@@ -173,7 +173,7 @@ if($_POST['send4']=='yes')//管理员最后通过审核，等待缴费证明的�
  //$query2 = "update council_inform set state = '3' where form_category=0";
 	//$result2=$db->query($query2);
 	if($result1)
-		echo "<script language=javascript>alert('保存成功');location.href='index.php?nav1=5';</script>";
+		echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=5';</script>";
 	else
 		echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
 
@@ -502,19 +502,19 @@ echo"
      <form enctype='multipart/form-data' action='' method='post'>
 		<table class='table table-bordered table-responsive text-center noprint'>
 			<tr>
-				<td colspan='2' >目前进度：</td>
+				<td colspan='2' >下一进度：</td>
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
 							<option value='1'> 提交待验证</option>
 							<option value='3'> 秘书处意见反馈</option>
-							<option value='4'> 投递给理事会</option>
+							<option value='4'> 投递给理事会汇总名单</option>
 							<option value='5'> 理事会意见反馈</option>
 							<option value='6'> 等待缴费申请</option>
 							<option value='7'> 缴费申请提交待审核</option>
 							<option value='8'> 已入会</option>
 							<option value='9'> 未通过审核</option>
 					</select>
-					<script  type='text/javascript'> document.getElementById('state').value = ".($select+1)."; </script > 
+					<script  type='text/javascript'> document.getElementById('state').value = ".($select+2)."; </script > 
 				</td>
 			</tr></table>";
 			if ($select>='2')//如果秘书处投递了意见，这块应该输出秘书处的意见和管理员的意见 秘书处有多人，所以用FOR循环。
@@ -603,7 +603,7 @@ echo"
 			}
                 if ($select=='6')
 				{
-		         echo " <tr><td colspan='2'> 请输入企业编号：</td>
+		         echo " <tr><td colspan='2'> 请输入会员证书编号：</td>
 		         <td colspan='10'> <input class='form-control' name='number' ></td></tr>";
 				}
 			
@@ -980,7 +980,7 @@ if($_POST['total_send']=='yes')
 	     exit();
 		}
 	}  
-	echo"<script language=javascript>alert('改变成功！');</script>";
+	echo"<script language=javascript>alertAtuoClose();</script>";
 }
 
 $query="select * from join_form where state = '$t'";
