@@ -127,7 +127,7 @@ if($_POST["p42"]=='join') //检测是否是此表单提交
 		$result1=$db->query($query);
 		if($result && $result1) 
 		{
-			echo "<script language=javascript>alert('提交成功');location.href='index.php?nav1=3&nav2=10';</script>";
+			echo "<script language=javascript>alert('提交成功');</script>";
 			 
 		}
 		else echo "<script language=javascript>alert('出现问题，请尝试重新输入');</script>";
@@ -173,7 +173,7 @@ if($_POST["p43"]=='update')
 		$result=change2("join_form",42,$PA,1,$id);	
 		if($result) 
 		{
-			echo "<script language=javascript>alert('提交成功');location.href='index.php?nav1=3&nav2=10';</script>";
+			echo "<script language=javascript>alertAtuoClose(11223);</script>";
 			 
 		}
 		else echo "<script language=javascript>alert('出现问题，请尝试重新输入');</script>";

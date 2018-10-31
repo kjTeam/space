@@ -1,7 +1,8 @@
 ﻿<?php
 	function create_database()
 	{
-		$db=new mysqli('localhost','root','123456','space');
+
+		$db=new mysqli('localhost:3360','root','123456','space');
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
 			exit();
@@ -112,7 +113,7 @@ function insert3($sheet,$n,$PA,$joinid) //将数据插入数据库表中，数�
 		for($i=1;$i<$n;$i++)
 			$query=$query.'c'.$i."='".$PA[$i]."',";
 		$query=$query.'state='.$state." where id_p=$id_index";
-		echo $query;
+		//echo $query;
 		$result=$db->query($query);
 		return $result;
 	}

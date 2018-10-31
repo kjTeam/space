@@ -19,7 +19,7 @@
 <script src="bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
-
+<link rel="stylesheet" href="../index/responsive/css/sweetalert2.min.css">
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-table.min.css">
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
@@ -30,7 +30,7 @@
 <!-- Latest compiled and minified Locales -->
 <script src="bootstrap-3.3.5-dist/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="../index/responsive/scripts/MyJS.js"></script>
-
+<script src="../index/responsive/scripts/sweetalert2.min.js"></script>
 <!--$(function (){
    var year = $('#year').selectindex;
    var option = $('#year').options[year];
@@ -40,6 +40,21 @@
    $('#year').selectindex = no1;
    });-->
 <script type='text/javascript'>
+    function alertAtuoClose(text11){
+	swal({
+            title: '提交成功',
+            text: '3秒后自动关闭。',
+            timer: 3000
+        }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+}
 function removeElement()
 {
 var state100 = document.getElementById("tab100").style.display;
@@ -113,9 +128,7 @@ window.history.go(0);
                 }  
             }  
 		};
-		
-		
-		</script>
+</script>
 	
 <style type="text/css" media=print>
 .noprint{display : none;}
