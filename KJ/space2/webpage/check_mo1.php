@@ -937,7 +937,7 @@ echo "
             <tr>
             <td colspan='2'>第一申请级别</td>
                 <td colspan='10'>" . $row['c16'] . "</td>
-</tr>
+            </tr>
             <tr>
                 <td colspan='2'>第二申请级别</td>
                 <td colspan='10'>" . $row['c17'] . "</td>
@@ -962,10 +962,10 @@ echo "
  
             </tr>
 
-                <tr >
-                    <td colspan='1' rowspan='4'>
+            <tr >
+                <td colspan='1' rowspan='4'>
                        2
-                    </td>
+                </td>
                     <td colspan='2' rowspan='4'>
                         从业人员
                     </td>
@@ -973,7 +973,7 @@ echo "
                     <td colspan='6'>
                         " . $row['c19'] . "
                     </td>
-                </tr>
+            </tr>
             <tr>
                 <td colspan='3'>总工职称证书号</td>
                 <td colspan='6'>
@@ -990,8 +990,7 @@ echo "
                 <td colspan='3'>工程技术人员情况</td>
                 <td colspan='6'>
                      " . $row['c22'] . "
-                </td>
-				
+                </td>				
             </tr>
             <tr >
                 <td colspan='1' rowspan='3'>
@@ -1003,8 +1002,7 @@ echo "
                 <td colspan='3'>近三年完成的膜结构<br>展开面积及其总和</td>
                 <td colspan='6'>
                     " . $row['c23'] . "
-                </td>
-				
+                </td>				
             </tr>
             <tr>
                 <td colspan='3'>近六年完成的三项对应于申请等级的膜结构工程</td>
@@ -1029,17 +1027,13 @@ echo "
                 <td colspan='1'>5</td>
                 <td colspan='2'>质量管理</td>
                 <td colspan='3'>ISO9000证书号（或相应的质量标准）</td>
-                <td colspan='6'>  " . $row['c27'] . "</td>
-			
-				
+                <td colspan='6'>  " . $row['c27'] . "</td>				
             </tr>
             <tr>
                 <td colspan='1'>6</td>
                 <td colspan='2'>质量事故</td>
-                <td colspan='9'>  " . $row['c28'] . "</td>
-				
+                <td colspan='9'>  " . $row['c28'] . "</td>				
             </tr>
-
         <tr>
             <td colspan='2' >填表日期</td>
             <td colspan='2'>" . $row['c29'] . "</td>
@@ -1047,8 +1041,7 @@ echo "
             <td colspan='3'>手机</td> <td colspan='1'>" . $row['c31'] . "</td>
         </tr>
             </tbody>
-        </table>";
-echo "
+        </table>
 <table class='table-bordered text-center'  width=100%; >
             <tbody>
 			<h4 class='text-center' >中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</h4>
@@ -1240,8 +1233,7 @@ echo "
         </tr>
             </tbody>
         </table>
-
-		 ";
+</div>";
 
 
 
