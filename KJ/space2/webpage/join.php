@@ -33,7 +33,7 @@
             return false;
       }
       var userFileType = $('#userfile').val().split('.')[1];
-      if(!(userFileType=='jpg' || userFileType=='jpge' || userFileType=='png' || userFileType=='doc' || userFileType=='docx' || userFileType=='pdf')){
+      if(!(userFileType=='jpg' || userFileType=='jpge' || userFileType=='png' )){
           $('#notice').html('营业执照格式不正确！');
           $('#notice').css('display','inline-block');
           return false;
@@ -94,7 +94,7 @@ if($_POST["p42"]=='join') //检测是否是此表单提交
 		 echo" <script language=javascript>alert('上传失败!照片必须上传pjpeg、jpeg或png格式');</script>";
 		 exit();
 	    }
-	    if($size>=600000)
+	    if($size>=2048000)
 		{
 	     echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
          exit();
@@ -149,7 +149,7 @@ if($_POST["p43"]=='update')
 	    }
 	    if($size>=2048000)
 		{
-	     echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
+	     echo"<script language=javascript>alert('上传失败!请将照片压缩至2M以下');</script>";
          exit();
 	    }
 	    if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile))//移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
@@ -309,7 +309,7 @@ echo "
         <td colspan='12'>
         <textarea  type='text' class='form-control' rows='12' name='p41' id='p41'>".$row[c41]."</textarea></td>
 		<tr>
-		<td colspan='12'><label for='userfile'> 上传营业执照</label><span class='must_wirte'>* 营业执照格式必须为jpg,png,pdf,doc格式，大小小于2M</span></td></tr>
+		<td colspan='12'><label for='userfile'> 上传营业执照</label><span class='must_wirte'>* 营业执照格式必须为jpg,png格式，大小小于2M</span></td></tr>
 			<td colspan='12'>
 			<img src='webpage/".$row[position]."' width=450px>
 			
