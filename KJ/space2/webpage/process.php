@@ -452,31 +452,7 @@ if ($location == '2') {
 				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
 				</button>
 			</div></form></div>";
-		}  if ($index == '-2') {
-		// echo "<div class='container-fluid'>
-		// <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
-		//   <h3 class='text-center'style='line-height:8px'>".$row1['headline1']."</h3>
-        //   <h3 class='text-center' style='line-height:10px'>".$row1['headline2']."</h3>
-		//   <tbody>
-		//     <tr>
-		//       <td>序号</td>
-		//       <td>公司名称</td>
-		//       <td>审批结果</td>
-		// 	</tr>
-		// 	";
-		// 	$queryT="select m.c1,j.level2 from mo1 m, join_form j where m.id_p = j.id_p and m.state = '6' ";//
-		// 	$resultT=$db->query($queryT);
-		// 	$num_results=$resultT->num_rows;
-		// 	for($i=1;$i<=$num_results;$i++){
-		// 		$rowT=$resultT->fetch_assoc();
-		// 		echo"<tr>
-		// 		   <td>".$i."</td>
-		// 		   <td>".$rowT['c1']."</td>			
-		// 		   <td>".$rowT['level2']."</td>	
-		// 		</tr>";
-		// 	}	
-		//   echo"</tbody>
-		// </table>";
+		}  if ($index == '-2') {				
 		  //汇总名单
 			$searchStateResultj = json_encode($searchStateResult);
 			echo <<< EOD
@@ -562,7 +538,9 @@ EOD;
             <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]">查看</a>
         </tr>
 EOD;
+				
 			}
+			echo"</table>";
 		}
 
 		//else if($row['state']==3) //nav==3 理事会结果查看
