@@ -206,6 +206,9 @@ textarea{outline:none;resize:none;}
     width: 100%;
     cursor: pointer;
     }
+	.must_wirte{
+	 color:red;
+    }
     </style>
 </head>
 <?php

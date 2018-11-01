@@ -361,45 +361,31 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		$db=create_database();
 		$nav1=$_GET['nav1'];
 		$query="select * from nav_2 where id_n1=$nav1";
+		$result=$db->query($query);
+		$num_results=$result->num_rows;
+		$row=$result->fetch_assoc();
+		if($_POST['change_key']=='yes')
+		{			
+			$key=$_POST['key'];
+            $query="select c1 from $sheet where c1 like '%$key%'";
 			$result=$db->query($query);
-			$num_results=$result->num_rows;
-				$row=$result->fetch_assoc();
-		if($_POST['change_key']=='yes'){			
-				$key=$_POST['key'];
-             $query="select c1 from $sheet where c1 like '%$key%'";
-			 
-			$result=$db->query($query);
-			
 			$num_results=$result->num_rows;
 			if($num_results==0)
-				{
+			{
 			 $query="select $sheet.c1 from join_form,user where user.id = join_form.id_p and user.uid like '%$key%'";
 			 $result=$db->query($query);
 			 $num_results=$result->num_rows;
-			 }
-             for($i=0;$i<$num_results;$i++) {
+			}
+            for($i=0;$i<$num_results;$i++) 
+			{
 			$row2 = $result->fetch_assoc();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2['id']."'>
 			 ".($row2['uid'])."</a>";
-						} 
-		}
-	    else {
-					echo"<div id='ulside' class='list-group'>";	
-					echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
-        for($i1=1;$i1<=7;$i1++){
-			$da_table="";
-			if("$nav1"==6){   //初审
-				$da_table="mo1";
-			}else if("$nav1"==7){  //复审
-				$da_table="mo2";
-			}else if("$nav1"==8){
-				$da_table="wang1";
-			}else if("$nav1"==9){
-				$da_table="wang2";
-			}
-			$query="select id,c1 from $da_table where state = $i1 ";
-            $result=$db->query($query);
-            $num_results=$result->num_rows;
+			} 
+		}else {
+				echo"<div id='ulside' class='list-group'>";	
+               for($i1=1;$i1<=6;$i1++)
+      {
 		switch ($i1)
 		{
 			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num_results."</span></h5>";break;			
