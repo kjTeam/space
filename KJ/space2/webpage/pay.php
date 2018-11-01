@@ -50,11 +50,9 @@ if ($num_results == 0) //如果company表中没有记录
 	 <h4><span class='label label-danger'>您尚未入会，无法进行缴费</span></h4>";
         exit();
     } else {
-        if ($row1['state'] == 6) {
+        if ($row1['state'] >= 6 && $row1['state']!=9) {
             $flag = 1;
-        }
-//标记是待上传缴费凭证的状态。
-        else {
+        }else {
             echo "<h4><span class='label label-danger'>正在审核</span></h4>";
             exit();
         }
@@ -70,15 +68,16 @@ if ($num_results == 0) //如果company表中没有记录
 if ($row['pay_result'] == '已缴费') {
     echo "<h4><span class='label label-danger'>您已缴纳当年年费，无需再次缴费</span></h4>";
     exit();
-  
-    if ($_FILES['userfile']['tmp_name'] != '') {
+}
+define('ROOT',dirname(__FILE__)); //用于上传文件
+   //   $pay="pay".$no; 之前设定每一年交一次，通过用户手输入的去建立文件夹 现在设定每一次都导出来 不需要考虑每一年了
+   $upfile=ROOT."/pay1//$id.jpg";  //保存上传文件的路径：index所在目录/webpage/pay1/年数//用户id
+   $upfile1="/pay1//$id.jpg";
+if($_POST['pay']=='yes'){
+	if ($_FILES['userfile']['tmp_name'] != '') {
         $type = $_FILES['userfile']['type']; //上传文件的类型
-		$size = $_FILES['userfile']['size']; //上传文件的大小
-		                
-        if (file_exists($upfile)) {
-            unlink($upfile);
-        }
-        if ($type != 'image/pjpeg' && $type != 'image/jpeg' && $type !='image/png') {
+        $size = $_FILES['userfile']['size']; //上传文件的大小
+        if ($type != 'image/pjpeg' && $type != 'image/jpeg' && $type != 'image/png') {
             echo " <script language=javascript>alert('上传失败!照片必须上传规定格式');</script>";
             exit();
         }
@@ -108,44 +107,44 @@ if ($row['pay_result'] == '已缴费') {
     } else {
         echo "<script language=javascript>alert('请选择上传内容！');</script>";
     }
+}
+    
+
+if ($_POST['update_pay'] == 'yes') { //上传成功后，修改图片
+    if ($_FILES['userfile']['tmp_name'] != '') {
+        $type = $_FILES['userfile']['type']; //上传文件的类型
+        $size = $_FILES['userfile']['size']; //上传文件的大小
+        if ($type != 'image/pjpeg' && $type != 'image/jpeg') {
+            echo " <script language=javascript>alert('上传失败!照片必须上传规定格式');</script>";
+            exit();
+        }
+        if ($size >= 2048000) {
+            echo "<script language=javascript>alert('上传失败!请将照片压缩至2M以下');</script>";
+            exit();
+        }
+        unlink($upfile);
+        if (!move_uploaded_file($_FILES['userfile']['tmp_name'], $upfile)) {
+            echo "<script language=javascript>alert('出现问题，请联系管理员');</script>";
+            exit();
+        } //移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
+        //    $query="update $pay set time=now() where id_p=$id";
+        //SELECT DATE_FORMAT(time,'%Y-%m-%d') As date1 FROM pay2017
+        $result1 = $db->query($query);
+        if ($result1) {
+            echo "<script language=javascript>alert('更改图片成功，等待管理员审核');</script>";
+        }
+
+    } else {
+        echo "<script language=javascript>alert('请选择上传内容！');</script>";
+    }
 
 }
-if($_POST['update_pay']=='yes'){//上传成功后，修改图片
-	if($_FILES['userfile']['tmp_name']!=''){
-	 $type=$_FILES['userfile']['type'];//上传文件的类型 
-     $size=$_FILES['userfile']['size'];//上传文件的大小 
-	 if($type!='image/pjpeg'&&$type!='image/jpeg')
-		   {
-		     echo" <script language=javascript>alert('上传失败!照片必须上传规定格式');</script>";
-			 exit();
-	       }
-	       if($size>=2048000)
-		    {
-	          echo"<script language=javascript>alert('上传失败!请将照片压缩至2M以下');</script>";
-			  exit();
-	        }
-			 unlink ($upfile);	
-	     if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile)){
-          echo"<script language=javascript>alert('出现问题，请联系管理员');</script>";
-		  exit();
-	     }  //移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
-	    //    $query="update $pay set time=now() where id_p=$id";
-			//SELECT DATE_FORMAT(time,'%Y-%m-%d') As date1 FROM pay2017
-			$result1=$db->query($query);
-			if($result1)
-			echo"<script language=javascript>alert('更改图片成功，等待管理员审核');</script>";
-	}
-	else{
-		 echo"<script language=javascript>alert('请选择上传内容！');</script>";
-	}
 
-}
-	
-	echo "
+echo "
 	<form enctype='multipart/form-data' action='' method='post' class='form-inline' onsubmit='return checkForm()'>
 		<div class='container-fluid form-group  ' style='margin-top:25px;margin-left:10%;font-size:14px'>
 		<label for='userfile'> 上传缴费凭证<span class='must_wirte'>[注：上传格式为jpg、png格式，大小小于2M]:</span></label>
-		<input type='file' class='form-control noborder-input' name='userfile' id='payfile'/>	
+		<input type='file' class='form-control noborder-input' name='userfile' id='payfile'/>
 		</div>
 		<hr>";
 // $query="select * from $pay where id_p =$id";

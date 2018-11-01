@@ -179,7 +179,7 @@ if($_POST['send4']=='yes')//管理员最后通过审核，等待缴费证明的�
 
 }
 
-if($index>0 ||($nav1=3&$nav2=10))//如果是用户点击企业资料的话也能看见
+if($index>0 ||($nav1==3&$nav2==10))//如果是用户点击企业资料的话也能看见
 {
 
 	echo "<div class='container-fluid hidden-xs noprint'>

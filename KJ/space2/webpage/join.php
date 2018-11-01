@@ -582,7 +582,7 @@ echo "
     </div> 
 	<div class='col-xs-12'>
 	<table class='table table-bordered text-center' style='margin-top:10px'>
-     <input type='hidden' name='MAX_FILE_SIZE' value='10000000'/>
+     <input type='hidden' name='MAX_FILE_SIZE' value='3000000'/>
 	 
 	 <tr>
 	 <td>
