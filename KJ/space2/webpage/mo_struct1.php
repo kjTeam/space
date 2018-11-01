@@ -75,10 +75,10 @@ if($_POST["p32"]=='mo1') //检测是否是此表单提交
 	$upfile12=ROOT."/mo1//$id+file6.doc"; 
 	move_uploaded_file($_FILES['file12']['tmp_name'], $upfile9);
 	if($result) {
-	echo"<script language=javascript>alert('提交成功！'); location.href='';</script>";
+	echo"<script language=javascript>alertAtuoClose() location.href='';</script>";
 		}
 	else 
-	echo "<script language=javascript>alert('提交失败！请联系管理员'); </script>";
+	echo "<script language=javascript>swal('提交失败！','请联系管理员'); </script>";
 
 }
 

@@ -385,20 +385,34 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		}
 	    else {
 					echo"<div id='ulside' class='list-group'>";	
-					echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>";                               
-        for($i1=1;$i1<=5;$i1++){
-			$query="select id,c1 from mo1 where state = $i1 ";
+					if($nav1==6){
+						echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
+					}else if($nav1=7){
+						echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-3'> 汇总名单</a>"; 
+					}
+        for($i1=1;$i1<=7;$i1++){
+			$da_table="";
+			if("$nav1"==6){   //初审
+				$da_table="mo1";
+			}else if("$nav1"==7){  //复审
+				$da_table="mo2";
+			}else if("$nav1"==8){
+				$da_table="wang1";
+			}else if("$nav1"==9){
+				$da_table="wang2";
+			}
+			$query="select id,c1 from $da_table where state = $i1 ";
             $result=$db->query($query);
             $num_results=$result->num_rows;
 		switch ($i1)
 		{
-			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num_results."</span></h5>";break;
-			case 2:echo"<h5 class='list-group-item' >等待专家打分<span class='badge'>".$num_results."</span></h5>";break;
-			case 3:echo"<h5 class='list-group-item' >专家意见<span class='badge'>".$num_results."</span></h5>";break;
-			case 4:
-			echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
-			case 5:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
-			//case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>名单汇总</a>";break; 
+			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num_results."</span></h5>";break;			
+			case 2:echo"<h5 class='list-group-item' >秘书处意见反馈<span class='badge'>".$num_results."</span></h5>";break;
+			case 3:echo"<h5 class='list-group-item' >分配给专家<span class='badge'>".$num_results."</span></h5>";break;
+			case 4:echo"<h5 class='list-group-item' >专家意见反馈<span class='badge'>".$num_results."</span></h5>";break;			
+			case 5:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
+			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
+			case 7:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>审核成功<span class='badge'>".$num_results."</span></a>";break; 
 			default:break;
 		}
 		echo"<div>";
@@ -438,6 +452,19 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		 case 7:return '<span class="label label-warning">缴费申请提交待审核</span>'; break;
 		 case 8:return '<span class="label label-success">已入会</span>'; break;
 		 case 9:return '<span class="label label-danger">未通过审核</span>'; break;
+		 defalut:break;
+        }
+	}
+	function state_show_mo1($state){
+		switch($state){
+         case 1:return "<span class='label label-primary'>提交待审核</span>"; break;
+         case 3:return '<span class="label label-warning">秘书处意见反馈</span>'; break;
+		 case 4:return '<span class="label label-warning">分配给专家</span>'; break;
+		 case 5:return '<span class="label label-warning">专家意见反馈</span>'; break;
+		 case 6:return '<span class="label label-warning">投递给理事会</span>'; break;
+		 case 7:return '<span class="label label-warning">理事会意见反馈</span>'; break;
+		 case 8:return '<span class="label label-success">审核成功</span>'; break;
+		 //case 9:return '<span class="label label-danger">未通过审核</span>'; break;
 		 defalut:break;
         }
 	}
