@@ -2,7 +2,7 @@
 	function create_database()
 	{
 
-		$db=new mysqli('localhost','root','123456','space');
+		$db=new mysqli('localhost:3360','root','123456','space');
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
 			exit();
