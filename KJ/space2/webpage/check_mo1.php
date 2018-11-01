@@ -1041,7 +1041,8 @@ echo "
             <td colspan='3'>手机</td> <td colspan='1'>" . $row['c31'] . "</td>
         </tr>
             </tbody>
-        </table>
+        </table>";
+echo "
 <table class='table-bordered text-center'  width=100%; >
             <tbody>
 			<h4 class='text-center' >中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</h4>
@@ -1083,12 +1084,11 @@ echo "
                    <td colspan='3'>职称</td> <td colspan='2'>" . $row['r15'] . "</td>
                </tr>
             <tr>
-            <td colspan='2'>申请类别</td>
-                <td colspan='10'>
-				
- " . $row['r16'] . " " . $row['r17'] . " " . $row['r18'] . " " . $row['r19'] . "
-</td>
-</tr>
+                <td colspan='2'>申请类别</td>
+                <td colspan='10'>				
+                    " . $row['r16'] . " " . $row['r17'] . " " . $row['r18'] . " " . $row['r19'] . "
+                </td>
+            </tr>
             <tr>
                 <td colspan='3'>第一申请级别</td>
                 <td colspan='3'>" . $row['r20'] . "</td>
