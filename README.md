@@ -5,6 +5,9 @@ ahahah  sdgdsg
 #user
 用户表：user
 #数据库连接
+
+
+
 index/include/function.php
 space2/lib.php
 #首页
