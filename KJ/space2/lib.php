@@ -385,11 +385,7 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		}
 	    else {
 					echo"<div id='ulside' class='list-group'>";	
-					if($nav1==6){
-						echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
-					}else if($nav1=7){
-						echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-3'> 汇总名单</a>"; 
-					}
+					echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
         for($i1=1;$i1<=7;$i1++){
 			$da_table="";
 			if("$nav1"==6){   //初审

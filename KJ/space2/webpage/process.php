@@ -500,7 +500,13 @@ if ($location == '2') {
 	})
 	</script>
 EOD;
-            $query = "select *from mo1" . $stateSelected;
+			$select_table="";
+			if($nav1==6){
+				$select_table=mo1;
+			}else if($nav1==7){
+				$select_table=mo2;
+			}
+			$query = "select *from $select_table" . $stateSelected;
             $result = $db->query($query);
             $num_results = $result->num_rows;
             echo <<< EOD
