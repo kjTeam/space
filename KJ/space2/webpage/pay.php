@@ -84,12 +84,12 @@ if($_POST["pay"]=='yes') //检测是否是此表单提交
 			if(file_exists($upfile)){
               unlink ($upfile);
 			}
-			if($type!='image/pjpeg'&&$type!='image/jpeg')
+			if($type!='image/pjpeg'&&$type!='image/jpeg'&& $type!='image/png')
 		   {
 		     echo" <script language=javascript>swal('上传失败!','照片必须上传pjpeg、jpeg或png格式');</script>";
 			 exit();
 	       }
-	       if($size>=512000)
+	       if($size>=2048000)
 		    {
 	          echo"<script language=javascript>swal('上传失败!','请将照片压缩至2M以下');</script>";
 			  exit();
