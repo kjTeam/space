@@ -94,7 +94,7 @@ if($_POST["p42"]=='join') //检测是否是此表单提交
 		 echo" <script language=javascript>alert('上传失败!照片必须上传pjpeg、jpeg或png格式');</script>";
 		 exit();
 	    }
-	    if($size>=600000)
+	    if($size>=2048000)
 		{
 	     echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
          exit();
