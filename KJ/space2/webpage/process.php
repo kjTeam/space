@@ -1,5 +1,14 @@
 <?php
 $index = $_GET['index'];
+$stateSelected = '';
+if($_POST['serachByState'] == 'yes'){
+	$searchStateResult = $_POST['searchState'];
+	if(sizeof($searchStateResult)>0){
+	    if(array_search("all",$searchStateResult)===false){
+			$stateSelected = ' where state in ('.implode(',',$searchStateResult).')';
+	}
+}
+}
 if ($location == 1) //用location取出四张表中相同的部分
 {
     if (isset($_GET['index'])) //说明不是企业进入

@@ -3,28 +3,28 @@ $sheet = 'mo2';
 $category_f = 1;
 if ($_POST['send2'] == 'yes') //专家提交 重进入验证在expert.php 这个可以放在前面，但是为了整齐就放在这里了，数据库会多加载一次。
 {
-    for ($i = 0; $i < 6; $i++) {
-        $str = "judge" . ($i + 1);
-        $s[$i] = $_POST[$str];
-        $str1 = "judge1" . ($i + 1);
-        $s1[$i] = $_POST[$str1];                  //获取打分
-    }
-    $info = $_POST['info'];
-    $info = addslashes($info);
-    $query = "update expert set s1='" . $s[0] . "',s2='" . $s[1] . "',s3='" . $s[2] . "',s4='" . $s[3] . "',s5='" . $s[4] . "',s6='" . $s[5] . "',s6='" . $s1[0] . "',s7='" . $s1[1] . "',s8='" . $s1[2] . "',s9='" . $s1[3] . "',s10='" . $s1[4] . "',s11='" . $s1[5] . "',state='2' where id=$index"; //注意这里变化的是expert表的state而不是form表的                                       state
-    $result = $db->query($query);
-    $query = "update $sheet set state=3 where id=$id_f";
-    $db->query($query);
-    if ($result)
-        echo "<script language=javascript>alert('提交成功！'); </script>";
-    else echo "<script language=javascript>alert('出错！请联系管理员'); </script>";
-    exit();
+  for ($i = 0; $i < 6; $i++) {
+    $str = "judge" . ($i + 1);
+    $s[$i] = $_POST[$str];
+    $str1 = "judge1" . ($i + 1);
+    $s1[$i] = $_POST[$str1];                  //获取打分
+  }
+  $info = $_POST['info'];
+  $info = addslashes($info);
+  $query = "update expert set s1='" . $s[0] . "',s2='" . $s[1] . "',s3='" . $s[2] . "',s4='" . $s[3] . "',s5='" . $s[4] . "',s6='" . $s[5] . "',s6='" . $s1[0] . "',s7='" . $s1[1] . "',s8='" . $s1[2] . "',s9='" . $s1[3] . "',s10='" . $s1[4] . "',s11='" . $s1[5] . "',state='2' where id=$index"; //注意这里变化的是expert表的state而不是form表的                                       state
+  $result = $db->query($query);
+  $query = "update $sheet set state=3 where id=$id_f";
+  $db->query($query);
+  if ($result)
+    echo "<script language=javascript>alert('提交成功！'); </script>";
+  else echo "<script language=javascript>alert('出错！请联系管理员'); </script>";
+  exit();
 }
 if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
-    $location = 1;
-    include "process.php";
-    echo "
-<div class='container-fluid' style='margin-top:5px'>
+  $location = 1;
+  include "process.php";
+  echo "
+<div class='container-fluid' style='margin-top:5px;float:right'>
 <input id='btnPrint' class='noprint btn btn-info' type='button' value='打印' onclick='javascript:window.print();' style='font-weight:bold; text-decoration:none;cursor:pointer;float:right;!important; cursor:hand'/>
 </div>
 
@@ -212,10 +212,10 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
             </tbody>
         </table>";
 
-    if ($category == 3) {
-        echo "<table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
+  if ($category == 3) {
+    echo "<table class='table table-bordered table-responsive text-center'>";
+    for ($i = 0; $i < 6; $i++) {
+      echo "
 				<tr>
 				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
 				<td colspan='10'>
@@ -224,18 +224,16 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				</td>
 				</tr>
 			";
-        }
-        echo "			
-	
-		</table>";
     }
+    echo "</table>";
+  }
 
 
-    echo "</div>";
+  echo "</div>";
 		
 
 //上个表格是专项设计的表格，这个表格是工程承包的表格
-    echo " 
+  echo " 
 		  <div class='tab-pane fade' id='chengbao'>
 		<table class='table table-bordered text-center table-responsive' name='chengbao' >
             <tbody>
@@ -455,11 +453,11 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 
 
 
-    if ($category == 3) {
-        echo "
+  if ($category == 3) {
+    echo "
 <table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
+    for ($i = 0; $i < 6; $i++) {
+      echo "
 				<tr>
 				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
 				<td colspan='10'>
@@ -468,8 +466,8 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				</td>
 				</tr>
 			";
-        }
-        echo "			
+    }
+    echo "			
 	
 		</table>
 			<div style='text-align: right;margin-bottom: 2%'>
@@ -478,9 +476,9 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				</button>
 			</div>
 		</form>";
-    }
+  }
 
-    echo "</div> </div>";
+  echo "</div> </div>";
 }
 		//if($flag==1) echo "<input type='hidden' value='yes' name='flag'> "; 
 
@@ -502,9 +500,9 @@ echo "
 
 //下面是手机端的代码
 if ($_GET['index'] != 0 && $_GET['index'] != -1) {
-    $location = 1;
-    include "process.php";
-    echo "
+  $location = 1;
+  include "process.php";
+  echo "
 <div class='container-fluid visible-xs noprint'>
 <ul class='nav nav-tabs noprint' role='tablist' style='padding:0px 30px;'>
   <li role='presentation' class='active'><a href='#design1' role='tab' data-toggle='tab'  style='color:#666; font-size:14px'>专项设计</a></li>
@@ -593,10 +591,10 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 <tr><td>" . $row['c31'] . "</td></tr>
 			</tbody></table>";
 
-    if ($category == 3) {
-        echo "<table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
+  if ($category == 3) {
+    echo "<table class='table table-bordered table-responsive text-center'>";
+    for ($i = 0; $i < 6; $i++) {
+      echo "
 				<tr>
 				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
 				<td colspan='10'>
@@ -605,12 +603,12 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 				</td>
 				</tr>
 			";
-        }
-        echo "			
+    }
+    echo "			
 	
 		</table>";
-    }
-    echo " </div>
+  }
+  echo " </div>
 
  
   <div class='tab-pane fade' id='chengbao1'>
@@ -706,11 +704,11 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
  <tbody>
  </table>";
 
-    if ($category == 3) {
-        echo "
+  if ($category == 3) {
+    echo "
 <table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
+    for ($i = 0; $i < 6; $i++) {
+      echo "
 				<tr>
 				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
 				<td colspan='10'>
@@ -719,8 +717,8 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 				</td>
 				</tr>
 			";
-        }
-        echo "			
+    }
+    echo "			
 	
 		</table>
 			<div style='text-align: right;margin-bottom: 2%'>
@@ -729,25 +727,25 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 				</button>
 			</div>
 		</form>";
-    }
+  }
 
 
-    echo "</div>";
-    echo "</div></div>";
+  echo "</div>";
+  echo "</div></div>";
 } else if ($index == '0') {
-    $query = "select * from $sheet where state='4'";
-    $result = $db->query($query);
-    $num_results = $result->num_rows;
-    if ($num_results == 0) {
-        echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
-        exit();
-    }
+  $query = "select * from $sheet where state='4'";
+  $result = $db->query($query);
+  $num_results = $result->num_rows;
+  if ($num_results == 0) {
+    echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
+    exit();
+  }
 
 //if($row1['state']==1)
 	//echo"<div class='container-fluid'><h3><span class='label label-warning'>您已向管理员投递，本次提交数据会覆盖上次数据</span></h3></div>";
 //if($row1['state']==2||$row1['state']==3)
 	//echo"<div class='container-fluid'><h3><span class='label label-warning'>管理员已返回意见，本次提交数据会再次发送给管理员</span></h3></div>";
-    echo "
+  echo "
 <div class='container-fluid'>
 <form enctype='multipart/form-data' action='' method='post'>
 <table class='table table-bordered table-responsive text-left' style='margin-top:1em;font-size:1.2em;'>
@@ -767,16 +765,16 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
             
         </tr>";
 		//这里从mo1表中查找要投递给理事会的企业
-    $num = $num_results;
-    for ($i = 1; $i <= $num_results; $i++) {
-        $r = "r" . $i;//两个评审结果
-        $t = "t" . $i;//需要问孙老师，用不用修改评审结果。
-        $row2 = $result->fetch_assoc();
-        $p = "cid" . $i;
-        echo "<input type='hidden' name='$p' value='" . $row2['id'] . "'>
+  $num = $num_results;
+  for ($i = 1; $i <= $num_results; $i++) {
+    $r = "r" . $i;//两个评审结果
+    $t = "t" . $i;//需要问孙老师，用不用修改评审结果。
+    $row2 = $result->fetch_assoc();
+    $p = "cid" . $i;
+    echo "<input type='hidden' name='$p' value='" . $row2['id'] . "'>
 				<input type='hidden' name='num' value='$num'>";
-        if ($row2['c16'] != null && $row2['c17'] != null) {
-            echo " 
+    if ($row2['c16'] != null && $row2['c17'] != null) {
+      echo " 
 				<tr>
             <td colspan='1' rowspan='2' style='text-align:center;'>$i</td>
 			 <td colspan='6' rowspan='2' style='text-align:center;'>
@@ -786,9 +784,9 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 			  <tr><td colspan='6'>" . $row2['c17'] . " </td> 
 			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  </td></tr>
         </tr> ";
-        } else {
+    } else {
 
-            echo " 
+      echo " 
 				<tr>
             <td colspan='1' style='text-align:center;'>$i</td>
 			 <td colspan='6' style='text-align:center;'>
@@ -797,9 +795,9 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 			 <td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>
 			 <input type='hidden' name='$t'></td>
         </tr> ";
-        }
     }
-    echo "
+  }
+  echo "
 <tr class='text-righ'>
 <td colspan='4' class='noborder-table'>审批人:</td>
 <td colspan='6' class='noborder-table'>
@@ -821,7 +819,7 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 		</form>
 		";
 }
-echo "<div class='col-xs-9' style='float:right'>";
+echo "<div class='col-xs-9' style='float:right;margin-top:-22%;margin-right:2%;width:73%'>";
 $location = 2;
 include "process.php";
 echo "</div></div>";
