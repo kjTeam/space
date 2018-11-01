@@ -874,133 +874,79 @@ if($index=='-1')//当点击理事会结果的时候，传来index=-1
 	$num_results=$result->num_rows;
 	if($num_results==0)
 	{
-	echo"<h4><span class='label label-info'>尚未有企业投递</span></h4>";
+	echo"<h3><span class='label label-info'>尚未有企业投递</span></h3>";
 	exit();
 	}
 	else{
-	   echo <<< EOD
-		 <div class='container-fluid'>
-			<form enctype='multipart/form-data' action='' method='post'>
-			<h3 class='text-center'style='line-height:8px'>中国钢结构协会空间结构分会</h3>
-			<h3 class='text-center' style='line-height:10px'>中国钢协空间结构分会入会单位常务理事会审批结果</h3>
-			<br>
-			<table id="expertTable"
-                data-toggle="table"
-                data-striped="ture"
-                data-search="ture"
-                data-pagination="ture"
-                data-show-columns="true"
-                class="text-center"
-            >		      
-				     <tr>
-				     <td>序号</td>
-				     <td>公司名称</td>
-					 <td>意见</td>
-					 <td>意见</td>
-					 <td>操作</td>
-					 </tr>
-				
-EOD;
-	$query2 = "select * from join_form where state = 5";
-	$result2=$db->query($query2);
-	$num_results2=$result2->num_rows;
-	for($i=1;$i<=$num_results2;$i++){
-	   $row2 = $result2->fetch_assoc();
-	   $id_f = $row2['id'];
-	   $query_accept = "select * from director where form_category=0 and id_f='$id_f' and result = 1";
-	   $query_reject = "select * from director where form_category=0 and id_f='$id_f' and result = 2";
-	   $accept=$db->query($query_accept);
-	   $reject=$db->query($query_reject);
-	   $num_accept=$accept->num_rows;
-	   $num_reject=$reject->num_rows;
-	   echo"
-		<tr>
-		   <td>$i</td>
-		   <td>".$row2['c1']."</td>
-		   <td>同意:$num_accept 人;不同意:$num_reject 人</td>
-		   <td>
-		        <select class='form-control' data-style='btn-primary' name='$state2'>
-		  			<option value='6'> 通过审核，等待缴费证明</option>
-		  			<option value='9'> 未通过审核</option>
-				  </select>
-			</td>
-			<td>
-			<button class='btn btn-xs btn-default'>查看详细信息</button>
-			</td>
-		</tr>
-";
-
+	echo" <div class='container-fluid hidden-xs'>
+	<form enctype='multipart/form-data' action='' method='post'>
+	<table class='table table-bordered table-responsive text-center noprint' style='margin-top:2em;font-size:1em;'>
+	 <h3 class='text-center'style='line-height:8px'>中国钢结构协会空间结构分会</h3>
+<h3 class='text-center' style='line-height:10px'>中国钢协空间结构分会入会单位常务理事会审批结果</h3>
+   <tbody>
+   <tr>
+   <td colspan='1'>序号</td>
+   <td colspan='6'>公司名称</td>
+   ";
+   //更改后user可以有很多类别，这里做一个改动。
+  $query2="select name,id from user where category like '%4%'";//查找所有的常务理事
+  $result2=$db->query($query2);
+  $num_results2=$result2->num_rows;
+	for($i2=1;$i2<=$num_results2;$i2++)
+	{
+	$row2=$result2->fetch_assoc();
+	  $p[$i2]=$row2['id'];//将理事会的id依次存放在$p[]中。
+	echo" <td colspan='6'>".$row2['name']."意见</td>";
 	}
-	echo"</table>";
-// 	echo" <div class='container-fluid hidden-xs'>
-// 	<form enctype='multipart/form-data' action='' method='post'>
-// 	<table class='table table-bordered table-responsive text-center noprint' style='margin-top:2em;font-size:1em;'>
-// 	 <h3 class='text-center'style='line-height:8px'>中国钢结构协会空间结构分会</h3>
-// <h3 class='text-center' style='line-height:10px'>中国钢协空间结构分会入会单位常务理事会审批结果</h3>
-//    <tbody>
-//    <tr>
-//    <td colspan='1'>序号</td>
-//    <td colspan='6'>公司名称</td>
-//    ";
-//    //更改后user可以有很多类别，这里做一个改动。
-//   $query2="select name,id from user where category like '%4%'";//查找所有的常务理事
-//   $result2=$db->query($query2);
-//   $num_results2=$result2->num_rows;
-// 	for($i2=1;$i2<=$num_results2;$i2++)
-// 	{
-// 	$row2=$result2->fetch_assoc();
-// 	  $p[$i2]=$row2['id'];//将理事会的id依次存放在$p[]中。
-// 	echo" <td colspan='6'>".$row2['name']."意见</td>";
-// 	}
-// 	echo"<td>审批结果</td></tr>";
-// //找出理事会已经给出意见的企业
+	echo"<td>审批结果</td></tr>";
+//找出理事会已经给出意见的企业
 	
-// 	for($i=1;$i<=$num_results;$i++)//大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
-// 	{
-// 	$row=$result->fetch_assoc();
-// 	$id1=$row['id'];
-//    $companyidd="companyidd".$i;
-//    $state2="state2".$i;
+	for($i=1;$i<=$num_results;$i++)//大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
+	{
+	$row=$result->fetch_assoc();
+	$id1=$row['id'];
+   $companyidd="companyidd".$i;
+   $state2="state2".$i;
   
-// 	echo"<tr>
-// 	<td colspan='1'>$i</td>
-// 	<td colspan='6'>".$row['c1']."</td> 
-// 	";
-//   for($i2=1;$i2<=$num_results2;$i2++)
-// 	   {
-// 	  $id2=$p[$i2];
-// 	$query1="select result from director where form_category=0 and id_f='$id1' and id_p='$id2'";//id是企业的id ,id2是常务理事的id
-// 	$result1=$db->query($query1);
-// 	$row1=$result1->fetch_assoc();
-// 	$re=$row1['result'];//为了和之前的result分开避免混淆。
-// 	echo"<td colspan='6'>";
-// 	if($re==1)
-// 		echo"同意入会";
-// 	else if($re==2)
-// 		echo"不同意入会";
-// 	echo"</td>";
-// 	    }
-//     echo"
-// 	<td colspan='4'>
-// 	<select class='form-control' data-style='btn-primary' name='$state2'>
-// 							<option value='6'> 通过审核，等待缴费证明</option>
-// 							<option value='9'> 未通过审核</option>
-// 					</select>
-// 					<input type='hidden' value='$id1' name='$companyidd'>
-// 	</td> 
-// 	</tr>
+	echo"<tr>
+	<td colspan='1'>$i</td>
+	<td colspan='6'>".$row['c1']."</td> 
+	";
+  for($i2=1;$i2<=$num_results2;$i2++)
+	   {
+	  $id2=$p[$i2];
+	$query1="select result from director where form_category=0 and id_f='$id1' and id_p='$id2'";//id是企业的id ,id2是常务理事的id
+	$result1=$db->query($query1);
+	$row1=$result1->fetch_assoc();
+	$re=$row1['result'];//为了和之前的result分开避免混淆。
+	echo"<td colspan='6'>";
+	if($re==1)
+		echo"同意入会";
+	else if($re==2)
+		echo"不同意入会";
+	echo"</td>";
+	    }
+    echo"
+	<td colspan='4'>
+	<select class='form-control' data-style='btn-primary' name='$state2'>
+							<option value='6'> 通过审核，等待缴费证明</option>
+							<option value='9'> 未通过审核</option>
+					</select>
+					<input type='hidden' value='$id1' name='$companyidd'>
+	</td> 
+	</tr>
 	
-// 	";
-// 	}	
-// echo"
-// 			</tbody>
-// </table>
-// <div style='text-align: right;margin-bottom: 2%' class='noprint'>
-// 				<input type='hidden' value='yes' name='send4'>
-// 				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
-// 				</button>
-// 			</div></form></div>";	
- }
+	";
+	}	
+echo"
+			</tbody>
+</table>
+<div style='text-align: right;margin-bottom: 2%' class='noprint'>
+				<input type='hidden' value='yes' name='send4'>
+				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
+				</button>
+			</div></form></div>";	
+	}
 }
 if($index=='-2' || $index=='-3')//这是已入会和未入会的统计
 {
