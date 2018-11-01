@@ -509,13 +509,7 @@ if ($location == '2') {
 	})
 	</script>
 EOD;
-			$select_table="";
-			if($nav1==6){
-				$select_table=mo1;
-			}else if($nav1==7){
-				$select_table=mo2;
-			}
-			$query = "select *from $select_table" . $stateSelected;
+            $query = "select *from mo1" . $stateSelected;
             $result = $db->query($query);
             $num_results = $result->num_rows;
             echo <<< EOD
