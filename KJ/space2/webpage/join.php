@@ -14,33 +14,7 @@
 <script src="./bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script type='text/javascript'>
-     //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
-    function checkForm(){
-      for(var i=1;i<=41;i++){
-         if(i==6 || i==10 || i==15 || i==14 || i==9){
-           continue;
-         }
-         var p = "p"+i;
-         if(!$('#'+p).val()){
-            $('#notice').css('display','inline-block');
-            return false;
-         }
-      }
-      if(!$('#userfile').val()){
-            $('#notice').html('必须上传营业执照');
-            $('#notice').css('display','inline-block');
-            return false;
-      }
-      var userFileType = $('#userfile').val().split('.')[1];
-      if(!(userFileType=='jpg' || userFileType=='jpge' || userFileType=='png' || userFileType=='doc' || userFileType=='docx' || userFileType=='pdf')){
-          $('#notice').html('营业执照格式不正确！');
-          $('#notice').css('display','inline-block');
-          return false;
-      }
-      return true;
-    }
-</script>
+
 </head>
 <?php //共41个参数  p42为隐藏参数
  //首先检查目前状态，如果不再这几种状态中则可以继续提交
@@ -91,46 +65,46 @@ if($_POST["p42"]=='join') //检测是否是此表单提交
 		$upfile1="/join_form/check//$id.jpg";
 		if($type!='image/pjpeg'&&$type!='image/jpeg'&&$type!='image/png')
 		{
-		 echo" <script language=javascript>alert('上传失败!照片必须上传pjpeg、jpeg或png格式');</script>";
+		 echo" <script language=javascript>swal('上传失败!','照片必须上传pjpeg、jpeg或png格式');</script>";
 		 exit();
 	    }
 	    if($size>=2048000)
 		{
-	     echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
+	     echo"<script language=javascript>swal('上传失败!','请将照片压缩至2M以下');</script>";
          exit();
 	    }
 	    if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile))//移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
 		{
-         echo"<script language=javascript>alert('移动图片失败');</script>";
+         echo"<script language=javascript>swal('移动图片失败');</script>";
           exit();
 		}
 
 	    if($error!=0)
 		 { 
-	     echo"<script language=javascript>alert('上传图片失败，请联系管理员');</script>";
+	     echo"<script language=javascript>swal('上传图片失败','请联系管理员');</script>";
          exit();
 	     }
 	 }
 	 else
 	 {
-		echo  "<script language=javascript>alert('必须上传营业执照');</script>";
+		echo  "<script language=javascript>swal('提示','必须上传营业执照');</script>";
 		exit();
 	 }
-		for($i=1;$i<42;$i++)
+		for($i=1;$i<43;$i++)
 		{
 			$str="p".$i;
 			$PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
-		$result=insert("join_form",41,$PA,$id);	
+		$result=insert("join_form",43,$PA,$id);	
 		$query="update join_form set position = '$upfile1' where id_p=$id";
 		$result1=$db->query($query);
 		if($result && $result1) 
 		{
-			echo "<script language=javascript>alert('提交成功');</script>";
+			echo "<script language=javascript>alertAtuoClose();</script>";
 			 
 		}
-		else echo "<script language=javascript>alert('出现问题，请尝试重新输入');</script>";
+		else echo "<script language=javascript>swal('出现问题','请尝试重新输入');</script>";
 	
 }
 if($_POST["p43"]=='update')
@@ -144,39 +118,39 @@ if($_POST["p43"]=='update')
 		$upfile1="/join_form/check//$id.jpg";
 		if($type!='image/pjpeg'&&$type!='image/jpeg'&&$type!='image/png')
 		{
-		 echo" <script language=javascript>alert('上传失败!照片必须上传pjpeg、jpeg或png格式);</script>";
+		 echo" <script language=javascript>swal('上传失败!','照片必须上传pjpeg、jpeg或png格式);</script>";
 		 exit();
 	    }
 	    if($size>=2048000)
 		{
-	     echo"<script language=javascript>alert('上传失败!请将照片压缩至500K以下');</script>";
+	     echo"<script language=javascript>swal('上传失败!','请将照片压缩至2M以下');</script>";
          exit();
 	    }
 	    if(!move_uploaded_file($_FILES['userfile']['tmp_name'],$upfile))//移动该文件至指定目录 注意此处保存的文件已加上后缀jpg
 		{
-         echo"<script language=javascript>alert('移动图片失败');</script>";
+         echo"<script language=javascript>swal('移动图片失败!');</script>";
           exit();
 		}
 
 	    if($error!=0)
 		 { 
-	     echo"<script language=javascript>alert('上传图片失败，请联系管理员');</script>";
+	     echo"<script language=javascript>swal('上传图片失败','请联系管理员');</script>";
          exit();
 	     }
 	 }
-		for($i=1;$i<42;$i++)
+		for($i=1;$i<43;$i++)
 		{
 			$str="p".$i;
 			$PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
-		$result=change2("join_form",42,$PA,1,$id);	
+		$result=change2("join_form",43,$PA,1,$id);	
 		if($result) 
 		{
-			echo "<script language=javascript>alert('提交成功');</script>";
+			echo "<script language=javascript>alertAtuoClose();</script>";
 			 
 		}
-		else echo "<script language=javascript>alert('出现问题，请尝试重新输入');</script>";
+		else echo "<script language=javascript>swal('提示','出现问题，请尝试重新输入');</script>";
 	
 }
 
@@ -240,13 +214,17 @@ echo "
             <td colspan='2'><input type='text' class='form-control' name='p16' id='p16' value=".$row[c16]."></td>
         </tr>
         <tr>
-            <td colspan='2'>通讯地址<span class='must_wirte'>*</span></td>
-            <td colspan='6'><input type='text' class='form-control' name='p17' id='p17' value=".$row[c17]."></td>
+            <td colspan='2'>E-mail<span class='must_wirte'>*</span></td>
+            <td colspan='6'><input type='text' class='form-control' name='p42' id='p42' value=".$row[c42]."></td> 
             <td colspan='2'>邮编<span class='must_wirte'>*</span></td>
             <td colspan='2'><input type='text' class='form-control' name='p18' id='p18' value=".$row[c18]."></td>
         </tr>
         <tr>
-            <th colspan='12' style='text-align:center;'><lead>二、单 位 规 模</lead></th>
+            <td colspan='2'>通讯地址<span class='must_wirte'>*</span></td>
+            <td colspan='10'><input type='text' class='form-control' name='p17' id='p17' value=".$row[c17]."></td>
+        </tr>
+        <tr>
+            <th colspan='12' style='text-align:center;'><lead>二、企 业 规 模</lead></th>
         </tr>
         <tr>
             <td colspan='2'>创立时间<span class='must_wirte'>*</span></td>
@@ -431,6 +409,12 @@ echo "
     </div>
   </div>
   <div class='form-group text-center'>
+  <label class='col-xs-4 control-label'>E-mail<span class='must_wirte'>*</span></label>
+  <div class='col-xs-8'>
+    <input class='form-control' name='p42' id='p42' value=".$row[c42].">
+  </div>
+</div>
+  <div class='form-group text-center'>
     <label class='col-xs-4 control-label'>通讯地址<span class='must_wirte'>*</span></label>
     <div class='col-xs-8'>
       <input class='form-control' name='p17' id='p17' value=".$row[c17].">
@@ -442,7 +426,7 @@ echo "
       <input class='form-control' name='p18' id='p18' value=".$row[c18].">
     </div>
   </div>
-  <h6 class='text-center'><strong>单位规模<span class='must_wirte'>*</span></strong></h6>
+  <h6 class='text-center'><strong>企 业 规 模<span class='must_wirte'>*</span></strong></h6>
 <div class='form-group text-center'>
     <label class='col-xs-4 control-label'>创立时间<span class='must_wirte'>*</span></label>
     <div class='col-xs-8'>
@@ -598,6 +582,32 @@ echo "
 	</form>
   </div> </div>"
 	
-	
-	
-	;  //注意往上4行这里的hidden，目前不是必须的，但是建议加上，避免恶意提交
+  ;  //注意往上4行这里的hidden，目前不是必须的，但是建议加上，避免恶意提交
+  ?>
+  <script type='text/javascript'>
+     //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
+    function checkForm(){
+      for(var i=1;i<=42;i++){
+         if(i==6 || i==10 || i==15 || i==14 || i==9){
+           continue;
+         }
+         var p = "p"+i;
+         if(!$('#'+p).val()){
+            $('#notice').css('display','inline-block');
+            return false;
+         }
+      }
+      if(!$('#userfile').val()){
+            $('#notice').html('必须上传营业执照');
+            $('#notice').css('display','inline-block');
+            return false;
+      }
+      var userFileType = $('#userfile').val().split('.')[1];
+      if(!(userFileType=='jpg' || userFileType=='jpge' || userFileType=='png' || userFileType=='docx' || userFileType=='docx' || userFileType=='pdf')){
+          $('#notice').html('营业执照格式不正确！');
+          $('#notice').css('display','inline-block');
+          return false;
+      }
+      return true;
+    }
+</script>

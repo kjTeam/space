@@ -35,10 +35,47 @@
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-select.min.css">
 <!-- 可选的Bootstrap主题文件（一般不用引入） -->
 <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="../../index/responsive/css/sweetalert2.min.css">
+<script src="../../index/responsive/bootstrap/sweetalert2.all.js"></script>
 <script src="jquery-3.0.0.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script type='text/javascript'>
+//自动关闭弹出框方法
+function alertAtuoClose(){
+	swal({
+            title: '提交成功',
+            text: '3秒后自动关闭！',
+			width:500,
+            timer: 3000,
+			confirmButtonText: '确认'
+        }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+}
+function alertAtuoClose2(){
+	swal({
+            title: '提交成功',
+            text: '上传成功，等待管理员审核。3秒后自动关闭！',
+			width:500,
+            timer: 3000,
+			confirmButtonText: '确认'
+        }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+}
 function removeElement()
 {
 var state100 = document.getElementById("tab100").style.display;
@@ -323,7 +360,7 @@ textarea{outline:none;resize:none;}
 		  echo "暂无";
 		  
 	?>
-	</li>
+	</link>
 	</ul></div>
 	 <div id='dvvv2'>
    </div>                                                 
