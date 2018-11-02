@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 2018-10-14 13:46:47
--- 服务器版本： 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- 主机： 127.0.0.1:3360
+-- 生成日期： 2018-11-02 13:51:59
+-- 服务器版本： 10.1.35-MariaDB
+-- PHP 版本： 7.2.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `space`
+-- 数据库： `space`
 --
 
 -- --------------------------------------------------------
@@ -126,7 +128,18 @@ INSERT INTO `company_result` (`id`, `id_p`, `uid`, `company`, `join_result`, `mo
 (2, 37, NULL, 'beijnggongye', '已入会', NULL, NULL, '已缴费', NULL),
 (4, 8, NULL, '北京', '已入会', NULL, NULL, '已缴费', NULL),
 (5, 674, NULL, '2', '已入会', NULL, NULL, '已缴费', NULL),
-(6, 675, NULL, '1', '已入会', NULL, NULL, '已缴费', NULL);
+(6, 675, NULL, '1', '已入会', NULL, NULL, '已缴费', NULL),
+(7, 677, NULL, '刘宏刚', '已入会', NULL, NULL, '已缴费', NULL),
+(9, 680, NULL, 'v=bei', '已入会', NULL, NULL, '已缴费', NULL),
+(10, 2, NULL, 'wsj005', '已入会', NULL, NULL, '已缴费', NULL),
+(11, 681, NULL, 'wsj', '已入会', NULL, NULL, '已缴费', NULL),
+(12, 681, NULL, 'wsj006', '已入会', NULL, NULL, '已缴费', NULL),
+(13, 676, NULL, '1', '已入会', NULL, NULL, '已缴费', NULL),
+(14, 678, NULL, '34', '已入会', NULL, NULL, '已缴费', NULL),
+(15, 679, NULL, 'c测试', '已入会', NULL, NULL, '已缴费', NULL),
+(16, 681, NULL, 'wsj006', '已入会', NULL, NULL, '已缴费', NULL),
+(17, 681, NULL, 'wsj006', '已入会', NULL, NULL, '已缴费', NULL),
+(18, 681, NULL, 'wsj006', '已入会', NULL, NULL, '已缴费', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +208,7 @@ CREATE TABLE `council_inform` (
 --
 
 INSERT INTO `council_inform` (`id`, `preface`, `remark`, `state`, `form_category`, `headline1`, `headline2`) VALUES
-(1, 'fyfgugfufu', 'ssss', 1, 0, '', ''),
+(1, 'fgf ', '', 1, 0, '', ''),
 (3, '', '', 0, 2, '', ''),
 (9, '', 'qq', 1, 4, '中国钢结构协会空间结构分会', '网格资质企业等级会员第十七次评审暨第九次评审结果'),
 (10, '注意', '请于多长时间之前', 1, 5, '', ''),
@@ -228,7 +241,17 @@ INSERT INTO `director` (`id`, `id_p`, `id_f`, `result`, `info`, `form_category`)
 (39, 7, 18, '2', 'aaa', 0),
 (40, 7, 19, '1', 'b', 0),
 (41, 7, 17, '1', NULL, 1),
-(42, 7, 17, '1', NULL, 1);
+(42, 7, 17, '1', NULL, 1),
+(43, 7, 1, '1', NULL, 4),
+(44, 7, 20, '1', '', 0),
+(45, 7, 21, '1', '', 0),
+(46, 7, 22, '1', '', 0),
+(47, 7, 25, '1', '', 0),
+(48, 7, 27, '2', 'wex', 0),
+(49, 7, 49, '1', '', 0),
+(50, 7, 50, '1', '', 0),
+(51, 7, 51, '1', '', 0),
+(52, 7, 52, '1', '', 0);
 
 -- --------------------------------------------------------
 
@@ -304,7 +327,10 @@ INSERT INTO `expert` (`id`, `id_p`, `id_f`, `form_category`, `s1`, `s2`, `s3`, `
 (31, 6, 18, 1, '1', '1', '1', '1', '1', '', '', '', '', '', '', '', 2, 'aa', NULL, '', ''),
 (32, 6, 13, 5, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 2, '刘宏刚', '请输入您的意ji见', '', ''),
 (33, 6, 14, 5, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 2, '刘宏刚', '请输入您的意见ii', '', ''),
-(34, 53, 14, 5, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 1, '刘宏刚', NULL, '', '');
+(34, 53, 14, 5, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 1, '刘宏刚', NULL, '', ''),
+(35, 6, 19, 1, '1', '2', 'c', '', '', 'dc', '', 'ew', '', 'ce', '', '', 2, 'zxdsaxa', NULL, '', ''),
+(36, 53, 19, 1, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 1, 'zxdsaxa', NULL, '', ''),
+(37, 6, 20, 1, NULL, NULL, NULL, NULL, NULL, NULL, '', '', '', '', '', '', 1, 'wwwwwwwwwwww', NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -669,6 +695,7 @@ CREATE TABLE `join_form` (
   `c39` varchar(100) DEFAULT NULL,
   `c40` varchar(100) DEFAULT NULL,
   `c41` varchar(2000) DEFAULT NULL,
+  `c42` varchar(30) NOT NULL,
   `id_p` int(11) DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
   `info` varchar(2000) DEFAULT NULL,
@@ -684,13 +711,14 @@ CREATE TABLE `join_form` (
 -- 转存表中的数据 `join_form`
 --
 
-INSERT INTO `join_form` (`id`, `num`, `c1`, `c2`, `c3`, `c4`, `c5`, `c6`, `c7`, `c8`, `c9`, `c10`, `c11`, `c12`, `c13`, `c14`, `c15`, `c16`, `c17`, `c18`, `c19`, `c20`, `c21`, `c22`, `c23`, `c24`, `c25`, `c26`, `c27`, `c28`, `c29`, `c30`, `c31`, `c32`, `c33`, `c34`, `c35`, `c36`, `c37`, `c38`, `c39`, `c40`, `c41`, `id_p`, `state`, `info`, `level1`, `level2`, `level3`, `level4`, `uid`, `position`) VALUES
-(16, 0, '1', '1', '1', '1', '1', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 675, 8, '', NULL, NULL, NULL, NULL, '', '/join_form/check//675.jpg'),
-(17, 0, '2', '民营企业', '民营企业', '民营企业', '1000万', '工业大学', 'a', '主任', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 674, 8, '', NULL, '专项设计1级', '网格三级', NULL, '', '/join_form/check//674.jpg'),
-(18, 0, '1', '1', '2', '3', '5', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 676, 6, '', NULL, NULL, NULL, NULL, '', '/join_form/check//676.jpg'),
-(19, 0, '刘宏刚', '民营企业', 'sssssss', '民营企业', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 677, 7, '', NULL, NULL, NULL, NULL, '', '/join_form/check//677.jpg'),
-(20, 0, '34', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 678, 4, '', NULL, NULL, NULL, NULL, '', '/join_form/check//678.jpg'),
-(21, NULL, 'c测试', '国有企业', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '44', '7', '', '2', '5', '8', '', '3', '6', '9', '', '', 679, 3, NULL, NULL, NULL, NULL, NULL, '', '/join_form/check//679.jpg');
+INSERT INTO `join_form` (`id`, `num`, `c1`, `c2`, `c3`, `c4`, `c5`, `c6`, `c7`, `c8`, `c9`, `c10`, `c11`, `c12`, `c13`, `c14`, `c15`, `c16`, `c17`, `c18`, `c19`, `c20`, `c21`, `c22`, `c23`, `c24`, `c25`, `c26`, `c27`, `c28`, `c29`, `c30`, `c31`, `c32`, `c33`, `c34`, `c35`, `c36`, `c37`, `c38`, `c39`, `c40`, `c41`, `c42`, `id_p`, `state`, `info`, `level1`, `level2`, `level3`, `level4`, `uid`, `position`) VALUES
+(16, 0, '1', '1', '1', '1', '1', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 675, 5, '', NULL, NULL, NULL, NULL, '', '/join_form/check//675.jpg'),
+(17, 0, '2', '民营企业', '民营企业', '民营企业', '1000万', '工业大学', 'a', '主任', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 674, 8, '', NULL, '专项设计1级', '网格三级', NULL, '', '/join_form/check//674.jpg'),
+(18, 0, '1', '1', '2', '3', '5', '4', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 676, 8, '', NULL, NULL, NULL, NULL, '', '/join_form/check//676.jpg'),
+(19, 0, '刘宏刚', '民营企业', 'sssssss', '民营企业', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 677, 8, '', NULL, NULL, NULL, NULL, '', '/join_form/check//677.jpg'),
+(20, 0, '34', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 678, 8, '', NULL, NULL, NULL, NULL, '', '/join_form/check//678.jpg'),
+(21, 0, 'c测试', '国有企业', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '44', '7', '', '2', '5', '8', '', '3', '6', '9', '', '', '', 679, 8, '', NULL, NULL, NULL, NULL, '', '/join_form/check//679.jpg'),
+(27, NULL, 'henanfdfdfdgvfdg', 'dfds', 'dd', 'sdfgds', 'fdgfd', 'gfg', 'fdgfd', 'gfdg', 'fdgfdg', 'gfd', 'fdgfdg', 'gfdgfd', 'gfd', 'fdgfd', 'fdgfd', 'gfdg', 'fgfd', 'fdg', 'fdgfd', 'g', 'fdgfd', 'gfd', 'gfd', 'gfdg', 'gfdg', 'gfdgfdg', 'dg', 'fdgf', 'gfd', 'gdfg', 'gfdgfd', 'gfd', 'fdg', 'rg', 'gfd', 'gfdg', 'fdgfd25', 'dfgfd', 'gfd', 'df', '250gfdgfd', '121321312gfdgfdgfdg', 681, 1, NULL, NULL, NULL, NULL, NULL, '', '/join_form/check//681.jpg');
 
 -- --------------------------------------------------------
 
@@ -873,7 +901,9 @@ CREATE TABLE `mo1` (
 INSERT INTO `mo1` (`id`, `c1`, `c2`, `c3`, `c4`, `c5`, `c6`, `c7`, `c8`, `c9`, `c10`, `c11`, `c12`, `c13`, `c14`, `c15`, `c16`, `c17`, `c18`, `c19`, `c20`, `c21`, `c22`, `c23`, `c24`, `c25`, `c26`, `c27`, `c28`, `c29`, `c30`, `c31`, `r1`, `r2`, `r3`, `r4`, `r5`, `r6`, `r7`, `r8`, `r9`, `r10`, `r11`, `r12`, `r13`, `r14`, `r15`, `r16`, `r17`, `r18`, `r19`, `r20`, `r21`, `r22`, `r23`, `r24`, `r25`, `r26`, `r27`, `r28`, `r29`, `r30`, `r31`, `r32`, `r33`, `r34`, `r35`, `r36`, `r37`, `r38`, `r39`, `id_p`, `state`, `info1`, `info2`, `result1`, `result2`) VALUES
 (16, '工业大学', '2018/2/6', '2222', '1', '222222', '22222', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'wwwwwwwwwwwww', '111111111111', '111111', '1111111111111', '11111111111111', '111111111111', '', '', '', '', '', '', '', '', '', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 674, 6, 'ahahahha', NULL, '', ''),
 (17, '1', '1', '民营企业', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 677, 6, '', NULL, '', ''),
-(18, 'aa', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 678, 3, NULL, NULL, NULL, NULL);
+(18, 'aa', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 678, 3, NULL, NULL, NULL, NULL),
+(19, 'zxdsaxa', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'zqs2qx', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 2, 4, '', NULL, NULL, NULL),
+(21, '单位名称', '成立时间', '单位地址', '现有等级', '营业执照注册号', '电话', '法定代表人', '职务', '职称', '企业负责人', '职务', '职称', '技术负责人', '职务', '职称', '第一申请级', '第二申请', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '单位名称	2', '2018/11/1', '单位地址2', '现有等级3', '营业执照注2', '34254543', '法定代表人2', '职务2', '职称2', '企业负责人2', '职务2', '职称2', '企业负责人2', '职务2', '职称2', '工程承包', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 681, 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1322,7 +1352,26 @@ INSERT INTO `secret` (`id`, `id_p`, `id_f`, `result`, `info`) VALUES
 (0, 5, 17, 1, '意见啊哈哈哈哈哈'),
 (0, 5, 18, 2, 'qewrstserest'),
 (0, 5, 19, 1, 'cvh'),
-(0, 5, 21, 1, '同意');
+(0, 5, 21, 1, '同意'),
+(0, 5, 22, 1, ''),
+(0, 5, 23, 1, ''),
+(0, 5, 24, 1, ''),
+(0, 5, 25, 1, ''),
+(0, 5, 26, 1, ''),
+(0, 5, 27, 1, ''),
+(0, 5, 28, 1, ''),
+(0, 5, 37, 1, ''),
+(0, 5, 38, 1, ''),
+(0, 5, 39, 1, ''),
+(0, 5, 40, 1, ''),
+(0, 5, 41, 1, ''),
+(0, 5, 42, 1, ''),
+(0, 5, 44, 1, ''),
+(0, 5, 45, 1, ''),
+(0, 5, 49, 1, ''),
+(0, 5, 50, 1, ''),
+(0, 5, 51, 1, ''),
+(0, 5, 52, 1, '');
 
 -- --------------------------------------------------------
 
@@ -1422,7 +1471,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `name`, `tel`, `wechat`, `category`, `group_w`, `psw`, `email`, `unit`, `uid`, `date`, `token`, `token_exptime`, `mail_activation_statu`) VALUES
 (2, '刘宏刚', '17801028173', NULL, '1', 0, '123456', '929557497@qq.com', NULL, 'test', '0000-00-00 00:00:00', '', 0, 0),
 (3, '蒋叶琪', NULL, NULL, '5', 0, '123456', '87826723@qq.com', NULL, 'manager', '2018-09-27 07:08:57', '', 0, 0),
-(5, '蒋叶琪', '', NULL, '2', 0, '123456', 'mishuchu@126.com', NULL, 'test2', '2018-09-27 16:20:41', '', 0, 0),
+(5, '蒋秘书', '', NULL, '2', 0, '123456', 'mishuchu@126.com', NULL, 'test2', '2018-10-16 05:19:37', '', 0, 0),
 (6, '周星', '', 'oDocjwVdriYItHM6p3zCsw8VmgUY', '3', 109, '123456', 'zhuanjia@126.com', NULL, 'test3', '2018-09-28 17:48:23', '', 0, 0),
 (7, '高航', '', NULL, '4', 0, '123456', 'lishihui@126.com', NULL, 'test4', '2018-09-27 16:37:29', '', 0, 0),
 (8, '', '', NULL, '1', 0, '123456', '', NULL, 'test6', '0000-00-00 00:00:00', '', 0, 0),
@@ -1465,7 +1514,9 @@ INSERT INTO `user` (`id`, `name`, `tel`, `wechat`, `category`, `group_w`, `psw`,
 (676, '1234456', '123456', NULL, '1', 0, '123456', '12344@qq.com', '1', NULL, '2018-09-29 05:35:57', '', 0, 0),
 (677, '11', '11', NULL, '1', 0, '11', '11', '11', NULL, '2018-09-29 05:39:29', '', 0, 0),
 (678, '22', '22', NULL, '1', 0, '22', '22', '22', NULL, '2018-09-29 05:52:01', '', 0, 0),
-(679, '1', '1', NULL, '1', 0, '1', '55', '1', NULL, '2018-10-12 10:47:28', '', 0, 0);
+(679, '1', '1', NULL, '1', 0, '1', '55', '1', NULL, '2018-10-12 10:47:28', '', 0, 0),
+(680, '胡洁', '1000000000', NULL, '1', 0, '000000', '357002761@qq.com', '北京工业大学', NULL, '2018-10-16 06:56:04', '', 0, 0),
+(681, '王圣杰', '19801371357', NULL, '1', 0, '123456', '1182878237', '北京', '王圣杰', '2018-10-29 11:36:27', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1587,7 +1638,7 @@ CREATE TABLE `wang2` (
 --
 
 INSERT INTO `wang2` (`id`, `c1`, `c2`, `c3`, `c4`, `c5`, `c6`, `c7`, `c8`, `c9`, `c10`, `c11`, `c12`, `c13`, `c14`, `c15`, `c16`, `c17`, `c18`, `c19`, `c20`, `c21`, `c22`, `c23`, `c24`, `c25`, `c26`, `c27`, `c28`, `c29`, `c30`, `c31`, `c32`, `id_p`, `state`, `info1`, `info2`, `position`, `position1`, `position2`, `position3`, `position4`, `result1`, `result2`) VALUES
-(1, 'beijnggongye', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 37, 5, '', NULL, '37.1.docx', '37.2.pdf', '37.3.zip', '37.4.zip', '37.5.zip', 'yiji', 'erji');
+(1, 'beijnggongye', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 37, 6, '', NULL, '37.1.docx', '37.2.pdf', '37.3.zip', '37.4.zip', '37.5.zip', 'yiji', 'erji');
 
 -- --------------------------------------------------------
 
@@ -1613,11 +1664,11 @@ CREATE TABLE `wangge2` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Indexes for dumped tables
+-- 转储表的索引
 --
 
 --
--- Indexes for table `application_form`
+-- 表的索引 `application_form`
 --
 ALTER TABLE `application_form`
   ADD PRIMARY KEY (`id_af`),
@@ -1627,7 +1678,7 @@ ALTER TABLE `application_form`
   ADD KEY `id_ctp4` (`id_ctp4`);
 
 --
--- Indexes for table `application_manage`
+-- 表的索引 `application_manage`
 --
 ALTER TABLE `application_manage`
   ADD PRIMARY KEY (`id_am`),
@@ -1635,13 +1686,13 @@ ALTER TABLE `application_manage`
   ADD KEY `id_state` (`id_state`);
 
 --
--- Indexes for table `company_result`
+-- 表的索引 `company_result`
 --
 ALTER TABLE `company_result`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `contact_person`
+-- 表的索引 `contact_person`
 --
 ALTER TABLE `contact_person`
   ADD PRIMARY KEY (`ID_CtP`),
@@ -1649,106 +1700,106 @@ ALTER TABLE `contact_person`
   ADD KEY `id_ccp` (`id_ccp`);
 
 --
--- Indexes for table `council_inform`
+-- 表的索引 `council_inform`
 --
 ALTER TABLE `council_inform`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `form_category` (`form_category`);
 
 --
--- Indexes for table `director`
+-- 表的索引 `director`
 --
 ALTER TABLE `director`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `event`
+-- 表的索引 `event`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `expert`
+-- 表的索引 `expert`
 --
 ALTER TABLE `expert`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `expertjoin`
+-- 表的索引 `expertjoin`
 --
 ALTER TABLE `expertjoin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_fenhuijianjie`
+-- 表的索引 `index_fenhuijianjie`
 --
 ALTER TABLE `index_fenhuijianjie`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_mojiegou`
+-- 表的索引 `index_mojiegou`
 --
 ALTER TABLE `index_mojiegou`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_suojiegou`
+-- 表的索引 `index_suojiegou`
 --
 ALTER TABLE `index_suojiegou`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_tongzhiwenjian`
+-- 表的索引 `index_tongzhiwenjian`
 --
 ALTER TABLE `index_tongzhiwenjian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_wanggejiegou`
+-- 表的索引 `index_wanggejiegou`
 --
 ALTER TABLE `index_wanggejiegou`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_youxiugongcheng`
+-- 表的索引 `index_youxiugongcheng`
 --
 ALTER TABLE `index_youxiugongcheng`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `index_zhuanjia`
+-- 表的索引 `index_zhuanjia`
 --
 ALTER TABLE `index_zhuanjia`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `inform2`
+-- 表的索引 `inform2`
 --
 ALTER TABLE `inform2`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `category` (`category`);
 
 --
--- Indexes for table `join_form`
+-- 表的索引 `join_form`
 --
 ALTER TABLE `join_form`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `join_process`
+-- 表的索引 `join_process`
 --
 ALTER TABLE `join_process`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `num` (`num`);
 
 --
--- Indexes for table `member_units`
+-- 表的索引 `member_units`
 --
 ALTER TABLE `member_units`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mo1`
+-- 表的索引 `mo1`
 --
 ALTER TABLE `mo1`
   ADD PRIMARY KEY (`id`),
@@ -1756,20 +1807,20 @@ ALTER TABLE `mo1`
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `mo2`
+-- 表的索引 `mo2`
 --
 ALTER TABLE `mo2`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mojiegou1`
+-- 表的索引 `mojiegou1`
 --
 ALTER TABLE `mojiegou1`
   ADD PRIMARY KEY (`id_m1`),
   ADD KEY `id_p` (`id_p`);
 
 --
--- Indexes for table `mojiegou2`
+-- 表的索引 `mojiegou2`
 --
 ALTER TABLE `mojiegou2`
   ADD PRIMARY KEY (`id_m2`),
@@ -1777,57 +1828,57 @@ ALTER TABLE `mojiegou2`
   ADD KEY `id_p` (`id_p`);
 
 --
--- Indexes for table `nav_1`
+-- 表的索引 `nav_1`
 --
 ALTER TABLE `nav_1`
   ADD PRIMARY KEY (`id_n1`);
 
 --
--- Indexes for table `nav_2`
+-- 表的索引 `nav_2`
 --
 ALTER TABLE `nav_2`
   ADD PRIMARY KEY (`id_n2`);
 
 --
--- Indexes for table `notification`
+-- 表的索引 `notification`
 --
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`id_n`);
 
 --
--- Indexes for table `person`
+-- 表的索引 `person`
 --
 ALTER TABLE `person`
   ADD PRIMARY KEY (`id_p`,`uid`),
   ADD KEY `person_ibfk_1` (`category_p`);
 
 --
--- Indexes for table `personnel`
+-- 表的索引 `personnel`
 --
 ALTER TABLE `personnel`
   ADD PRIMARY KEY (`id_personal`);
 
 --
--- Indexes for table `person_category`
+-- 表的索引 `person_category`
 --
 ALTER TABLE `person_category`
   ADD PRIMARY KEY (`category_P`);
 
 --
--- Indexes for table `pm1`
+-- 表的索引 `pm1`
 --
 ALTER TABLE `pm1`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `qiyepeixun`
+-- 表的索引 `qiyepeixun`
 --
 ALTER TABLE `qiyepeixun`
   ADD PRIMARY KEY (`id_q`),
   ADD KEY `uid` (`id_p`);
 
 --
--- Indexes for table `review`
+-- 表的索引 `review`
 --
 ALTER TABLE `review`
   ADD PRIMARY KEY (`id_r`),
@@ -1835,57 +1886,57 @@ ALTER TABLE `review`
   ADD KEY `id_p` (`id_p`);
 
 --
--- Indexes for table `secret`
+-- 表的索引 `secret`
 --
 ALTER TABLE `secret`
   ADD PRIMARY KEY (`id_p`,`id_f`);
 
 --
--- Indexes for table `state`
+-- 表的索引 `state`
 --
 ALTER TABLE `state`
   ADD PRIMARY KEY (`id_state`);
 
 --
--- Indexes for table `submit_paper`
+-- 表的索引 `submit_paper`
 --
 ALTER TABLE `submit_paper`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `title`
+-- 表的索引 `title`
 --
 ALTER TABLE `title`
   ADD PRIMARY KEY (`ID_T`);
 
 --
--- Indexes for table `user`
+-- 表的索引 `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `wang1`
+-- 表的索引 `wang1`
 --
 ALTER TABLE `wang1`
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `wang2`
+-- 表的索引 `wang2`
 --
 ALTER TABLE `wang2`
   ADD KEY `id` (`id`);
 
 --
--- Indexes for table `wangge1`
+-- 表的索引 `wangge1`
 --
 ALTER TABLE `wangge1`
   ADD PRIMARY KEY (`id_w1`),
   ADD KEY `id_p` (`id_p`);
 
 --
--- Indexes for table `wangge2`
+-- 表的索引 `wangge2`
 --
 ALTER TABLE `wangge2`
   ADD PRIMARY KEY (`id_w2`),
@@ -1901,191 +1952,229 @@ ALTER TABLE `wangge2`
 --
 ALTER TABLE `application_form`
   MODIFY `id_af` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+
 --
 -- 使用表AUTO_INCREMENT `application_manage`
 --
 ALTER TABLE `application_manage`
   MODIFY `id_am` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
 --
 -- 使用表AUTO_INCREMENT `company_result`
 --
 ALTER TABLE `company_result`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
 --
 -- 使用表AUTO_INCREMENT `contact_person`
 --
 ALTER TABLE `contact_person`
   MODIFY `ID_CtP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=199;
+
 --
 -- 使用表AUTO_INCREMENT `council_inform`
 --
 ALTER TABLE `council_inform`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- 使用表AUTO_INCREMENT `director`
 --
 ALTER TABLE `director`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
 --
 -- 使用表AUTO_INCREMENT `event`
 --
 ALTER TABLE `event`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- 使用表AUTO_INCREMENT `expert`
 --
 ALTER TABLE `expert`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
 --
 -- 使用表AUTO_INCREMENT `expertjoin`
 --
 ALTER TABLE `expertjoin`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
 --
 -- 使用表AUTO_INCREMENT `index_fenhuijianjie`
 --
 ALTER TABLE `index_fenhuijianjie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- 使用表AUTO_INCREMENT `index_mojiegou`
 --
 ALTER TABLE `index_mojiegou`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- 使用表AUTO_INCREMENT `index_suojiegou`
 --
 ALTER TABLE `index_suojiegou`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- 使用表AUTO_INCREMENT `index_tongzhiwenjian`
 --
 ALTER TABLE `index_tongzhiwenjian`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+
 --
 -- 使用表AUTO_INCREMENT `index_wanggejiegou`
 --
 ALTER TABLE `index_wanggejiegou`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- 使用表AUTO_INCREMENT `index_youxiugongcheng`
 --
 ALTER TABLE `index_youxiugongcheng`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- 使用表AUTO_INCREMENT `index_zhuanjia`
 --
 ALTER TABLE `index_zhuanjia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- 使用表AUTO_INCREMENT `inform2`
 --
 ALTER TABLE `inform2`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
 --
 -- 使用表AUTO_INCREMENT `join_form`
 --
 ALTER TABLE `join_form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- 使用表AUTO_INCREMENT `join_process`
 --
 ALTER TABLE `join_process`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- 使用表AUTO_INCREMENT `member_units`
 --
 ALTER TABLE `member_units`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- 使用表AUTO_INCREMENT `mo1`
 --
 ALTER TABLE `mo1`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- 使用表AUTO_INCREMENT `mo2`
 --
 ALTER TABLE `mo2`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- 使用表AUTO_INCREMENT `mojiegou1`
 --
 ALTER TABLE `mojiegou1`
   MODIFY `id_m1` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 使用表AUTO_INCREMENT `mojiegou2`
 --
 ALTER TABLE `mojiegou2`
   MODIFY `id_m2` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 使用表AUTO_INCREMENT `nav_1`
 --
 ALTER TABLE `nav_1`
   MODIFY `id_n1` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+
 --
 -- 使用表AUTO_INCREMENT `nav_2`
 --
 ALTER TABLE `nav_2`
   MODIFY `id_n2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+
 --
 -- 使用表AUTO_INCREMENT `notification`
 --
 ALTER TABLE `notification`
   MODIFY `id_n` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 使用表AUTO_INCREMENT `person`
 --
 ALTER TABLE `person`
   MODIFY `id_p` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+
 --
 -- 使用表AUTO_INCREMENT `personnel`
 --
 ALTER TABLE `personnel`
   MODIFY `id_personal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- 使用表AUTO_INCREMENT `pm1`
 --
 ALTER TABLE `pm1`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- 使用表AUTO_INCREMENT `qiyepeixun`
 --
 ALTER TABLE `qiyepeixun`
   MODIFY `id_q` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 使用表AUTO_INCREMENT `review`
 --
 ALTER TABLE `review`
   MODIFY `id_r` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
 --
 -- 使用表AUTO_INCREMENT `submit_paper`
 --
 ALTER TABLE `submit_paper`
   MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- 使用表AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=680;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=682;
+
 --
 -- 使用表AUTO_INCREMENT `wang1`
 --
 ALTER TABLE `wang1`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- 使用表AUTO_INCREMENT `wang2`
 --
 ALTER TABLE `wang2`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- 使用表AUTO_INCREMENT `wangge1`
 --
 ALTER TABLE `wangge1`
   MODIFY `id_w1` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 使用表AUTO_INCREMENT `wangge2`
 --
 ALTER TABLE `wangge2`
   MODIFY `id_w2` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- 限制导出的表
 --
@@ -2157,6 +2246,7 @@ ALTER TABLE `wangge1`
 ALTER TABLE `wangge2`
   ADD CONSTRAINT `wangge2_ibfk_1` FOREIGN KEY (`id_w1`) REFERENCES `wangge1` (`id_w1`),
   ADD CONSTRAINT `wangge2_ibfk_2` FOREIGN KEY (`id_p`) REFERENCES `person` (`id_p`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
