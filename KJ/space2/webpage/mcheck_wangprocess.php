@@ -8,6 +8,14 @@
 
 define('ROOT',dirname(__FILE__));
 $index=$_GET['index'];
+if($_POST['serachByState'] == 'yes'){
+	$searchStateResult = $_POST['searchState'];
+	if(sizeof($searchStateResult)>0){
+	    if(array_search("all",$searchStateResult)===false){
+			$stateSelected = ' where state in ('.implode(',',$searchStateResult).')';
+	}
+}
+}
 if($_POST['send1']=='yes') //管理员提交 必须放在重进入验证之后
 	{
 		$experts=$_POST['experts'];
@@ -585,30 +593,122 @@ echo"
 				</button>
 			</div></form></div>";	
 	}else if($index == '-2'){
-		echo "<div class='container-fluid'>
-		        <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
-				<tr>
-				  <td>序号</td>
-				  <td>公司名称</td>
-				  <td>评审结果</td>
-				</tr>";
-				$query="select j.level3,w.c1 from $sheet w,join_form j where w.state='6' and j.id_p = w.id_p";//id是企业的id ,id2是常务理事的id
-				$result=$db->query($query);
-				$num_results=$result->num_rows;
-				for($i=1;$i<=$num_results;$i++){
-					$row=$result->fetch_assoc();
-					echo"
-					  <tr>
-					    <td>".$i."</td> 
-						<td>".$row['c1']."</td>
-						<td>".$row['level3']."</td>												
-						</tr>
-					";
-				}
-				echo"</table>
-			 </div>
 		
-		";
+		$searchStateResultj = json_encode($searchStateResult);
+		echo <<< EOD
+<div>
+<div class="container-fluid">
+	<form enctype='multipart/form-data' action='' method='post'>
+		<label class="checkbox-inline">
+		  <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待审核
+		</label>
+		<label class="checkbox-inline">
+		  <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="2"> 秘书处意见反馈
+		</label>
+		<label class="checkbox-inline">
+		  <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="4"> 专家意见反馈
+		</label>
+		<label class="checkbox-inline">
+		  <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="6"> 理事会意见反馈
+		</label>
+		<label class="checkbox-inline">
+		<input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="7"> 审核成功
+	  </label>
+		<label class="checkbox-inline">
+		  <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
+		</label>
+		<input type='hidden' value='yes' name='serachByState'/>
+		<button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
+	</form>
+</div>
+<script type='text/javascript'>
+$searchStateResultj.forEach(function(v){
+   var checkBox = document.getElementsByName('searchState[]');
+   for(var i=0;i<checkBox.length;i++){
+	  if(checkBox[i].value == v){
+		  checkBox[i].checked = true;
+	  }
+   }
+})
+</script>
+EOD;
+		$select_table="";
+		if($nav1==6){
+			$select_table=mo1;
+		}else if($nav1==7){
+			$select_table=mo2;
+		}else if($nav1==8){
+			$select_table=wang1;
+		}else if($nav1==9){
+			$select_table=wang2;
+		}
+		$query = "select *from $select_table" . $stateSelected;
+		$result = $db->query($query);
+		$num_results = $result->num_rows;
+		echo <<< EOD
+<table id="joinTable"
+data-toggle="table"
+data-striped="ture"
+data-search="ture"
+data-pagination="ture"
+data-show-columns="true"
+class="text-center"
+>
+  <thead>
+	  <tr>
+		<th data-field="num">序号</th>
+		<th data-field="name">单位名称</th>
+		<th data-field="location">单位地址</th>
+		<th data-field="grade">现有等级</th>
+		<th data-field="firstGrade">第一申请级别</th>
+		<th data-field="secondGrade">第二申请级别</th>
+		<th data-field="state">状态</th>
+		<th>操作</th>
+	  </tr>
+ </thead>
+EOD;
+		for ($i = 1; $i <= $num_results; $i++) {
+			$row = $result->fetch_assoc();
+			$stateshow = state_show_mo1($row['state']);
+			echo <<< EOD
+	<tr>
+		<td>$i</td>
+		<td>$row[c1]</td>
+		<td>$row[c3]</td>
+		<td>$row[c4]</td>
+		<td>$row[c16]</td>
+		<td>$row[c17]</td>
+		<td>$stateshow</td>
+		<td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]">查看</a>
+	</tr>
+EOD;
+		}
+		echo "</table></div>";
+
+		// echo "<div class='container-fluid'>
+		//         <table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+		// 		<tr>
+		// 		  <td>序号</td>
+		// 		  <td>公司名称</td>
+		// 		  <td>评审结果</td>
+		// 		</tr>";
+		// 		$query="select j.level3,w.c1 from $sheet w,join_form j where w.state='6' and j.id_p = w.id_p";//id是企业的id ,id2是常务理事的id
+		// 		$result=$db->query($query);
+		// 		$num_results=$result->num_rows;
+		// 		for($i=1;$i<=$num_results;$i++){
+		// 			$row=$result->fetch_assoc();
+		// 			echo"
+		// 			  <tr>
+		// 			    <td>".$i."</td> 
+		// 				<td>".$row['c1']."</td>
+		// 				<td>".$row['level3']."</td>												
+		// 				</tr>
+		// 			";
+		// 		}
+		// 		echo"</table>
+		// 	 </div>
+		
+		// ";
 	}		
 		
 		
