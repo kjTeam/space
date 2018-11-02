@@ -27,7 +27,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 <div class='container-fluid' style='margin-top:5px;float:right'>
 <input id='btnPrint' class='noprint btn btn-info' type='button' value='打印' onclick='javascript:window.print();' style='font-weight:bold; text-decoration:none;cursor:pointer;float:right;!important; cursor:hand'/>
 </div>
-
 <div class='container-fluid hidden-xs ' style='margin-top:10px' >
 <ul class='nav nav-tabs' role='tablist' >
   <li role='presentation' class='active'><a href='#design'role='tab' data-toggle='tab'  style='color:#666; font-size:14px'>专项设计</a></li>
@@ -109,7 +108,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				<a href='webpage/mo2/" . $row['id_p'] . "+file1.doc'> 查看支撑材料1</a>
                 </td>
             </tr>
-
                 <tr >
                     <td colspan='1' rowspan='4'>
                        2
@@ -202,7 +200,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				<a href='webpage/mo2/" . $row['id_p'] . "+file6.doc'> 查看支撑材料6</a>
                 </td>
             </tr>
-
         <tr>
             <td colspan='2' >填表日期</td>
             <td colspan='2'>" . $row['c29'] . "</td>
@@ -211,7 +208,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
         </tr>
             </tbody>
         </table>";
-
   if ($category == 3) {
     echo "<table class='table table-bordered table-responsive text-center'>";
     for ($i = 0; $i < 6; $i++) {
@@ -227,11 +223,8 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
     }
     echo "</table>";
   }
-
-
   echo "</div>";
 		
-
 //上个表格是专项设计的表格，这个表格是工程承包的表格
   echo " 
 		  <div class='tab-pane fade' id='chengbao'>
@@ -313,7 +306,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				<a href='webpage/mo2/" . $row['id_p'] . "+file7.doc'> 查看支撑材料1</a>
                 </td>
             </tr>
-
                 <tr >
                     <td colspan='1' rowspan='5'>
                        2
@@ -437,7 +429,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 				<a href='webpage/mo2/" . $row['id_p'] . "+file12.doc'> 查看支撑材料6</a>
                 </td>
             </tr>
-
         <tr>
             <td colspan='2' >填表日期</td>
             <td colspan='2'>" . $row['r37'] . "</td>
@@ -446,13 +437,9 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
         </tr>
             </tbody>
         </table>";
-
 		
 //$location=2;
 //include "process.php";
-
-
-
   if ($category == 3) {
     echo "
 <table class='table table-bordered table-responsive text-center'>";
@@ -477,16 +464,12 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 			</div>
 		</form>";
   }
-
   echo "</div> </div>";
 }
 		//if($flag==1) echo "<input type='hidden' value='yes' name='flag'> "; 
-
 //这是手机端
-
   
 		//if($flag==1) echo "<input type='hidden' value='yes' name='flag'> "; 
-
 /*echo "
 <nav class='text-center'>
   <ul class='pagination'>
@@ -496,8 +479,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2) {
 </nav>*/
 echo "
  </div>";
-
-
 //下面是手机端的代码
 if ($_GET['index'] != 0 && $_GET['index'] != -1) {
   $location = 1;
@@ -590,7 +571,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 <tr><td>手机</td></tr>
 <tr><td>" . $row['c31'] . "</td></tr>
 			</tbody></table>";
-
   if ($category == 3) {
     echo "<table class='table table-bordered table-responsive text-center'>";
     for ($i = 0; $i < 6; $i++) {
@@ -609,7 +589,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 		</table>";
   }
   echo " </div>
-
  
   <div class='tab-pane fade' id='chengbao1'>
 		<table class='table table-bordered text-center table-responsive' name='chengbao' >
@@ -700,10 +679,8 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 <tr><td>" . $row['c38'] . "</td></tr>
 <tr><td>手机</td></tr>
 <tr><td>" . $row['c39'] . "</td></tr>
-
  <tbody>
  </table>";
-
   if ($category == 3) {
     echo "
 <table class='table table-bordered table-responsive text-center'>";
@@ -728,8 +705,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 			</div>
 		</form>";
   }
-
-
   echo "</div>";
   echo "</div></div>";
 } else if ($index == '0') {
@@ -740,7 +715,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
     echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
     exit();
   }
-
 //if($row1['state']==1)
 	//echo"<div class='container-fluid'><h3><span class='label label-warning'>您已向管理员投递，本次提交数据会覆盖上次数据</span></h3></div>";
 //if($row1['state']==2||$row1['state']==3)
@@ -785,7 +759,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  </td></tr>
         </tr> ";
     } else {
-
       echo " 
 				<tr>
             <td colspan='1' style='text-align:center;'>$i</td>
@@ -822,6 +795,344 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1) {
 echo "<div class='col-xs-9' style='float:right;margin-top:-22%;margin-right:2%;width:73%'>";
 $location = 2;
 include "process.php";
-
-include "process.php";
-  ?>
+echo "</div></div>";
+//下面是打印的代码
+echo "
+<div class='print1' >
+		 <table class='table-bordered text-center' width=100%;>
+            <tbody>
+			<h4 class='text-center'>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</h4>
+	<br/>
+            <tr>
+               <td colspan='2'>单位名称</td>
+                <td colspan='4'>" . $row['c1'] . "</td>
+                <td colspan='2'>成立时间</td>
+                <td colspan='4'>" . $row['c2'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2'>单位地址</td>
+                <td colspan='4'>" . $row['c3'] . "</td>
+                <td colspan='2'>现有等级</td>
+                <td colspan='4'>" . $row['c4'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2'>营业执照注册号</td>
+                <td colspan='4'>" . $row['c5'] . "</td>
+                <td colspan='2'>电   话</td>
+                <td colspan='4'>" . $row['c6'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2' >法定代表人</td>
+                <td colspan='2'>" . $row['c7'] . "</td>
+                <td colspan='1'>职务</td> <td colspan='2'>" . $row['c8'] . "</td>
+                <td colspan='3'>职称</td> <td colspan='2'>" . $row['c9'] . "</td>
+            </tr>
+               <tr>
+                   <td colspan='2' >企业负责人</td>
+                   <td colspan='2'>" . $row['c10'] . "</td>
+                   <td colspan='1'>职务</td> <td colspan='2'>" . $row['c11'] . "</td>
+                   <td colspan='3'>职称</td> <td colspan='2'>" . $row['c12'] . "</td>
+               </tr>
+               <tr>
+                   <td colspan='2' >技术负责人</td>
+                   <td colspan='2'>" . $row['c13'] . "</td>
+                   <td colspan='1'>职务</td> <td colspan='2'>" . $row['c14'] . "</td>
+                   <td colspan='3'>职称</td> <td colspan='2'>" . $row['c15'] . "</td>
+               </tr>
+            <tr>
+            <td colspan='2'>第一申请级别</td>
+                <td colspan='10'>" . $row['c16'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2'>第二申请级别</td>
+                <td colspan='10'>" . $row['c17'] . "</td>
+            </tr>
+            <tr >
+                <th class='text-center' colspan='3' >评定项目</th>
+                <th class='text-center' colspan='9'>内  容</th>
+            </tr>
+            <tr>
+                <td colspan='1' scope='row'>
+                    1
+                </td>
+                <td colspan='2'>
+                    资产规模
+                </td>
+                <td colspan='3'>
+                    注册资本金
+                </td>
+                <td colspan='6'>
+                    " . $row['c18'] . "
+                </td>
+ 
+            </tr>
+            <tr >
+                <td colspan='1' rowspan='4'>
+                       2
+                </td>
+                    <td colspan='2' rowspan='4'>
+                        从业人员
+                    </td>
+                    <td colspan='3'>从业人数</td>
+                    <td colspan='6'>
+                        " . $row['c19'] . "
+                    </td>
+            </tr>
+            <tr>
+                <td colspan='3'>总工职称证书号</td>
+                <td colspan='6'>
+                    " . $row['c20'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>总工程师主持的膜结构代表工程</td>
+                <td colspan='6'>
+                     " . $row['c21'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>工程技术人员情况</td>
+                <td colspan='6'>
+                     " . $row['c22'] . "
+                </td>				
+            </tr>
+            <tr >
+                <td colspan='1' rowspan='3'>
+                   3
+                </td>
+                <td colspan='2' rowspan='3'>
+                    工程业绩
+                </td>
+                <td colspan='3'>近三年完成的膜结构<br>展开面积及其总和</td>
+                <td colspan='6'>
+                    " . $row['c23'] . "
+                </td>				
+            </tr>
+            <tr>
+                <td colspan='3'>近六年完成的三项对应于申请等级的膜结构工程</td>
+                <td colspan='6'>
+                    " . $row['c24'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>曾获奖项</td>
+                <td colspan='6'>
+                     " . $row['c25'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='1'>4</td>
+                <td colspan='2'>技术装备</td>
+                <td colspan='3'>软件情况</td>
+                <td colspan='6'>  " . $row['c26'] . "</td>
+				
+            </tr>
+            <tr>
+                <td colspan='1'>5</td>
+                <td colspan='2'>质量管理</td>
+                <td colspan='3'>ISO9000证书号（或相应的质量标准）</td>
+                <td colspan='6'>  " . $row['c27'] . "</td>				
+            </tr>
+            <tr>
+                <td colspan='1'>6</td>
+                <td colspan='2'>质量事故</td>
+                <td colspan='9'>  " . $row['c28'] . "</td>				
+            </tr>
+        <tr>
+            <td colspan='2' >填表日期</td>
+            <td colspan='2'>" . $row['c29'] . "</td>
+            <td colspan='2'>联系人</td> <td colspan='2'>" . $row['c30'] . "</td>
+            <td colspan='3'>手机</td> <td colspan='1'>" . $row['c31'] . "</td>
+        </tr>
+            </tbody>
+        </table>";
+echo "
+<table class='table-bordered text-center'  width=100%; >
+            <tbody>
+			<h4 class='text-center' >中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</h4>
+	<br/>
+            <tr>
+               <td colspan='2'>单位名称</td>
+                <td colspan='3'>" . $row['r1'] . "</td>
+                <td colspan='2'>成立时间</td>
+                <td colspan='5'>" . $row['r2'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2'>单位地址</td>
+                <td colspan='3'>" . $row['r3'] . "</td>
+                <td colspan='2'>现有等级</td>
+                <td colspan='5'>" . $row['r4'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2'>营业执照注册号</td>
+                <td colspan='3'>" . $row['r5'] . "</td>
+                <td colspan='2'>电   话</td>
+                <td colspan='5'>" . $row['r6'] . "</td>
+            </tr>
+            <tr>
+                <td colspan='2' >法定代表人</td>
+                <td colspan='2'>" . $row['r7'] . "</td>
+                <td colspan='1'>职务</td> <td colspan='2'>" . $row['r8'] . "</td>
+                <td colspan='3'>职称</td> <td colspan='2'>" . $row['r9'] . "</td>
+            </tr>
+               <tr>
+                   <td colspan='2' >企业负责人</td>
+                   <td colspan='2'>" . $row['r10'] . "</td>
+                   <td colspan='1'>职务</td> <td colspan='2'>" . $row['r11'] . "</td>
+                   <td colspan='3'>职称</td> <td colspan='2'>" . $row['r12'] . "</td>
+               </tr>
+               <tr>
+                   <td colspan='2' >技术负责人</td>
+                   <td colspan='2'>" . $row['r13'] . "</td>
+                   <td colspan='1'>职务</td> <td colspan='2'>" . $row['r14'] . "</td>
+                   <td colspan='3'>职称</td> <td colspan='2'>" . $row['r15'] . "</td>
+               </tr>
+            <tr>
+                <td colspan='2'>申请类别</td>
+                <td colspan='10'>				
+                    " . $row['r16'] . " " . $row['r17'] . " " . $row['r18'] . " " . $row['r19'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>第一申请级别</td>
+                <td colspan='3'>" . $row['r20'] . "</td>
+                <td colspan='2'>第二申请级别</td>
+                <td colspan='4'>" . $row['r21'] . "</td>
+            </tr>
+            <tr >
+                <th class='text-center' colspan='3' >评定项目</th>
+                <th class='text-center' colspan='9'>内  容</th>
+				
+            </tr>
+            <tr>
+                <td colspan='1' scope='row'>
+                    1
+                </td>
+                <td colspan='2'>
+                    资产规模
+                </td>
+                <td colspan='3'>
+                    注册资本金
+                </td>
+                <td colspan='6'>
+                    " . $row['r22'] . "
+                </td>
+            </tr>
+                <tr >
+                    <td colspan='1' rowspan='5'>
+                       2
+                    </td>
+                    <td colspan='2' rowspan='5'>
+                        从业人员
+                    </td>
+                    <td colspan='3'>从业人数</td>
+                    <td colspan='6'>
+                       " . $row['r23'] . "
+                    </td>
+					
+                </tr>
+            <tr>
+                <td colspan='3'>总工职称证书号</td>
+                <td colspan='6'>
+                      " . $row['r24'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>总工程师主持的膜结构代表工程</td>
+                <td colspan='6'>
+                       " . $row['r25'] . "
+                </td>
+            </tr>
+			<tr>
+                <td colspan='3'>项目经理的人数与等级情况</td>
+                <td colspan='6'>
+                     " . $row['r26'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>工程技术人员情况</td>
+                <td colspan='6'>
+                       " . $row['r27'] . "
+                </td>
+				
+            </tr>
+            <tr>
+                <td colspan='1' rowspan='3'>
+                   3
+                </td>
+                <td colspan='2' rowspan='3'>
+                    工程业绩
+                </td>
+                <td colspan='3'>近三年完成的膜结构<br>展开面积及其总和</td>
+                <td colspan='6'>
+                      " . $row['r28'] . "
+                </td>
+				
+            </tr>
+            <tr>
+                <td colspan='3'>近六年完成的三项对应于申请等级的膜结构工程</td>
+                <td colspan='6'>
+                     " . $row['r29'] . "
+                </td>
+            </tr>
+            <tr>
+                <td colspan='3'>曾获奖项</td>
+                <td colspan='6'>
+                      " . $row['r30'] . "
+                </td>
+            </tr>
+			<tr >
+                <td colspan='1' rowspan='4'>
+                   4
+                </td>
+                <td colspan='2' rowspan='4'>
+                    技术装备
+                </td>
+                <td colspan='3'>加工车间规模</td>
+                <td colspan='6'>
+                   " . $row['r31'] . "
+                </td>
+				
+            </tr>
+            <tr>
+                <td colspan='3'>加工设备名称/数量</td>
+                <td colspan='6'>
+                   " . $row['r32'] . "
+                </td>
+            </tr>
+             <tr>
+                <td colspan='3'>安装设备名称/数量</td>
+                <td colspan='6'>
+                   " . $row['r33'] . "
+                </td>
+            </tr>
+			<tr>
+                <td colspan='3'>检验设备名称/数量</td>
+                <td colspan='6'>
+                   " . $row['r34'] . "
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan='1'>5</td>
+                <td colspan='2'>质量管理</td>
+                <td colspan='3'>ISO9000证书号（或相应的质量标准）</td>
+                <td colspan='6'>" . $row['r35'] . "</td>
+				
+            </tr>
+            <tr>
+                <td colspan='1'>6</td>
+                <td colspan='2'>质量事故</td>
+                <td colspan='9'>" . $row['r36'] . "</td>
+				
+            </tr>
+        <tr>
+            <td colspan='2' >填表日期</td>
+            <td colspan='2'>" . $row['r37'] . "</td>
+            <td colspan='2'>联系人</td> <td colspan='2'>" . $row['r38'] . "</td>
+            <td colspan='3'>手机</td> <td colspan='1'>" . $row['r39'] . "</td>
+        </tr>
+            </tbody>
+        </table>
+</div>";
+?>

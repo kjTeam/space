@@ -20,7 +20,6 @@ if ($location == 1) //用location取出四张表中相同的部分
             $query = "select * from $sheet where id=$index";
             $result = $db->query($query);
             $row = $result->fetch_assoc();
-
             //if( (($row['state']!=1)&&($nav1==7))   //nav1为7
             //||(($row['state']!=2)&&($nav1==8))  //nav1为8
             //||(($row['state']!=3)&&($nav1==9))  //nav1为9
@@ -79,7 +78,6 @@ if ($location == 1) //用location取出四张表中相同的部分
             exit();
         }
     }
-
     if ($_POST['send1'] == 'yes') //管理员提交 必须放在重进入验证之后
     {
         $experts = $_POST['experts'];
@@ -116,10 +114,8 @@ if ($_POST['send2'] == 'yes') //专家提交 重进入验证在expert.php 这个
     } else {
         echo "<h4><span class='label label-danger'>出错！请联系管理员！</span></h4>";
     }
-
     exit();
 }
-
 if ($_POST['send3'] == 'yes') //管理员将专家的结果提交至理事会。
 {
     $info = $_POST['info'];
@@ -145,19 +141,16 @@ if ($_POST['send4'] == 'yes') {
         $t = "t" . $i;
         $TA[$i] = $_POST[$t];
         $TA[$i] = addslashes($TA[$i]);
-
         $query1 = "update $sheet set state='5',result1='" . $RA[$i] . "',result2='" . $TA[$i] . "'  where id=" . $PA[$i] . "";
         $result1 = $db->query($query1);
     }
     $query = "replace into council_inform (headline1,headline2, preface,remark,state,form_category) values ('$p1','$p2','$p4','$p3','1','$category_f')";
     $result = $db->query($query);
-
     if ($result) {
         echo "<script language=javascript>alert('提交成功！'); location.href='http://www.cnass.org/space2/index.php?nav1=6';</script>";
     } else {
         echo "<script language=javascript>alert('出错！');</script>";
     }
-
     exit();
 }
 if ($_POST['send5'] == 'yes') {
@@ -196,7 +189,6 @@ if ($_POST['send5'] == 'yes') {
     } else {
         echo "<script language=javascript>alert('出错！'); </script>";
     }
-
     exit();
 }
 //if($_POST['send4']=='yes') //理事会提交，内容是从check_join.php 沾过来的
@@ -241,14 +233,11 @@ if ($_POST['send5'] == 'yes') {
 //echo "<h4><span class='label label-danger'>出现问题，请联系管理员</span></h4>";
 //exit();
 //}
-
 if ($location == '2') {
-
     if ($category == '5') //是管理员查看 注意下面select的name 必须带[]符号，post获得时将其去掉，但是获得的是一个数组，注意有s。noneselectedtext属性没有响应，可能需要js控制。
     {
         if ($index != '-1' && $index != '0' && $index != '-2') //不是投递给理事会或者理事会意见反馈
         {
-
             //index 是 结构表的索引
             $query = "select * from $sheet where id=$index";
             $result = $db->query($query);
@@ -257,7 +246,6 @@ if ($location == '2') {
             echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form enctype='' action='' method='post'>
 				<table class='table table-bordered table-responsive text-center noprint'>
-
 			 <tr>
 				<td colspan='2' >下一进度：</td>
 				<td colspan='10'>
@@ -278,7 +266,6 @@ if ($location == '2') {
                 echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form class='noprint' enctype='' action='' method='post'>
 					<select  name='experts[]' class='selectpicker show-tick form-control' multiple data-live-search='true' noneSelectedText='选择专家'>";
-
                 //这里展开专家列表，这种格式：<option value='专家的id'> 专家的name</option >
                 $query = "select id,name from user where category=3";
                 $db->query($query);
@@ -322,7 +309,6 @@ if ($location == '2') {
                 echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
                 exit();
             }
-
 //if($row1['state']==1)
             //echo"<div class='container-fluid'><h3><span class='label label-warning'>您已向管理员投递，本次提交数据会覆盖上次数据</span></h3></div>";
             //if($row1['state']==2||$row1['state']==3)
@@ -344,7 +330,6 @@ if ($location == '2') {
 			 <th colspan='6' style='text-align:center;width:14%'>单位名称</th>
 			  <th colspan='6' style='text-align:center;'>申报等级</th>
               <th colspan='6' style='text-align:center;'>评审结果</th>
-
         </tr>";
             //这里从mo1表中查找要投递给理事会的企业
             $num = $num_results;
@@ -367,7 +352,6 @@ if ($location == '2') {
 			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  </td></tr>
         </tr> ";
                 } else {
-
                     echo "
 				<tr>
             <td colspan='1' style='text-align:center;'>$i</td>
@@ -401,7 +385,6 @@ if ($location == '2') {
 		</form>
 		</div>";
         }
-
         $query1 = "select * from council_inform where form_category='1'";
         $result1 = $db->query($query1);
         $row1 = $result1->fetch_assoc();
@@ -451,7 +434,6 @@ if ($location == '2') {
                     } else if ($re == 2) {
                         echo "不同意";
                     }
-
                     echo "</td>";
                 }
                 echo "
@@ -509,7 +491,13 @@ if ($location == '2') {
 	})
 	</script>
 EOD;
-            $query = "select *from mo1" . $stateSelected;
+			$select_table="";
+			if($nav1==6){
+				$select_table=mo1;
+			}else if($nav1==7){
+				$select_table=mo2;
+			}
+			$query = "select *from $select_table" . $stateSelected;
             $result = $db->query($query);
             $num_results = $result->num_rows;
             echo <<< EOD
@@ -552,13 +540,11 @@ EOD;
             }
             echo "</table></div>";
         }
-
         //else if($row['state']==3) //nav==3 理事会结果查看
         //{
         //print_sod($index,$category_f);
         //}
         //投递给理事会的内容
-
     }
     /*else if($category==3)  //专家
     {
@@ -572,13 +558,11 @@ EOD;
     <td colspan='2' >支撑材料".($i+1)."意见：</td>
     <td colspan='10'>
     <textarea type='text' class='form-control'rows='2' name='judge".($i+1)."'></textarea>
-
     </td>
     </tr>
     ";
     }
     echo "
-
     </table>
     <div style='text-align: right;margin-bottom: 2%'>
     <input type='hidden' value='yes' name='send2'>
@@ -586,10 +570,8 @@ EOD;
     </button>
     </div>
     </form>";
-
     }
      */
-
     //else if($category==4) //理事会进入，这里是从上面管理员查看评审结果沾过来的
     //{
     //print_experts($index,$category_f);
