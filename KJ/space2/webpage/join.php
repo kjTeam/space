@@ -96,7 +96,7 @@ if($_POST["p44"]=='join') //检测是否是此表单提交
 			$PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
-		$result=insert("join_form",43,$PA,$id);	
+		$result=insert("join_form",42,$PA,$id);	
 		$query="update join_form set position = '$upfile1' where id_p=$id";
 		$result1=$db->query($query);
 		if($result && $result1) 
