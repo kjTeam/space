@@ -55,7 +55,7 @@ if(ifthereis("conpany_result","id_p=$id and join_result=='已入会'"))
 		exit();
 		}
 
-if($_POST["p42"]=='join') //检测是否是此表单提交
+if($_POST["p44"]=='join') //检测是否是此表单提交
 {
 	if($_FILES['userfile']['tmp_name']!='')
 	{
@@ -104,7 +104,7 @@ if($_POST["p42"]=='join') //检测是否是此表单提交
 			echo "<script language=javascript>alertAtuoClose();</script>";
 			 
 		}
-		else echo "<script language=javascript>swal('出现问题','请尝试重新输入');</script>";
+		else echo "<script language=javascript>swal('出现问题','请尝......试重新输入');</script>";
 	
 }
 if($_POST["p43"]=='update')
@@ -147,7 +147,7 @@ if($_POST["p43"]=='update')
 		$result=change2("join_form",43,$PA,1,$id);	
 		if($result) 
 		{
-			echo "<script language=javascript>alertAtuoClose();</script>";
+			echo "<script language=javascript>alertAtuoClose3();</script>";
 			 
 		}
 		else echo "<script language=javascript>swal('提示','出现问题，请尝试重新输入');</script>";
@@ -298,7 +298,7 @@ echo "
     </table>
 	<div style='text-align: right;margin-bottom: 2%'>";
 	if($num_results==0)
-	echo"<input type='hidden' value='join' name='p42'>";
+	echo"<input type='hidden' value='join' name='p44'>";
 	else
 	echo"<input type='hidden' value='update' name='p43'>";
     echo"<span class='must_wirte' id='notice' style='display:none'> 带星号的输入框不能为空  </span><button type='submit' class='btn btn-md btn-primary' style='margin-left:5px'>&nbsp;&nbsp; 提交 &nbsp; &nbsp;
@@ -577,7 +577,7 @@ echo "
 			<input type='file' class='form-control' name='userfile' id='userfile'/>
     </td></tr></table>
 	<div style='text-align: right;margin-bottom: 2%'>
-	<input type='hidden' value='join' name='p42'>
+	<input type='hidden' value='join' name='p44'>
 	<div class='col-xs-12' style='padding:5px;'> <input type='submit' class='btn btn-xs btn-primary form-control' value='提交'></input></div></div>
 	</form>
   </div> </div>"

@@ -75,6 +75,23 @@ function alertAtuoClose2(){
             }
         )
 }
+function alertAtuoClose3(){
+	swal({
+            title: '修改成功',
+            text: '3秒后自动关闭！',
+			width:500,
+            timer: 3000,
+			confirmButtonText: '确认'
+        }).then(
+            function () {},
+            // handling the promise rejection
+            function (dismiss) {
+                if (dismiss === 'timer') {
+                    console.log('I was closed by the timer')
+                }
+            }
+        )
+}
 function removeElement()
 {
 var state100 = document.getElementById("tab100").style.display;
