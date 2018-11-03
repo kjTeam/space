@@ -891,7 +891,18 @@ if($index=='-1')//当点击理事会结果的时候，传来index=-1
 		echo <<< EOD
 		<script type='text/javascript'>
 		function checkOption(id,str_accept,str_reject){
-			  swal(str_reject,str_accept);
+			var a = '<table><tr><td>管理员姓名</td><td>管理员意见</td></tr></table>';
+			var b = '<div style="width:100%;border:solid 1px #ccc;padding:10px"><p><strong>同意人及意见:</strong></p><br>'+str_accept +'</div>';
+			var c = '<div style="width:100%;border:solid 1px #ccc;padding:10px" margin><p><strong>不同意人及意见:</strong></p><br>'+str_reject +'</div>';
+			var string = b+c;
+			swal({
+				title: '意见显示',
+				html:string,
+				showCloseButton: true,
+				showCancelButton: true,
+				confirmButtonText:
+				  '<i class="fa fa-thumbs-up"></i> 确定！',
+			  });
 		}
 		</script>
 		<div class='container-fluid'>
