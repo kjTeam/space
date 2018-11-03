@@ -119,15 +119,18 @@ if($_POST['send2']=='yes')//秘书处填写意见
 }
 if($_POST['send22']=='yes')//如果秘书处已经填写完，要更改。
 {
-$result2=$_POST['result'];
+        $result2=$_POST['result'];
 		$result2=intval($result2);
 		$info2=$_POST['info2'];
 		$info2=addslashes($info2);
-$query = "update secret set info = '$info2',result='$result2'where id_f=$index and id_p=$id";
+        $query = "update secret set info = '$info2',result='$result2'where id_f=$index and id_p=$id";
+		$result=$db->query($query);	
+		$query = "update join_form set state = '3' where id=$index";
 		$result=$db->query($query);		
 		if ($result)
 	{
-			echo"<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
+			
+		echo"<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
 	}
 		else
 	{
@@ -506,6 +509,7 @@ echo"
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
 							<option value='1'> 提交待验证</option>
+							<option value='2'> 秘书处意见反馈</option>
 							<option value='3'> 秘书处意见反馈</option>
 							<option value='4'> 投递给理事会汇总名单</option>
 							<option value='5'> 理事会意见反馈</option>
