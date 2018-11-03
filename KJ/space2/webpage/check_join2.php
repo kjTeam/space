@@ -888,14 +888,14 @@ if ($index == '-1')//当点击理事会结果的时候，传来index=-1
 			var rej_one=new Array();
 			rej_one=str_reject.split("!");
 			acc_one=str_accept.split("!");
-			var tb_start='<div style="margin-left:2.5%;height:150px	;overflow:auto"><table style="border:1px solid 	#666666;text-align: center;width:95%"><tr style="border:1px solid #666666;"><td style="border:1px solid #666666;">姓名</td><td style="border:1px solid #666666;">是否同意</td><td style="border:1px solid #666666;">管理员意见</td></tr>';
+			var tb_start='<div style="margin-left:2.5%;height:150px	;overflow:auto"><table style="border:1px solid 	#666666;text-align: center;width:95%"><tr style="border:1px solid #666666;"><td style="border:1px solid #666666;">姓名</td><td style="border:1px solid #666666;">是否同意</td><td style="border:1px solid #666666;">意见</td></tr>';
 			var tb_row='';
 			for(var i=0;i<rej_one.length-1;i++){
 				var rej_two=new Array();
 				rej_two=rej_one[i].split(";");
 				tb_row +='<tr style="border:1px solid #666666;"><td style="border:1px solid #666666;">'+rej_two[0]+'</td><td style="border:1px solid 	#666666;">'+rej_two[1]+'</td><td style="border:1px solid #666666;">'+rej_two[2]+'</td></tr>'
 			}
-			
+
 			for(var i=0;i<acc_one.length-1;i++){
 				var acc_two=new Array();
 				acc_two=acc_one[i].split(";");
