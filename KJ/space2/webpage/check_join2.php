@@ -52,7 +52,7 @@ if ($category == '1') {
 				break;
 		}
 	} else {
-		echo "<script language=javascript>alert('尚未提交申请表');location.href='index.php?nav1=2&nav2=1';</script>"; //没有提交则退出
+		echo "<script language=javascript>swal('尚未提交申请表');location.href='index.php?nav1=2&nav2=1';</script>"; //没有提交则退出
 		exit();
 	}
 } else {
@@ -191,7 +191,7 @@ if ($_POST['send4'] == 'yes')//管理员最后通过审核，等待缴费证明�
 	if ($result1)
 		echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=5';</script>";
 	else
-		echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
+		echo "<script language=javascript>swal('提示','保存失败，请联系管理员');</script>";
 
 }
 
@@ -950,7 +950,7 @@ EOD;
 			$string_accept = "";
 			$string_reject = "";
 			while ($row3 = $reject->fetch_assoc()) {
-				$string_reject = $string_reject . $row3["name"].";不同意;" . $row3["info"] . ";!";
+				$string_reject = $string_reject . $row3["name"] . ";不同意;" . $row3["info"] . ";!";
 			}
 			$string_reject = "'" . $string_reject . "'";
 			while ($row4 = $accept->fetch_assoc()) {
@@ -958,6 +958,13 @@ EOD;
 			}
 			$string_accept = "'" . $string_accept . "'";
 			$c1 = "'" . $row2['id'] . "'";
+			for ($i = 1; $i <= $num_results; $i++)//大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
+			{
+				$row = $result->fetch_assoc();
+				$id1 = $row['id'];
+				$companyidd = "companyidd" . $i;
+				$state2 = "state2" . $i;
+			}
 			echo "
 	   <tr>
 		  <td>$i</td>
@@ -970,9 +977,10 @@ EOD;
 					 <option value='6'> 通过审核，等待缴费证明</option>
 					 <option value='9'> 未通过审核</option>
 				 </select>
+				 <input type='hidden' value='$id1' name='$companyidd'>
 		   </td>
 		   <td>
-		   <input type='text' class='btn  btn-default'  style='width:100%;height:100%' > 
+		   <input type='text' class='btn  btn-default'  style='width:100%;height:100%'  > 
 		   </td>
 	   </tr>
 ";
