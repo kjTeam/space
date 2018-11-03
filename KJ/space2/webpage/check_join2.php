@@ -1,7 +1,13 @@
+
 <?php
 $index=$_GET['index'];
 $nav1=$_GET['nav1'];
 $nav2=$_GET['nav2'];
+// $checkOption='';
+// if($_POST['checkOption']=='查看意见'){
+// 	echo'ssssssssss';
+	
+// }
 if($category=='1')
 {
 	 $query="select * from join_form where id_p=$id";
@@ -54,6 +60,7 @@ if($_POST['serachByState'] == 'yes'){
 	}
 }
 }
+
 if($_POST['send']=='yes')//管理员的意见
 {
        $result=$_POST['state'];
@@ -119,15 +126,18 @@ if($_POST['send2']=='yes')//秘书处填写意见
 }
 if($_POST['send22']=='yes')//如果秘书处已经填写完，要更改。
 {
-$result2=$_POST['result'];
+        $result2=$_POST['result'];
 		$result2=intval($result2);
 		$info2=$_POST['info2'];
 		$info2=addslashes($info2);
-$query = "update secret set info = '$info2',result='$result2'where id_f=$index and id_p=$id";
+        $query = "update secret set info = '$info2',result='$result2'where id_f=$index and id_p=$id";
+		$result=$db->query($query);	
+		$query = "update join_form set state = '3' where id=$index";
 		$result=$db->query($query);		
 		if ($result)
 	{
-			echo"<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
+			
+		echo"<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
 	}
 		else
 	{
@@ -506,6 +516,7 @@ echo"
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
 							<option value='1'> 提交待验证</option>
+							<option value='2'> 秘书处意见反馈</option>
 							<option value='3'> 秘书处意见反馈</option>
 							<option value='4'> 投递给理事会汇总名单</option>
 							<option value='5'> 理事会意见反馈</option>
@@ -876,9 +887,24 @@ if($index=='-1')//当点击理事会结果的时候，传来index=-1
 	{
 	echo"<h4><span class='label label-info'>尚未有企业投递</span></h4>";
 	exit();
-	}
-	else{
+	}else{
 		echo <<< EOD
+		<script type='text/javascript'>
+		function checkOption(id,str_accept,str_reject){
+			var a = '<table><tr><td>管理员姓名</td><td>管理员意见</td></tr></table>';
+			var b = '<div style="width:100%;border:solid 1px #ccc;padding:10px"><p><strong>同意人及意见:</strong></p><br>'+str_accept +'</div>';
+			var c = '<div style="width:100%;border:solid 1px #ccc;padding:10px" margin><p><strong>不同意人及意见:</strong></p><br>'+str_reject +'</div>';
+			var string = b+c;
+			swal({
+				title: '意见显示',
+				html:string,
+				showCloseButton: true,
+				showCancelButton: true,
+				confirmButtonText:
+				  '<i class="fa fa-thumbs-up"></i> 确定！',
+			  });
+		}
+		</script>
 		<div class='container-fluid'>
 		   <form enctype='multipart/form-data' action='' method='post'>
 		   <h3 class='text-center'style='line-height:8px'>中国钢结构协会空间结构分会</h3>
@@ -895,9 +921,10 @@ if($index=='-1')//当点击理事会结果的时候，传来index=-1
 					<tr>
 					<td>序号</td>
 					<td>公司名称</td>
-					<td>意见</td>
-					<td>意见</td>
-					<td>操作</td>
+					<td>人数</td>
+					<td>意见</td>					
+					<td>审核</td>
+					<td>管理员意见</td>
 					</tr>
 			   
 EOD;
@@ -907,25 +934,38 @@ EOD;
    for($i=1;$i<=$num_results2;$i++){
 	  $row2 = $result2->fetch_assoc();
 	  $id_f = $row2['id'];
-	  $query_accept = "select * from director where form_category=0 and id_f='$id_f' and result = 1";
-	  $query_reject = "select * from director where form_category=0 and id_f='$id_f' and result = 2";
+	  $query_accept = "select a.*,u.name from director a, user u where a.form_category=0 and a.id_f='$id_f' and a.result = 1 and a.id_p =u.id";
+	  $query_reject = "select a.*,u.name from director a, user u where a.form_category=0 and a.id_f='$id_f' and a.result = 2 and a.id_p =u.id";	
 	  $accept=$db->query($query_accept);
 	  $reject=$db->query($query_reject);
 	  $num_accept=$accept->num_rows;
 	  $num_reject=$reject->num_rows;
+	  $string_accept = "";
+	  $string_reject = "";
+	  while($row3= $reject->fetch_assoc()) {		  
+		$string_reject = $string_reject."id:".$row3["id_f"].";姓名:".$row3["name"].";不同意:".$row3["result"].";意见:".$row3["info"].";!";	
+		}
+        $string_reject = "'".$string_reject."'";
+		while($row4= $accept->fetch_assoc()) {		  
+			$string_accept = $string_accept. "id:".$row4["id_f"].";name:".$row4["name"].";同意:".$row4["result"].";意见:". $row4["info"].";!";	
+		}
+        $string_accept = "'".$string_accept."'";   
+		$c1 = "'".$row2['id']."'";
 	  echo"
 	   <tr>
 		  <td>$i</td>
 		  <td>".$row2['c1']."</td>
 		  <td>同意:$num_accept 人;不同意:$num_reject 人</td>
-		  <td>
+		  <td><input type='button' value='查看意见' onclick=checkOption($c1,$string_accept,$string_reject)></td>
+
+		  <td width='12%'>
 			   <select class='form-control' data-style='btn-primary' name='$state2'>
 					 <option value='6'> 通过审核，等待缴费证明</option>
 					 <option value='9'> 未通过审核</option>
 				 </select>
 		   </td>
 		   <td>
-		   <button class='btn btn-xs btn-default'>查看详细信息</button>
+		   <input type='text' class='btn  btn-default'  style='width:100%;height:100%' > 
 		   </td>
 	   </tr>
 ";
@@ -1106,7 +1146,9 @@ echo"</tbody></table>
 			</div>
 		</form>
 
-</div>";
+</div>
+
+";
 
 }
 ?>
