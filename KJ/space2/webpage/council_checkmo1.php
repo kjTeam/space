@@ -15,11 +15,13 @@ $id=$_SESSION['id'];
            // exit();
 			//}
 //查询投递给理事会的企业，result1不要改动。
-$query = "select * from mo1 where state='5'";
-                $result1=$db->query($query);
+                $query1 = "select * from mo1_chengbao where state='7'";
+                $result1=$db->query($query1);
 				$num_results1=$result1->num_rows;
-
-				if($num_results1==0)
+				$query = "select * from mo1_zhuanxiang where state='7'";
+				$result=$db->query($query);
+				$num_results=$result->num_rows;
+				if(($num_results1 + $num_results)==0)
 			{
 		    echo"<h3><span class='label label-warning'>管理员尚未投递</span></h3>";
             exit();
@@ -33,35 +35,14 @@ if($_POST['send']=='yes')
 			$str="p".$i;
 			$PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);//需要问孙老师理事会的名字需要更改吗？
-$query2 = "replace into director (id_p,id_f,result,form_category) values ('".$id."' ,'".$row3['id']."','".$PA[$i]."','1')";
-   $result2=$db->query($query2);
-   }
-				//将每个企业的join_form中的state更新为5,之前要判断是否所有的理事都评价完
-	 //$query = "select * from user where category='4'";
-		//$result = $db->query($query);
-		//$num_results = $result->num_rows;
-		//$directornum = $num_results;//找出有多少理事.这里不需要判断是否所有理事都是平价完了。所以一开始管理员投递的时候就要插入director表，然后将state判0，然后如果评价完则显示1.再将mo1表中的state改为5.
-		
-		//$num_results = $result->num_rows;
-		//$companynum = $num_results;//找出有多少企业评价完
-		//if($companynum==$directornum)
-			//{
-//$query3 = "update mo1 set state='5' where id = '".$row3['id']."'"; 
-//$result3=$db->query($query3);
-		//}
-		
-		//使council_inform的state置为2，则理事会投递成功。理事界面将不出现该表格。
-///if($companynum==$directornum)
-	//{
-//$query4 = "update council_inform set state='2' where form_category=1";
-//$result4 = $db->query($query4);
-	//}
-if($result)
+            $query2 = "replace into director (id_p,id_f,result,form_category) values ('".$id."' ,'".$row3['id']."','".$PA[$i]."','1')";
+            $result2=$db->query($query2);
+        }
+        if($result)
 			echo "<h3><span class='label label-success'>保存成功</span></h3>";
 		else
 			echo "<h3><span class='label label-danger'>出现问题，请联系管理员</span></h3>";
-exit();
-
+        exit();
   }
   $query = "select * from council_inform where form_category=1";
 		$result = $db->query($query);
@@ -136,9 +117,8 @@ echo"
 					</select> <script  type='text/javascript'> document.getElementById('$state')[".$ww."].selected=true; </script></td> </tr>
         "; 
 						}
-						echo"
-		
-        ";}
+		}
+
 $query3 = "select * from user where id = '$id'"; 
 $result3=$db->query($query3);
 $row3=$result3->fetch_assoc(); 				

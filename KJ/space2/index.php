@@ -47,9 +47,12 @@
             text: '3秒后自动关闭！',
 			width:500,
             timer: 3000,
+			type: "success",
 			confirmButtonText: '确认'
         }).then(
-            function () {},
+            function () {
+				window.location.href = '';
+			},
             // handling the promise rejection
             function (dismiss) {
                 if (dismiss === 'timer') {
@@ -565,10 +568,83 @@ textarea{outline:none;resize:none;}
 			echo"</div>";
 		    }
      echo"</div>";
+	}else if($row['query']=='sercret_checkmo1'){
+		echo" <div class='list-group'style='margin-top:15px;'>";
+		$query="select * from mo1_zhuanxiang where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>专项设计</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			echo $row_r[result];
+			if($row_r['result']!=''){
+				echo"<span><img src='right.png'>已审核</span>";
+			}
+			echo"</a>";
+		}
+        $query="select * from mo1_chengbao where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>工程承包</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result->fetch_assoc();
+			if($row_r['result']!=''){
+				echo"<span><img src='right.png'>已审核</span>";
+			}
+			echo"</a>";
+		}
+	}else if($row['query'] == 'expert_check'){
+		echo" <div class='list-group'style='margin-top:15px;'>";
+		$query="select * from mo1_zhuanxiang where state = 4 or state = 5 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>专项设计</span>";
+			$query1="select s1 from expert where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['s1']!=''){
+				echo"<span><img src='right.png'>已审核</span>";
+			}
+			echo"</a>";
+		}
+        $query="select * from mo1_chengbao where state = 4 or state = 5 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>工程承包</span>";
+			$query1="select result from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result->fetch_assoc();
+			if($row_r['s1']!=''){
+				echo"<span><img src='right.png'>已审核</span>";
+			}
+			echo"</a>";		
+		}
+		
+		
+		echo"</div>";
+	
+	
 	}
-				
 	else{
-				$query=$row['query'];//得到检索语句		
+				$query=$row['query'];//得到检索语句	 现在没有用了	
 					$query=str_replace('$id',$id,$query);  //数据库语句中有的地方会用到一些变量，用到什么在这里加。
 					//这里接收post数据，如果有key提交，在下段程序中将query改变
 					if($_POST['change_key']=='yes')
@@ -582,25 +658,22 @@ textarea{outline:none;resize:none;}
 					echo" <div class='list-group'style='margin-top:15px;'>";
 					for($i=0;$i<$num_results;$i++) //拾取每一个检索元素
 					{
-
 						$row2=$result->fetch_row(); //注意这里的读取函数！这个函数返回的数组只可以用下标提取！fetch_assoc只可以用关键字提取！
 						echo "
                       
 						<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字
 						if($category==2)
 						{
-						$query1="select * from secret where id_p=$id and id_f=$row2[0]";
-						
-                         $result1=$db->query($query1);
-                        $num_results1=$result1->num_rows;
-     
-						if($num_results1!=0)
+						 $query1="select * from secret where id_p=$id and id_f=$row2[0]";
+						 $result1=$db->query($query1);					
+						 $num_results1=$result1->num_rows;
+						 if($num_results1!=0)
 							{
 						     echo"<span style='float:right'><img src='right.png'>已审核</span>";
 						    }
 						}
+						//秘书处审核膜评审和膜复审的时候，需要在后面标注，是专项设计还是工程承包
 						
-
 						echo"</a>";
 					}
 					echo"</div>";

@@ -2,7 +2,7 @@
 	function create_database()
 	{
 
-		$db=new mysqli('localhost:3360','root','123456','space');
+		$db=new mysqli('localhost','root','123456','space');
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
 			exit();
@@ -181,8 +181,8 @@ function insert3($sheet,$n,$PA,$joinid) //将数据插入数据库表中，数�
 	}
 	function print_experts($index,$category_f) //打印专家的评审意见，第一参是expert表中的id_f,第二参是form_category
 	{
-		$db=create_database();
-			$query="select * from expert where id_f=$index and form_category=$category_f";
+		    $db=create_database();
+			$query="select * from expert where id_f=$index and form_category='$category_f'";
 			$result=$db->query($query);
 			$num_results=$result->num_rows;
 			echo "
@@ -231,7 +231,7 @@ function insert3($sheet,$n,$PA,$joinid) //将数据插入数据库表中，数�
 
 function print_experts3($index,$category_f,$q) //打印专家的评审意见，第一参是expert表中的id_f,第二参是form_category
 	{
-		$db=create_database();
+		    $db=create_database();
 			$query="select * from expert where id_f=$index and form_category=$category_f";
 			$result=$db->query($query);
 			$num_results=$result->num_rows;
@@ -398,13 +398,12 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		switch ($i1)
 		{
 			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num."</span></h5>";break;			
-			case 2:echo"<h5 class='list-group-item' >等待秘书处反馈<span class='badge'>".$num_results."</span></h5>";break;
-			case 3:echo"<h5 class='list-group-item' >秘书处意见反馈<span class='badge'>".$num_results."</span></h5>";break;
-			case 4:echo"<h5 class='list-group-item' >分配给专家<span class='badge'>".$num_results."</span></h5>";break;
-			case 5:echo"<h5 class='list-group-item' >专家意见反馈<span class='badge'>".$num_results."</span></h5>";break;			
-			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
-			case 7:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
-			case 8:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>审核成功<span class='badge'>".$num_results."</span></a>";break; 
+			case 2:echo"<h5 class='list-group-item' >等待秘书处反馈<span class='badge'>".$num."</span></h5>";break;
+			case 3:echo"<h5 class='list-group-item' >秘书处意见反馈<span class='badge'>".$num."</span></h5>";break;
+			case 4:echo"<h5 class='list-group-item' >等待专家审核<span class='badge'>".$num."</span></h5>";break;
+			case 5:echo"<h5 class='list-group-item' >专家意见反馈<span class='badge'>".$num."</span></h5>";break;			
+			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num."</span></a>";break;
+			case 7:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num."</span></a>";break; 
 			default:break;
 		}
 		echo"<div>";

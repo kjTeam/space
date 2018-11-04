@@ -3,25 +3,25 @@ session_start();
 $category = $_SESSION['category'];
 $id = $_SESSION['id'];
 $sheet = $_GET['type'];
-if ($_POST['send2'] == 'yes') //专家提交 重进入验证在expert.php 这个可以放在前面，但是为了整齐就放在这里了，数据库会多加载一次。
-{
-    for ($i = 0; $i < 6; $i++) {
-        $str = "judge" . ($i + 1);
-        $s[$i] = $_POST[$str];
-        $str1 = "judge1" . ($i + 1);
-        $s1[$i] = $_POST[$str1];                  //获取打分
-    }
-    $info = $_POST['info'];
-    $info = addslashes($info);
-    $query = "update expert set s1='" . $s[0] . "',s2='" . $s[1] . "',s3='" . $s[2] . "',s4='" . $s[3] . "',s5='" . $s[4] . "',s6='" . $s[5] . "',s6='" . $s1[0] . "',s7='" . $s1[1] . "',s8='" . $s1[2] . "',s9='" . $s1[3] . "',s10='" . $s1[4] . "',s11='" . $s1[5] . "',state='2' where id=$index"; //注意这里变化的是expert表的state而不是form表的                                       state
-    $result = $db->query($query);
-    $query = "update $sheet set state=3 where id=$id_f";
-    $db->query($query);
-    if ($result)
-        echo "<script language=javascript>alert('提交成功！'); </script>";
-    else echo "<script language=javascript>alert('出错！请联系管理员'); </script>";
-    exit();
-}
+// if ($_POST['send2'] == 'yes') //专家提交 重进入验证在expert.php 这个可以放在前面，但是为了整齐就放在这里了，数据库会多加载一次。
+// {
+//     for ($i = 0; $i < 6; $i++) {
+//         $str = "judge" . ($i + 1);
+//         $s[$i] = $_POST[$str];
+//         $str1 = "judge1" . ($i + 1);
+//         $s1[$i] = $_POST[$str1];                  //获取打分
+//     }
+//     $info = $_POST['info'];
+//     $info = addslashes($info);
+//     $query = "update expert set s1='" . $s[0] . "',s2='" . $s[1] . "',s3='" . $s[2] . "',s4='" . $s[3] . "',s5='" . $s[4] . "',s6='" . $s[5] . "',s6='" . $s1[0] . "',s7='" . $s1[1] . "',s8='" . $s1[2] . "',s9='" . $s1[3] . "',s10='" . $s1[4] . "',s11='" . $s1[5] . "',state='2' where id=$index"; //注意这里变化的是expert表的state而不是form表的                                       state
+//     $result = $db->query($query);
+//     $query = "update $sheet set state=3 where id=$id_f";
+//     $db->query($query);
+//     if ($result)
+//         echo "<script language=javascript>alert('提交成功！'); </script>";
+//     else echo "<script language=javascript>alert('出错！请联系管理员'); </script>";
+//     exit();
+// }
 if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2 || $category == 1) {
     $location = 1;
     if($category != 1){
@@ -207,21 +207,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2 || $cate
             </tbody>
         </table>";
 
-    if ($category == 3) {
-        echo "<table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
-				<tr>
-				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
-				<td colspan='10'>
-				<textarea type='text' class='form-control'rows='2' name='judge" . ($i + 1) . "'></textarea>
-				</td>
-				</tr>
-			";
-        }
-        echo "			
-		</table></form>";
-    }
     echo "</div>"; 
     //手机端代码
     echo "
@@ -307,21 +292,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2 || $cate
     <tr><td>" . $row['c31'] . "</td></tr>
                 </tbody></table>";
     
-        if ($category == 3) {
-            echo "<table class='table table-bordered table-responsive text-center'>";
-            for ($i = 0; $i < 6; $i++) {
-                echo "
-                    <tr>
-                    <td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
-                    <td colspan='10'>
-                    <textarea type='text' class='form-control'rows='2' name='judge" . ($i + 1) . "'></textarea>
-                    </td>
-                    </tr>
-                ";
-            }
-            echo "			
-            </table>";
-        }
         echo " </div>";
 }
 if($sheet =='mo1_chengbao' || $category == 1){
@@ -547,29 +517,7 @@ if($sheet =='mo1_chengbao' || $category == 1){
  </tr>
      </tbody>
  </table>";
-if ($category == 3) {
- echo "
-<table class='table table-bordered table-responsive text-center'>";
- for ($i = 0; $i < 6; $i++) {
-     echo "
-         <tr>
-         <td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
-         <td colspan='10'>
-         <textarea type='text' class='form-control'rows='2' name='judge1" . ($i + 1) . "'></textarea>
-             
-         </td>
-         </tr>
-     ";
- }
- echo "			
- </table>
-     <div style='text-align: right;margin-bottom: 2%'>
-         <input type='hidden' value='yes' name='send2'>
-         <button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
-         </button>
-     </div>
- </form>";
-}
+
 echo "</div>";
 //手机端代码
 echo"<div class='container-fluid visible-xs noprint' >
@@ -664,22 +612,6 @@ echo"<div class='container-fluid visible-xs noprint' >
 <tr><td>" . $row['c39'] . "</td></tr>
  <tbody>
  </table>";
-    if ($category == 3) {
-        echo "
-        <form enctype='multipart/form-data'  action='' method='post'>
-        <table class='table table-bordered table-responsive text-center'>";
-        for ($i = 0; $i < 6; $i++) {
-            echo "
-				<tr>
-				<td colspan='2' >支撑材料" . ($i + 1) . "意见：</td>
-				<td colspan='10'>
-				<textarea type='text' class='form-control'rows='2' name='judge1" . ($i + 1) . "'></textarea>
-				</td>
-				</tr>
-			";
-        }
-        echo "</table></form></div>";
-}
 echo "
 </div>";
 }
