@@ -87,7 +87,7 @@ if ($_POST['send'] == 'yes')//管理员的意见
 
 		$result2 = $db->query($query2);
 		if ((!$result2)) {
-			echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
+			echo "<script language=javascript>swal('保存失败','请联系管理员');</script>";
 			exit();
 		}
 	}
@@ -148,7 +148,7 @@ if ($_POST['send22'] == 'yes')//如果秘书处已经填写完，要更改。
 
 		echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
 	} else {
-		echo "<script language=javascript>alert('保存失败，请联系管理员');</script>";
+		echo "<script language=javascript>swal('保存失败','请联系管理员');</script>";
 	}
 }
 if ($_POST['send3'] == 'yes')//管理员投递给理事会的过程
@@ -177,19 +177,22 @@ if ($_POST['send4'] == 'yes')//管理员最后通过审核，等待缴费证明�
 	$result = $db->query($query);
 	$num_results = $result->num_rows;
 	for ($i = 1; $i <= $num_results; $i++) {
-		$companyidd = "companyidd" . $i;
+		$opinion="opinion".$i;     //遍历管理员意见
+		$OP[$i]=$_POST[$opinion];
+		$OP[$i]=addslashes($OP[$i]);
+		$companyidd = "companyidd" . $i;          //遍历公司ID 
 		$CO[$i] = $_POST[$companyidd];
 		$CO[$i] = addslashes($_POST[$companyidd]);
-		$state2 = "state2" . $i;
+		$state2 = "state2" . $i;           //遍历状态
 		$state2[$i] = $_POST[$state2];
 		$state2[$i] = addslashes($state2[$i]);
-		$query1 = "update join_form set state = '" . $state2[$i] . "' where id='" . $CO[$i] . "'";
+		$query1 = "update join_form set opinion='".$OP[$i]."', state = '" . $state2[$i] . "' where id='" . $CO[$i] . "'";
 		$result1 = $db->query($query1);
 	}
  //$query2 = "update council_inform set state = '3' where form_category=0";
 	//$result2=$db->query($query2);
 	if ($result1)
-		echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=5';</script>";
+		echo "<script language=javascript>alertAtuoClose4();location.href='index.php?nav1=5';</script>";
 	else
 		echo "<script language=javascript>swal('提示','保存失败，请联系管理员');</script>";
 
@@ -958,13 +961,10 @@ EOD;
 			}
 			$string_accept = "'" . $string_accept . "'";
 			$c1 = "'" . $row2['id'] . "'";
-			for ($i = 1; $i <= $num_results; $i++)//大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
-			{
-				$row = $result->fetch_assoc();
-				$id1 = $row['id'];
-				$companyidd = "companyidd" . $i;
-				$state2 = "state2" . $i;
-			}
+			$id1= $row2['id'];
+			$companyidd="companyidd".$i;
+			$state2="state2".$i;
+			$opinion="opinion".$i;   //意见
 			echo "
 	   <tr>
 		  <td>$i</td>
@@ -980,7 +980,7 @@ EOD;
 				 <input type='hidden' value='$id1' name='$companyidd'>
 		   </td>
 		   <td>
-		   <input type='text' class='btn  btn-default'  style='width:100%;height:100%'  > 
+		   <input type='text'  style='width:100%;height:100%' value='".$row2['opinion']."' name='$opinion' > 
 		   </td>
 	   </tr>
 ";
@@ -1111,10 +1111,10 @@ if ($index == '-2' || $index == '-3')//这是已入会和未入会的统计
 <tr>
 <td colspan=''><strong>序号</strong></td>
 <td colspan=''><strong>公司名称</strong></td>
-<td colspan=''><strong>代表人</strong></td>
 <td colspan=''><strong>联系人</strong></td>
-<td colspan=''><strong>成立时间</strong></td>
-<td colspan=''> </td>
+<td colspan=''><strong>联系方式</strong></td>
+<td colspan=''><strong>未通过意见</strong></td>
+<td colspan=''> <strong>审核</strong></td>
 </tr> ";
 	for ($i = 0; $i < $num_results; $i++) {
 		$state = "state" . $i;
@@ -1123,9 +1123,9 @@ if ($index == '-2' || $index == '-3')//这是已入会和未入会的统计
 		echo "<tr>
 	     <td colspan=''>" . ($i + 1) . "</td>
          <td colspan=''>" . $row['c1'] . "</td>
-         <td colspan=''>" . $row['c7'] . "</td>
          <td colspan=''>" . $row['c12'] . "</td>
-         <td colspan=''>" . $row['c19'] . "</td>
+         <td colspan=''>" . $row['c16'] . "</td>
+         <td colspan=''>" . $row['opinion'] . "</td>
 		 <td colspan=''>
 		 <select class='form-control' data-style='btn-primary' name='$state' id='$state'>
 							<option value='1'> 提交待验证</option>
