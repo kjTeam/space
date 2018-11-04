@@ -16,7 +16,13 @@
 <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 </head>
-<?php //共41个参数  p42为隐藏参数
+<?php 
+
+$query="select * from join_form where id_p = $id";
+$result=$db->query($query);
+$row=$result->fetch_assoc();
+$num_results=$result->num_rows;
+//共41个参数  p42为隐藏参数
  //首先检查目前状态，如果不再这几种状态中则可以继续提交
 $no=control(1);//获取到本次入会的期数
  define('ROOT',dirname(__FILE__)); //用于上传文件
@@ -46,8 +52,8 @@ if(ifthereis("join_form","id_p=$id and state=8")>0) //入会完成！
 	}
 if(ifthereis("join_form","id_p=$id and state=9")>0) //未通过审核！
 	{
-		echo "<h3><span class='label label-info'>未通过审核，请联系管理员</span></h3>";
-		exit();
+    echo "<h3><span class='label label-info'>未通过审核，请联系管理员</span></h3>";
+    echo "<div id='yijian' ><lable><strong>管理员意见：</strong></lable><input style='width:90%;border:none' value='".$row['opinion']."' ></div>";
 	}
 if(ifthereis("conpany_result","id_p=$id and join_result=='已入会'"))
     {
@@ -104,7 +110,7 @@ if($_POST["p44"]=='join') //检测是否是此表单提交
 			echo "<script language=javascript>alertAtuoClose();</script>";
 			 
 		}
-		else echo "<script language=javascript>swal('出现问题','请尝......试重新输入');</script>";
+		else echo "<script language=javascript>swal('出现问题','请尝试重新输入');</script>";
 	
 }
 if($_POST["p43"]=='update')
@@ -154,10 +160,7 @@ if($_POST["p43"]=='update')
 	
 }
 
- $query="select * from join_form where id_p = $id";
- $result=$db->query($query);
- $row=$result->fetch_assoc();
- $num_results=$result->num_rows;
+
 echo "
 <div class='container-fluid hidden-xs'>
 <form id='join_form' enctype='multipart/form-data' action='' method='post' onsubmit='return checkForm()'>
