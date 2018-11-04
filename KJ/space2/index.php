@@ -469,11 +469,10 @@ textarea{outline:none;resize:none;}
 						{
 		    switch ($row['query'])
 				{
-				case 3:judge(mo1);break;
+				case 3:judge('mo1_zhuanxiang;mo1_chengbao');break;
                 case 4:judge(mo2);break;
 				case 5:judge(wang1);break;
 				case 6:judge(wang2);break;
-				case 7:judge(mo1);break;
 				}
                     
 						}	

@@ -357,14 +357,14 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		";
 	}
 	function judge($sheet)
-	{
+	{		
 		$db=create_database();
 		$nav1=$_GET['nav1'];
 		$query="select * from nav_2 where id_n1=$nav1";
 		$result=$db->query($query);
 		$num_results=$result->num_rows;
 		$row=$result->fetch_assoc();
-		if($_POST['change_key']=='yes')
+		if($_POST['change_key']=='yes')//这块之前是个搜索，后来加了汇总名单后不用了
 		{			
 			$key=$_POST['key'];
             $query="select c1 from $sheet where c1 like '%$key%'";
@@ -384,44 +384,47 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 						} 
 		}
 	    else {
-					echo"<div id='ulside' class='list-group'>";	
-					echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
-        for($i1=1;$i1<=7;$i1++){
-			$da_table="";
-			if("$nav1"==6){   //初审
-				$da_table="mo1";
-			}else if("$nav1"==7){  //复审
-				$da_table="mo2";
-			}else if("$nav1"==8){
-				$da_table="wang1";
-			}else if("$nav1"==9){
-				$da_table="wang2";
+			echo"<div id='ulside' class='list-group'>";	
+			echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'> 汇总名单</a>"; 
+		    $sheetArray = explode(";", $sheet);
+			for($i1=1;$i1<=8;$i1++){
+			$num = 0;
+			for($i2=0;$i2<count($sheetArray);$i2++){
+				$query="select id,c1 from $sheetArray[$i2] where state = $i1 ";
+				$result=$db->query($query);
+				$num_results=$result->num_rows;
+				$num = $num + $num_results;
 			}
-			$query="select id,c1 from $da_table where state = $i1 ";
-            $result=$db->query($query);
-            $num_results=$result->num_rows;
 		switch ($i1)
 		{
-			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num_results."</span></h5>";break;			
-			case 2:echo"<h5 class='list-group-item' >秘书处意见反馈<span class='badge'>".$num_results."</span></h5>";break;
-			case 3:echo"<h5 class='list-group-item' >分配给专家<span class='badge'>".$num_results."</span></h5>";break;
-			case 4:echo"<h5 class='list-group-item' >专家意见反馈<span class='badge'>".$num_results."</span></h5>";break;			
-			case 5:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
-			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
-			case 7:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>审核成功<span class='badge'>".$num_results."</span></a>";break; 
+			case 1:echo"<h5 class='list-group-item' >提交待审核<span class='badge'>".$num."</span></h5>";break;			
+			case 2:echo"<h5 class='list-group-item' >等待秘书处反馈<span class='badge'>".$num_results."</span></h5>";break;
+			case 3:echo"<h5 class='list-group-item' >秘书处意见反馈<span class='badge'>".$num_results."</span></h5>";break;
+			case 4:echo"<h5 class='list-group-item' >分配给专家<span class='badge'>".$num_results."</span></h5>";break;
+			case 5:echo"<h5 class='list-group-item' >专家意见反馈<span class='badge'>".$num_results."</span></h5>";break;			
+			case 6:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=0'>投递给理事会<span class='badge'>".$num_results."</span></a>";break;
+			case 7:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-1'>理事会意见反馈<span class='badge'>".$num_results."</span></a>";break; 
+			case 8:echo"<a class='list-group-item'  href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>审核成功<span class='badge'>".$num_results."</span></a>";break; 
 			default:break;
 		}
 		echo"<div>";
-		$query="select id,c1 from $sheet where state = $i1 ";
-        $result=$db->query($query);
-        $num_results=$result->num_rows;
-	    for($i=0;$i<$num_results;$i++) 
-						{
+		for($i2=0;$i2<count($sheetArray);$i2++){
+			$query="select id,c1 from $sheetArray[$i2] where state = $i1 ";
+			$result=$db->query($query);
+			$num_results=$result->num_rows;
+			switch ($sheetArray[$i2]){
+				case 'mo1_zhuanxiang':$span = '专项设计';break;
+				case 'mo1_chengbao':$span = '工程承包';break;
+				default：break;
+			}
+			for($i=0;$i<$num_results;$i++) 
+			{
 			$row2 = $result->fetch_assoc();
-			echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2['id']."'>
-			 ".($row2['c1'])."</a>";
-							}
-							echo"</div>";
+			echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2['id']."&type=".$sheetArray[$i2]."'>
+			 ".($row2['c1'])."<span class='badge'>$span<span></a>";
+			}
+		}
+			echo"</div>";
 		
 		}
      echo"</div>";

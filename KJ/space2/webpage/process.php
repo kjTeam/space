@@ -20,10 +20,6 @@ if ($location == 1) //用location取出四张表中相同的部分
             $query = "select * from $sheet where id=$index";
             $result = $db->query($query);
             $row = $result->fetch_assoc();
-            //if( (($row['state']!=1)&&($nav1==7))   //nav1为7
-            //||(($row['state']!=2)&&($nav1==8))  //nav1为8
-            //||(($row['state']!=3)&&($nav1==9))  //nav1为9
-            //) { echo "<h3><span class='label label-danger'>连接过期！请刷新页面</span></h3>"; exit();}//管理员重进入 注意这里用到了nav1！！！！！这里的判断过后在更改
         } else if ($category == 3) //专家进入
         {
             //index 及id_f已经在expert.php中获取
@@ -41,40 +37,31 @@ if ($location == 1) //用location取出四张表中相同的部分
         //$row=$result->fetch_assoc();
         //}
         //这里还要增加其他身份的重进入
-    } else {
-        $db = create_database();
-        $query = "select * from $sheet where id_p=$id ";
-        $result = $db->query($query);
-        $num_results = $result->num_rows;
-        if ($num_results) //如果有提交
-        {
-            $row = $result->fetch_assoc();
-            echo "<h4><span class='label label-info'>当前状态：";
-            switch ($row['state']) {
-                case 1:
-                    echo "提交待审核</span></h4>";
-                    break; //提交待审核
-                case 2:
-                    echo "提交待审核</span></h4>";
-                    break; //等待专家打分
-                case 3:
-                    echo "提交待审核</span></h4>";
-                    break; //专家意见反馈
-                case 4:
-                    echo "提交待审核</span></h3>";
-                    break; //投递给理事会
-                case 5:
-                    echo "提交待审核</span></h3>";
-                    break; //理事会意见反馈
-                case 6:
-                    echo "已通过审核</span></h3>";
-                    break; //通过审核
-                default:
-                    echo "出错</span></h3>";
-                    break;
+    } 
+}
+    //根据$sheet判断form_category.入会是1；膜评审专项设计是2_1,工程承包是2_2;膜复审专项设计是3_1;工程承包是3_2
+    switch ($sheet){
+        case 'mo1_zhuanxiang':  $category_f = '2_1';break;
+        case 'mo1_chengbao':  $category_f = '2_2';break;
+        case 'mo2_zhuanxiang':  $category_f = '3_1';break;
+        case 'mo2_chengbao':  $category_f = '3_2';break;
+    }
+    if ($_POST['send_toSecretary'] == 'yes') //管理员分配给秘书处形式审查
+    {
+       
+        $secretary = $_POST['secretary'];
+        $name = $_POST['name'];
+        if (count($secretary) != 0) {
+            for ($i = 0; $i < count($secretary); $i++) {
+                $query = "insert into secret (id_p,id_f,form_category,state,name) values (" . $secretary[$i] . ",$index,$category_f,1,'$name')"; //注意这个表名没有s
+                $db->query($query);
             }
+            $query = "update $sheet set state=2 where id=$index";
+            $db->query($query);
+            echo "<script language=javascript>alert('分配成功！'); </script>";
+            exit();
         } else {
-            echo "<h4><span class='label label-info'>尚未提交申请表！</span></h4>"; //没有提交则退出
+            echo "<script language=javascript>alert('请选择专家！');</script>";
             exit();
         }
     }
@@ -96,7 +83,6 @@ if ($location == 1) //用location取出四张表中相同的部分
             exit();
         }
     }
-}
 if ($_POST['send2'] == 'yes') //专家提交 重进入验证在expert.php 这个可以放在前面，但是为了整齐就放在这里了，数据库会多加载一次。
 {
     for ($i = 0; $i < 6; $i++) {
@@ -242,7 +228,7 @@ if ($location == '2') {
             $query = "select * from $sheet where id=$index";
             $result = $db->query($query);
             $row = $result->fetch_assoc();
-            $select = $row['state'] - 1;
+            $select = $row['state']-1;
             echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form enctype='' action='' method='post'>
 				<table class='table table-bordered table-responsive text-center noprint'>
@@ -250,7 +236,7 @@ if ($location == '2') {
 				<td colspan='2' >下一进度：</td>
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
-							<option value='1'> 投递给秘书处</option>
+							<option value='1'> 分配给秘书处</option>
 							<option value='2'> 秘书处意见反馈</option>
 							<option value='3'> 分配给专家</option>
 							<option value='4'> 专家意见反馈</option>
@@ -260,8 +246,30 @@ if ($location == '2') {
 					</select>
 					<script  type='text/javascript'> document.getElementById('state')[" . $select . "].selected=true; </script >
 				</td>
-			</tr></table></form>";
-            if ($row['state'] == '1') //nav==1 评审分组
+            </tr></table></form>";
+            //选择秘书处进行形式审查
+            if($row['state'] == '1'){
+                echo "
+				<form class='noprint' enctype='' action='' method='post'>
+					<select  name='secretary[]' class='selectpicker show-tick form-control' multiple data-live-search='true' noneSelectedText='选择秘书处'>";
+                //这里展开专家列表，这种格式：<option value='专家的id'> 专家的name</option >
+                $query = "select id,name from user where category=2";
+                $db->query($query);
+                $result = $db->query($query);
+                $num_results = $result->num_rows;
+                for ($i = 0; $i < $num_results; $i++) {
+                    $row1 = $result->fetch_assoc();
+                    echo "<option value='" . $row1['id'] . "'> " . $row1['name'] . "</option>"; //这里使用row1 ，因为下面有一个隐藏表单项还要用到row
+                }
+                echo "  </select>
+					<div style='text-align: right;margin:10px 0'>
+						<input type='hidden' value='yes' name='send_toSecretary'>
+						<input type='hidden' value='" . $row['c1'] . "' name='name'>
+						<button type='submit' class='btn btn-sm btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
+						</button>
+					</div>
+				</form>";
+            }else if ($row['state'] == '3') //nav==1 评审分组
             {
                 echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form class='noprint' enctype='' action='' method='post'>
@@ -283,7 +291,7 @@ if ($location == '2') {
 						</button>
 					</div>
 				</form></div>";
-            } else if ($row['state'] == 3) //这里是从check_join沾过来的 nav==2 评审结果查看
+            } else if ($row['state'] == 5) //这里是从check_join沾过来的 nav==2 评审结果查看
             {
                 print_experts($index, $category_f); //注意这个函数里面是一个table
                 echo "
