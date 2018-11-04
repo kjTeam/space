@@ -73,22 +73,22 @@ echo"
 				for($i=1;$i<=$num_results1;$i++)
 					{
 						$p="p".$i;
-				$row2=$result1->fetch_assoc();
-				$p="p".$i;
-				$state="state".$i;//后面的管理员意见
-				$query="select * from director where id_p=$id and id_f=".$row2[id]." and form_category=1";
-				$result=$db->query($query);
-				$row5=$result->fetch_assoc(); 
-				$ww=$row5['result']-1;
-				if($row2['c16']!=NULL&&$row2['c17']!=NULL)
-					{
-				echo" 
-				<tr>
-            <td colspan='1' rowspan='2' style='text-align:center;'>$i</td>
-			 <td colspan='6' rowspan='2' style='text-align:center;'>
-			 ". $row2['c1']."</td>
-			 <td colspan='6'> ". $row2['c16']." </td>
-			<td colspan='6'>". $row2['result1']."</td>
+				        $row2=$result1->fetch_assoc();
+				        $p="p".$i;
+				        $state="state".$i;//后面的管理员意见
+				        $query="select * from director where id_p=$id and id_f=".$row2[id]." and form_category=1";
+				        $result=$db->query($query);
+				        $row5=$result->fetch_assoc(); 
+				        $ww=$row5['result']-1;
+				        if($row2['c16']!=NULL&&$row2['c17']!=NULL)
+					    {
+				          echo" 
+				          <tr>
+                            <td colspan='1' rowspan='2' style='text-align:center;'>$i</td>
+			                <td colspan='6' rowspan='2' style='text-align:center;'>
+			                      ". $row2['c1']."</td>
+			                <td colspan='6'> ". $row2['c16']." </td>
+			                <td colspan='6'>". $row2['result1']."</td>
 			 <td colspan='3' rowspan='2'>	
 		<select class='form-control' data-style='btn-primary' name='$p' id='$state'>
 			<option value='1'> 同意</option>

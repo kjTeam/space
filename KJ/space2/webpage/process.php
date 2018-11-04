@@ -566,91 +566,91 @@ if ($location == '2') {
 			</div></form></div>";
         }if ($index == '-2') {
             $searchStateResultj = json_encode($searchStateResult);
-            echo <<< EOD
-	<div>
-	<div class="container-fluid">
-	    <form enctype='multipart/form-data' action='' method='post'>
-            <label class="checkbox-inline">
-	          <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待审核
-            </label>
-            <label class="checkbox-inline">
-	          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="2"> 秘书处意见反馈
-            </label>
-            <label class="checkbox-inline">
-	          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="4"> 专家意见反馈
-            </label>
-		    <label class="checkbox-inline">
-	          <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="6"> 理事会意见反馈
-            </label>
-			<label class="checkbox-inline">
-			<input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="7"> 审核成功
-		  </label>
-			<label class="checkbox-inline">
-		      <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
-			</label>
-			<input type='hidden' value='yes' name='serachByState'/>
-			<button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
-		</form>
-	</div>
-	<script type='text/javascript'>
-	$searchStateResultj.forEach(function(v){
-	   var checkBox = document.getElementsByName('searchState[]');
-	   for(var i=0;i<checkBox.length;i++){
-	      if(checkBox[i].value == v){
-			  checkBox[i].checked = true;
-		  }
-	   }
-	})
-	</script>
-EOD;
-			$select_table="";
+            $select_table="";
 			if($nav1==6){
-				$select_table=mo1;
+				$select_table=['mo1_zhuanxiang','mo1_chengbao'];
 			}else if($nav1==7){
-				$select_table=mo2;
-			}
-			$query = "select *from $select_table" . $stateSelected;
-            $result = $db->query($query);
-            $num_results = $result->num_rows;
-            echo <<< EOD
-    <table id="joinTable"
-    data-toggle="table"
-    data-striped="ture"
-    data-search="ture"
-    data-pagination="ture"
-    data-show-columns="true"
-    class="text-center"
-    >
-      <thead>
-	      <tr>
-		    <th data-field="num">序号</th>
-		    <th data-field="name">单位名称</th>
-		    <th data-field="location">单位地址</th>
-		    <th data-field="grade">现有等级</th>
-			<th data-field="firstGrade">第一申请级别</th>
-			<th data-field="secondGrade">第二申请级别</th>
-			<th data-field="state">状态</th>
-			<th>操作</th>
-	      </tr>
-     </thead>
-EOD;
-            for ($i = 1; $i <= $num_results; $i++) {
-                $row = $result->fetch_assoc();
-                $stateshow = state_show_mo1($row['state']);
-                echo <<< EOD
-        <tr>
-            <td>$i</td>
-            <td>$row[c1]</td>
-            <td>$row[c3]</td>
-            <td>$row[c4]</td>
-			<td>$row[c16]</td>
-			<td>$row[c17]</td>
-			<td>$stateshow</td>
-            <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]">查看</a>
-        </tr>
-EOD;
+				$select_table=['mo2_zhuanxiang','mo2_chengbao'];
             }
-            echo "</table></div>";
+        for($i_t=0;$i_t<2;$i_t++){
+                echo <<< EOD
+                <div style="padding:10px;border:solid 1px #ccc;margin-top:20px">
+                <div class="container-fluid"  >
+                    <form enctype='multipart/form-data' action='' method='post'>
+                        <label class="checkbox-inline">
+                          <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待审核
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="3"> 秘书处意见反馈
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="5"> 专家意见反馈
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="7"> 理事会意见反馈
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
+                        </label>
+                        <input type='hidden' value='yes' name='serachByState'/>
+                        <button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
+                    </form>
+                </div>
+                <script type='text/javascript'>
+                $searchStateResultj.forEach(function(v){
+                   var checkBox = document.getElementsByName('searchState[]');
+                   for(var i=0;i<checkBox.length;i++){
+                      if(checkBox[i].value == v){
+                          checkBox[i].checked = true;
+                      }
+                   }
+                })
+                </script>
+EOD;
+                        
+                        $query = "select *from $select_table[$i_t]" . $stateSelected;                        
+                        $result = $db->query($query);
+                        $num_results = $result->num_rows;
+                        echo <<< EOD
+                <table id="joinTable"
+                data-toggle="table"
+                data-striped="ture"
+                data-search="ture"
+                data-pagination="ture"
+                data-show-columns="true"
+                class="text-center"
+                >
+                  <thead>
+                      <tr>
+                        <th data-field="num">序号</th>
+                        <th data-field="name">单位名称</th>
+                        <th data-field="location">单位地址</th>
+                        <th data-field="grade">现有等级</th>
+                        <th data-field="firstGrade">第一申请级别</th>
+                        <th data-field="secondGrade">第二申请级别</th>
+                        <th data-field="state">状态</th>
+                        <th>操作</th>
+                      </tr>
+                 </thead>
+EOD;
+                        for ($i = 1; $i <= $num_results; $i++) {
+                            $row = $result->fetch_assoc();
+                            $stateshow = state_show_mo1($row[state]);
+                            echo <<< EOD
+                    <tr>
+                        <td>$i</td>
+                        <td>$row[c1]</td>
+                        <td>$row[c3]</td>
+                        <td>$row[c4]</td>
+                        <td>$row[c16]</td>
+                        <td>$row[c17]</td>
+                        <td>$stateshow</td>
+                        <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]&type=$select_table[$i_t]">查看</a>
+                    </tr>
+EOD;
+                        }
+                        echo "</table></div>";
+            }
         }
         //else if($row['state']==3) //nav==3 理事会结果查看
         //{
