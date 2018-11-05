@@ -258,13 +258,13 @@ echo "
             <td colspan='2'><input type='text' class='form-control' name='p28' id='p28' value=".$row[c28]."></td>
         </tr>
         <tr>
-            <th colspan='12' style='text-align:center;'><lead>三、近三年的生产经营概况</lead></th>
+            <th colspan='12' style='text-align:center;'><lead>三、近三年的生产经营概况</lead> <span class='must_wirte'>（至少填写一行）</span></th>
         </tr>
         <tr>
-        <td colspan='3' >年    度<span class='must_wirte'>*</span></td>
-        <td colspan='3' >产    量<span class='must_wirte'>*</span></td>
-        <td colspan='3' >面积（平方米）<span class='must_wirte'>*</span></td>
-        <td colspan='3' >产值（万元）<span class='must_wirte'>*</span></td>
+        <td colspan='3' >年    度</td>
+        <td colspan='3' >产    量</td>
+        <td colspan='3' >面积（平方米）</td>
+        <td colspan='3' >产值（万元）</td>
         </tr>
         <tr>
             <td colspan='3'><input type='text' class='form-control' name='p29' id='p29' value=".$row[c29]."></td>
@@ -590,8 +590,9 @@ echo "
   <script type='text/javascript'>
      //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
     function checkForm(){
+      var arr = [6,10,15,14,9,33,34,35,36,37,38,39,40];
       for(var i=1;i<=42;i++){
-         if(i==6 || i==10 || i==15 || i==14 || i==9){
+         if(arr.indexOf(i)!=-1){
            continue;
          }
          var p = "p"+i;
