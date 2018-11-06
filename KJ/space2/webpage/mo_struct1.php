@@ -1,7 +1,7 @@
 <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 
 <?php //共31个参数 
- //膜结构初审表有一下几个状态：state=1:提交待审核；state=2:秘书处意见反馈；state=3:分配给专家；state=4:专家意见反馈；state=5:投递给理事会 state=6：理事会意见反馈；state=7:同意该等级；state=8 材料有问题需打回
+ //膜结构评审表有一下几个状态：state=1:提交待审核；state=2:秘书处意见反馈；state=3:分配给专家；state=4:专家意见反馈；state=5:投递给理事会 state=6：理事会意见反馈；state=7:同意该等级；state=8 材料有问题需打回
 control(2);
 
 //专项设计提交

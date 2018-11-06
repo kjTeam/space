@@ -17,9 +17,9 @@
 	}
 	// switch ($category_f)
 	// {
-	// 	case "2_1":include "check_mo1.php";break;//膜初审
+	// 	case "2_1":include "check_mo1.php";break;//膜评审
 	// 	case "2_2":include "check_mo1.php";break;//膜复审
-	// 	case "3_1":include "check_mo2.ph";break;//网格初审
+	// 	case "3_1":include "check_mo2.ph";break;//网格评审
 	// 	case "3_2":include "check_mo2.ph";break;//网格复审
 	// 	case 5:include "expert_checkpm.php";break;//企业膜经理
 	// 	default:break;

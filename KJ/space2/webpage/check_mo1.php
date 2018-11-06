@@ -1,4 +1,4 @@
-<?php //查看mo1_zhuanxiang mo1_chengbao 膜初审表
+<?php //查看mo1_zhuanxiang mo1_chengbao 膜评审表
 session_start();
 $category = $_SESSION['category'];
 $id = $_SESSION['id'];

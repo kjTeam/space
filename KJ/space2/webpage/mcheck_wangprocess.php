@@ -191,7 +191,7 @@ if($_POST['send1']=='yes') //管理员提交 必须放在重进入验证之后
 <form enctype='multipart/form-data' action='' method='post'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td colspan='2'><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td colspan='2'><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td>请下载文件模板:</td>
  <td><a href='webpage/$sheet/网格结构专项资质申请表.doc'>网格结构专项资质申请表</a></td>
@@ -234,7 +234,7 @@ echo"
 <div class='container-fluid visible-xs' style=' margin-top:30px;'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td>请下载文件模板:</td></tr>
 <tr>
@@ -350,7 +350,7 @@ echo"
 <form enctype='multipart/form-data' action='' method='post'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td colspan='2'><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td colspan='2'><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td>请下载考评表:</td>
  <td><a href='webpage/$sheet/网格结构专项资质考评表（专家评审及企业自查用).doc'>网格结构专项资质考评表（专家评审及企业自查用)</a></td>
@@ -401,7 +401,7 @@ echo"
 <form enctype='multipart/form-data' action='' method='post'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td>请下载评审表:</td></tr>
 <tr>

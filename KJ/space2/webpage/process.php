@@ -362,7 +362,7 @@ if ($location == '2') {
             }
            
         } else if ($index == '0') {
-            //理事会审核膜初审
+            //理事会审核膜评审
             if($nav1==6){
                 $query = "select * from mo1_zhuanxiang  where state='6'";
                 $query1 = "select * from mo1_chengbao  where state='6'";

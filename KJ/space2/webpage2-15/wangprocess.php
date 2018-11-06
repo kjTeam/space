@@ -177,7 +177,7 @@ echo"
 <form enctype='multipart/form-data' action='' method='post'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td colspan='2'><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td colspan='2'><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td rowspan='4'>请下载文件模板:</td>
  <td><a href='webpage/$sheet/网格结构专项资质申请表.doc'>网格结构专项资质申请表</a></td>
@@ -229,7 +229,7 @@ echo"
 <form enctype='multipart/form-data' action='' method='post'>
  <table class='table table-bordered text-center table-responsive'>
  <tbody>
- <tr><td><strong>网格资质等级会员初审</strong></td></tr>
+ <tr><td><strong>网格资质等级会员评审</strong></td></tr>
  <tr>
  <td>请下载文件模板:</td></tr>
 <tr>
