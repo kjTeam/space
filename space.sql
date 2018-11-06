@@ -208,11 +208,7 @@ CREATE TABLE `council_inform` (
 --
 
 INSERT INTO `council_inform` (`id`, `preface`, `remark`, `state`, `form_category`, `headline1`, `headline2`) VALUES
-<<<<<<< HEAD:space.sql
-(1, 'fgf ', '', 1, 0, '', ''),
-=======
 (1, 'frfref ', 'frfrf', 1, 0, '', ''),
->>>>>>> master:space.sql
 (3, '', '', 0, 2, '', ''),
 (9, '', 'qq', 1, 4, '中国钢结构协会空间结构分会', '网格资质企业等级会员第十七次评审暨第九次评审结果'),
 (10, '注意', '请于多长时间之前', 1, 5, '', ''),
@@ -255,13 +251,9 @@ INSERT INTO `director` (`id`, `id_p`, `id_f`, `result`, `info`, `form_category`)
 (49, 7, 49, '1', '', 0),
 (50, 7, 50, '1', '', 0),
 (51, 7, 51, '1', '', 0),
-<<<<<<< HEAD:space.sql
-(52, 7, 52, '1', '', 0);
-=======
 (52, 7, 52, '1', '', 0),
 (53, 7, 29, '1', '', 0),
 (54, 7, 28, '1', '121221', 0);
->>>>>>> master:space.sql
 
 -- --------------------------------------------------------
 
