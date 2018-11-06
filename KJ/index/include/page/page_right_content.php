@@ -17,7 +17,7 @@ $res = get_info_of_id_in_datatable($id, 'index_' . $page_name);
         <p><strong><?php echo $res['title']; ?></strong></p>
     </div>
     <div class="right_time">
-        <p>发布时间：<?php echo $res['time']; ?></p>
+        <p>是<?php echo $res['time']; ?></p>
     </div>
     <div>
         <?php
