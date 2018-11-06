@@ -140,11 +140,11 @@
           <br/>&nbsp;&nbsp;&nbsp;&nbsp 手机：13910318715
           <br/>&nbsp;&nbsp;&nbsp;&nbsp E-mail:kongjian1993@126.com
         </h5>`,
-  showCloseButton: true,
   showCancelButton: true,
   cancelButtonText:'关闭',
+  closeOnConfirm: false,
   confirmButtonText:'加入我们',
-  }).then(function(isConfirm){
+  },function(){
       window.location.href = '../../space2/login/index.html';
   })
 }

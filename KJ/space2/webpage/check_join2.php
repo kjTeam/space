@@ -109,7 +109,7 @@ if ($_POST['send2'] == 'yes')//秘书处填写意见
 	$info2 = $_POST['info2'];
 	$info2 = addslashes($info2);
 		//插入到secret表中，其中id_p代表秘书处id;id_f是企业id,result是同意结果，是布尔值；info是意思。	
-	$query = "insert into secret (id_p,id_f,result,info) values ('$id','$index','$result2','$info2')";
+	$query = "insert into secret (id_p,id_f,result,info,form_category) values ('$id','$index','$result2','$info2','1')";
 	$result = $db->query($query);
 	if ($result) {
 		echo "<script language=javascript>alertAtuoClose();location.href='index.php?nav1=30';</script>";
@@ -140,7 +140,7 @@ if ($_POST['send22'] == 'yes')//如果秘书处已经填写完，要更改。
 	$result2 = intval($result2);
 	$info2 = $_POST['info2'];
 	$info2 = addslashes($info2);
-	$query = "update secret set info = '$info2',result='$result2'where id_f=$index and id_p=$id";
+	$query = "update secret set info = '$info2',result='$result2' where id_f=$index and id_p=$id and form_category=1";
 	$result = $db->query($query);
 	$query = "update join_form set state = '3' where id=$index";
 	$result = $db->query($query);
@@ -543,7 +543,7 @@ if ($index > 0 || ($nav1 == 3 & $nav2 == 10))//如果是用户点击企业资料
 				<span class='glyphicon glyphicon-th-list' aria-hidden='true'> 
 				 秘书处意见</th>
 				<tbody  id='tab100' style='display:none'>";
-			$query = "select * from secret where id_f='$index'";
+			$query = "select * from secret where id_f='$index' and form_category=1";
 				//这里从secet表中查找秘书处的意见
 			$result = $db->query($query);
 			$num_results = $result->num_rows;
@@ -632,9 +632,9 @@ if ($index > 0 || ($nav1 == 3 & $nav2 == 10))//如果是用户点击企业资料
 		</div>";
 	}
 
-	if ($category == '2')//如果是秘书处且提交给秘书处,这里的state写在query上了。
+	if ($category == '2')//如果是秘书处且提交给秘书处,这里的state写在query上了。入会的form_category是1
 	{
-		$query = "select * from secret where id_p=$id and id_f=$index";
+		$query = "select * from secret where id_p=$id and id_f=$index and form_category=1";
 		$result = $db->query($query);
 		$num_results = $result->num_rows;
 		$row = $result->fetch_assoc();
