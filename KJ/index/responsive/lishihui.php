@@ -153,7 +153,7 @@ else
                         </tr>
                         <tr>
                             <td width="8.8%" height="30"><p align="center">11</p></td>
-                            <td width="50.7%"><p align="left">空间结构分会索结构专业委员会 </p></td>
+                            <td width="50.7%"><p align="left">空间结构分会索结构专业组 </p></td>
                             <td width="11.5%"><p align="center">陈志华 </p></td>
                             <td width="16.2%"><p align="center">主任委员 </p></td>
                             <td width="12.9%"><p align="center">常务理事 </p></td>

@@ -143,7 +143,7 @@ else
                 </tr>
                 <tr>
                     <td width="49" height="30" nowrap=""><p align="center">11</p></td>
-                    <td width="282" nowrap=""><p align="left">空间结构分会索结构专业委员会 </p></td>
+                    <td width="282" nowrap=""><p align="left">空间结构分会索结构专业组 </p></td>
                     <td width="64" nowrap=""><p align="center">陈志华 </p></td>
                     <td width="90" nowrap=""><p align="center">主任委员 </p></td>
                     <td width="71" nowrap=""><p align="center">常务理事 </p></td>
