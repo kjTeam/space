@@ -127,7 +127,7 @@ $zhuanjiatitle = get_num_of_column_form_datatable('index_zhuanjia', 'title', 8);
 
 <?php
 include_once "../include/function.php";
-if (isset($_SESSION['id']))
+if (isset($_SESSION['id'])) 
     include "include/header-login.php";
 else
     include "include/header.php";
