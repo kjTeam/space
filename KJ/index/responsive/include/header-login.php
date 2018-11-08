@@ -79,16 +79,20 @@
         导航&nbsp;&#9776;
     </button>
     <ul class="nav nav-pills nav-stacked collapse" id="nav-menu-xs">
-        <li><a href="index.php">分会首页</a></li>
-        <li><a href="fenhuijianjie.php">分会简介</a></li>
-        <li><a href="../member_apply.php">入会申请</a></li>
+        <li><a href="index.php">首页</a></li>
+        <li><a>关于分会  <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
+            <div style="display:none"> <a href="fenhuijianjie.php">分会简介</a> <a href="fenhuijianzhang.php">分会简章</a> <a href="mishuchu.php">秘书处</a> <a href="member_units.php">会员单位名单</a> <a href="lishihui.php">理事会名单</a> </div>
+        </li>
+        <li><a>专业组 <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
+            <div style="display:none"> <a href="more.php?pagename=wanggejiegou">网格结构专业组</a> <a href="more.php?pagename=mojiegou">膜结构专业组</a> <a href="more.php?pagename=suojiegou">索结构专业组</a></div>    
+        </li>
+        <li><a href="announcement_content.php?id=1&&pagename=zhuanjiaku">专家库</a></li>
         <li><a href="more.php?pagename=tongzhiwenjian">通知文件</a></li>
-        <li><a href="more.php?pagename=mojiegou">膜结构</a></li>
-        <li><a href="more.php?pagename=wanggejiegou">网格结构</a></li>
-        <li><a href="more.php?pagename=suojiegou">索结构</a></li>
-        <li><a href="more.php?pagename=youxiugongcheng">优秀工程</a></li>
-        <li><a href="#">简讯书刊</a></li>
-        <li><a href="#">审批</a></li>
+        <li><a href="index.php">简讯书刊</a></li>
+        <li><a href="more.php?pagename=youxiugongcheng">空间结构奖</a></li>
+        <li><a >培训或评审 <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
+            <div style="display:none"> <a href="../../space2/index.php">膜结构项目经理</a> <a href="../../space2/index.php">膜结构等级会员评审</a> <a href="../../space2/index.php">网格结构企业专项资质评审</a></div>    
+        </li>
         <li><a href="http://www.cncscs.org/">协会首页</a></li>
     </ul>
 </div>
@@ -165,6 +169,26 @@
             sublinks[0].style.display="none";
            }
         }
-    
+   }
+    //手机端
+    var list_xs = $('#nav-menu-xs li');
+   for (var i = 0; i < list_xs.length; i++) {
+        list_xs[i].index = i;
+        list_xs[i].onclick = function(){
+           var osubnav =  list_xs[this.index];
+           var sublinks = osubnav.getElementsByTagName("div");
+           var sublinks_a = osubnav.getElementsByTagName("span");
+           if(sublinks.length!=0){
+            if(sublinks[0].style.display == "block"){
+                sublinks_a[0].classList.remove("glyphicon-minus");
+                sublinks_a[0].classList.add("glyphicon-plus");
+                sublinks[0].style.display = "none"
+            }else if(sublinks[0].style.display == "none"){
+                sublinks_a[0].classList.remove("glyphicon-plus");
+                sublinks_a[0].classList.add("glyphicon-minus");
+                sublinks[0].style.display = "block";
+            }
+           }
+        }
    }
 </script>

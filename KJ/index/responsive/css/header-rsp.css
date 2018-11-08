@@ -140,8 +140,12 @@
 #nav-menu-xs div>a {
     color:#000;
 	text-decoration: none;
-	line-height: 25px;
+	line-height: 35px;
 	display: block;
+    padding-left:5%;
+}
+#nav-menu-xs a {
+    color:#000;
 }
 #nav li a {
 	text-decoration: none;
