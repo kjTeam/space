@@ -41,8 +41,14 @@ if(less_than_ie9()) {
     <![endif]-->
     <script>
     $(function(){
+      initTable();
+    })
+    function initTable(unit,properties){
+      $('#member').bootstrapTable('destroy');
+      var unit1 = (unit==undefined?"":unit);
+      var properties1 = (properties==undefined?"":properties);
       $('#member').bootstrapTable({
-          url: 'include/includedPHP/member.php?type=1',
+          url: 'include/includedPHP/member.php?type=1&unit='+unit1+'&properties='+properties1+'',
           classes:'table table-hover table-bordered',
           sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
           toolbar: '#toolbar',  
@@ -75,11 +81,16 @@ if(less_than_ie9()) {
             title: '分会职务'
           },{
             field: 'unit_properties',
-            title: '分会职务'
+            title: '单位性质'
           }],
       });
-    })
-    
+    }
+    function search(){
+      var unit = $('#txt_search_unit').val();
+      var post = $('#post').val();
+      return initTable(unit,post);
+    }
+   
     </script>
 
 </head>
@@ -123,16 +134,28 @@ EOD;
                     
                     ?>
                     <div class="form-group col-xs-12" style="margin-top:15px">
-                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_departmentname">单位</label>
+                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">单位</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" style="text-align:left;" id="txt_search_departmentname">
+                            <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_statu">分会职务</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="post">单位性质</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" style="text-align:left;" id="txt_search_statu">
+                            <select class="form-control" style="text-align:left;" id="post">
+                                <option value=''>全部</option>
+                                <option value='设计院'>设计院</option>
+                                <option value='企业-钢'>企业-钢</option>
+                                <option value='企业-膜'>企业-膜</option>
+                                <option value='企业-索具'>企业-索具</option>
+                                <option value='高校'>高校</option>
+                                <option value='企业-支座'>企业-支座</option>
+                                <option value='企业-幕墙'>企业-幕墙</option>
+                                <option value='企业-幕墙'>企业-钢膜</option>
+                                <option value='企业-幕墙'>企业-膜材</option>
+                                <option value='企业-幕墙'>工程咨询</option>  
+                            </select>
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
-                            <button type="button"  id="btn_query" class="btn btn-primary">查询</button>
+                            <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
                         </div>
                     </div>
                    <div id="toolbar" class="btn-group" style="margin-bottom:10px">
@@ -1425,5 +1448,4 @@ EOD;
 </div>
 
 <?php include "include/footer.php";?>
-
 </body>

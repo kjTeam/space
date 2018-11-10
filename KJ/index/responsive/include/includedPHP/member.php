@@ -3,7 +3,25 @@
 $db = connect_mysql();
 $type = $_GET['type'];
 if($type == 1){
-    $query = "select * from index_huiyuan where 1";
+    $unit = $_GET['unit'];
+    $properties = $_GET['properties'];
+    if($unit=="" && $properties==""){
+        $query = "select * from index_huiyuan where 1";
+    }else{
+        $str ='where';
+        if($unit!=""){
+            $str = $str." unit like '%".$unit."%'";
+        }
+        if($properties!=""){
+            if($str=='where'){
+                $str = $str." unit_properties = '".$properties."'";
+            }else{
+                $str = $str." and unit_properties = '".$properties."'";
+            }
+        }
+        $query = "select * from index_huiyuan ".$str;
+       
+    }
     $result = $db->query($query);
     $num_results=$result->num_rows;
     $project = [];
@@ -14,4 +32,5 @@ if($type == 1){
     }
     echo json_encode($project);  
 }
+
 ?>
