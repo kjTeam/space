@@ -104,7 +104,8 @@ if($_POST["p44"]=='join') //检测是否是此表单提交
 		}
 		$result=insert("join_form",42,$PA,$id);	
 		$query="update join_form set position = '$upfile1' where id_p=$id";
-		$result1=$db->query($query);
+    $result1=$db->query($query);
+    
 		if($result && $result1) 
 		{
 			echo "<script language=javascript>alertAtuoClose();</script>";
@@ -150,8 +151,10 @@ if($_POST["p43"]=='update')
 			$PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
-		$result=change2("join_form",43,$PA,1,$id);	
-		if($result) 
+    $result=change2("join_form",43,$PA,1,$id);	
+    $query="update secret set form_status=NULL where form_category='1' and id_f='$row[id]'";  //再次提交时将secret的已审核变成未审核！
+    $result1=$db->query($query);
+		if($result&&$result1) 
 		{
 			echo "<script language=javascript>alertAtuoClose3();</script>";
 			 

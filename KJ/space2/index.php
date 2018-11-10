@@ -584,6 +584,8 @@ textarea{outline:none;resize:none;}
 			echo $row_r[result];
 			if($row_r['result']!=''){
 				echo"<span><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
 		}
@@ -600,6 +602,8 @@ textarea{outline:none;resize:none;}
 			$row_r=$result1->fetch_assoc();
 			if($row_r['result']!=''){
 				echo"<span><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
 		}
@@ -618,6 +622,8 @@ textarea{outline:none;resize:none;}
 			$row_r=$result1->fetch_assoc();
 			if($row_r['s1']!=''){
 				echo"<span><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
 		}
@@ -634,6 +640,8 @@ textarea{outline:none;resize:none;}
 			$row_r=$result->fetch_assoc();
 			if($row_r['s1']!=''){
 				echo"<span><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";		
 		}
@@ -664,13 +672,15 @@ textarea{outline:none;resize:none;}
 						<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字
 						if($category==2)
 						{
-						 $query1="select * from secret where id_p=$id and id_f=$row2[0] and form_category = 1";
-						 $result1=$db->query($query1);					
-						 $num_results1=$result1->num_rows;
-						 if($num_results1!=0)
+						 $query1="select form_status from secret where id_p=$id and id_f=$row2[0] and form_category = 1";
+						 $result1=$db->query($query1);	
+						 $row_r=$result1->fetch_assoc();	
+						 if($row_r['form_status']!='')
 							{
 						     echo"<span style='float:right'><img src='right.png'>已审核</span>";
-						    }
+						    }else{
+								echo"<span style='float:right'>未审核</span>";
+							}
 						}
 						//秘书处审核膜评审和膜复审的时候，需要在后面标注，是专项设计还是工程承包
 						
