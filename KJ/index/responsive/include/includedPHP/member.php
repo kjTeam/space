@@ -32,6 +32,43 @@ if($type == 1){
       array_push($project,$arr);
     }
     echo json_encode($project);  
+}else if($type == 2){
+    //编辑代码
+    $editID = $_GET['id'];
+    $unit = $_GET['unit'];
+    $represent = $_GET['represent'];
+    $post = $_GET['post'];
+    $propoty = $_GET['propoty'];
+    $query = "update index_huiyuan set unit=$unit,unit_represent=$represent,post=$post,unit_properties=$propoty where id=$editID";
+    $result = $db->query($query);
+    if($result){
+        echo "edit_success";
+    }else{
+        echo "error";
+    }
+}else if($type == 3){
+    //添加
+    $unit = $_GET['unit'];
+    $represent = $_GET['represent'];
+    $post = $_GET['post'];
+    $propoty = $_GET['propoty'];
+    $query = "insert into index_huiyuan (unit,unit_represent,post,unit_properties) values ($unit,$represent,$post,$propoty)";
+    $result = $db->query($query);
+    if($result){
+        echo "add_success";
+    }else{
+        echo "error";
+    }
+}else if($type == 4){
+    //删除
+    $id = $_GET['id'];
+    $query = "delete from index_huiyuan where id=$id";
+    $result = $db->query($query);
+    if($result){
+        echo "del_success";
+    }else{
+        echo "error";
+    }
 }
 
 ?>

@@ -24,6 +24,7 @@ if(less_than_ie9()) {
     <link href="css/index-rsp.css" rel="stylesheet">
     <link href="css/content-page.css" rel="stylesheet">
     <link href="../../space2/bootstrap-3.3.5-dist/css/bootstrap-table.css"/>
+    <link href="css/sweetalert2.min.css">
     <LINK rel="shortcut icon" type="image/x-icon" href="../image/favicon_2.ico" media="screen"/>
 
 
@@ -33,6 +34,7 @@ if(less_than_ie9()) {
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="../../space2/bootstrap-3.3.5-dist/js/bootstrap-table.min.js"></script>
     <script src="../../space2/bootstrap-3.3.5-dist/js/bootstrap-table-zh-CN.min.js"></script>
+    <script src="scripts/sweetalert2.min.js"></script>
     <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
     <!--[if IE 9]>
@@ -90,7 +92,218 @@ if(less_than_ie9()) {
       var post = $('#post').val();
       return initTable(unit,post);
     }
-   
+    function add(){
+      swal({
+         title: '<h4><strong>添  加</strong></h4>',
+         html:
+           `
+           <form class="form-horizontal">
+  <div class="form-group">
+    <label for="edit_unit" class="col-sm-4 control-label">单位</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="edit_unit">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="edit_represent" class="col-sm-4 control-label">单位代表</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="edit_represent" >
+    </div>
+  </div>
+  <div class="form-group">
+       <label for="edit_post" class="col-sm-4 control-label">分会职务</label>
+       <div class="col-sm-7">
+          <input type="text" class="form-control" id="edit_post">
+       </div>
+  </div>
+  <div class="form-group">
+       <label for="edit_propoty" class="col-sm-4 control-label">单位性质</label>
+       <div class="col-sm-7">
+          <input type="text" class="form-control" id="edit_propoty">
+       </div>
+  </div>
+</form>`,
+         width:500,
+         showCloseButton: true,
+         showCancelButton: true,
+         confirmButtonText:'确定',
+         cancelButtonText:'取消'
+    }).then(function(data){
+      var unit = $('#edit_unit').val();
+      var represent = $('#edit_represent').val();
+      var post = $('#edit_post').val();
+      var propoty = $('#edit_propoty').val();
+      if(data){
+        $.ajax({
+            url: "include/includedPHP/member.php?type=3&unit='"+unit+"'&represent='"+represent+"'&post='"+post+"'&propoty='"+propoty+"'",
+            type: "get",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result){
+              //不知道为啥会有一个折行符，这里就手动屏蔽了
+              var result = result.replace(/\s\n/g,'');
+              if(result=='add_success'){
+                  swal({
+                    title: '添加成功',
+                    width: 400,
+                    timer:2000,
+                    confirmButtonText:'确定',
+                    type:'success'
+                 })
+                 initTable();
+                }else {
+                  swal({
+                    title: '错误',
+                    text:'请稍后再试',
+                    width: 400,
+                    confirmButtonText:'确定',
+                    type:'error'
+                 })
+                }
+            }
+        })
+      }
+    })
+    }
+    function edit(){
+      var select= $("#member").bootstrapTable('getSelections'); 
+      if(select.length !=1){
+        swal({
+            title: '提示',
+            text: '请选择一条数据',
+            width: 400,
+            confirmButtonText:'确定',
+            type:'warning'
+        })
+      }else{
+        swal({
+         title: '<h4><strong>编  辑</strong></h4>',
+         html:
+           `
+           <form class="form-horizontal">
+  <div class="form-group">
+    <label for="edit_unit" class="col-sm-4 control-label">单位</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="edit_unit" value="`+select[0]['unit']+`">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="edit_represent" class="col-sm-4 control-label">单位代表</label>
+    <div class="col-sm-7">
+      <input type="text" class="form-control" id="edit_represent" value="`+select[0]['unit_represent']+`">
+    </div>
+  </div>
+  <div class="form-group">
+       <label for="edit_post" class="col-sm-4 control-label">分会职务</label>
+       <div class="col-sm-7">
+          <input type="text" class="form-control" id="edit_post" value="`+select[0]['post']+`">
+       </div>
+  </div>
+  <div class="form-group">
+       <label for="edit_propoty" class="col-sm-4 control-label">单位性质</label>
+       <div class="col-sm-7">
+          <input type="text" class="form-control" id="edit_propoty" value="`+select[0]['unit_properties']+`">
+       </div>
+  </div>
+</form>`,
+         width:500,
+         showCloseButton: true,
+         showCancelButton: true,
+         confirmButtonText:'确定',
+          cancelButtonText:'取消'
+    }).then(function(data){
+      if(data){
+        var unit = $('#edit_unit').val();
+      var represent = $('#edit_represent').val();
+      var post = $('#edit_post').val();
+      var propoty = $('#edit_propoty').val();
+      $.ajax({
+            url: "include/includedPHP/member.php?type=2&id='"+select[0]['id']+"'&unit='"+unit+"'&represent='"+represent+"'&post='"+post+"'&propoty='"+propoty+"'",
+            type: "get",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result){
+                var result = result.replace(/\s\n/g,'');
+                if(result=='edit_success'){
+                  swal({
+                    title: '编辑成功',
+                    width: 400,
+                    timer:2000,
+                    confirmButtonText:'确定',
+                    type:'success'
+                 })
+                 initTable();
+                }else {
+                  swal({
+                    title: '错误',
+                    text:'请稍后再试',
+                    width: 400,
+                    confirmButtonText:'确定',
+                    type:'error'
+                 })
+                }
+            }
+       })
+      }
+    })
+      }
+    }
+
+    function del(){
+      var select= $("#member").bootstrapTable('getSelections'); 
+      if(select.length !=1){
+        swal({
+            title: '提示',
+            text: '请选择一条数据',
+            width: 400,
+            confirmButtonText:'确定',
+            type:'warning'
+        })
+      }else{
+        swal({
+            title: '提示',
+            text: '您确定删除'+select[0]['unit']+'的纪录吗？删除后将不能恢复！',
+            width: 400,
+            confirmButtonText:'确定',
+            cancelButtonText:'取消',
+            type:'warning'
+        }).then(function(data){
+           if(data){
+            $.ajax({
+            url: "include/includedPHP/member.php?type=4&id='"+select[0]['id']+"'",
+            type: "get",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(result){
+                var result = result.replace(/\s\n/g,'');
+                if(result=='del_success'){
+                  swal({
+                    title: '删除成功',
+                    width: 400,
+                    timer:2000,
+                    confirmButtonText:'确定',
+                    type:'success'
+                 })
+                 initTable();
+                }else {
+                  swal({
+                    title: '错误',
+                    text:'请稍后再试',
+                    width: 400,
+                    confirmButtonText:'确定',
+                    type:'error'
+                 })
+                }
+            }
+       })
+           }
+        })
+      }
+    }
+
     </script>
 
 </head>
@@ -159,13 +372,13 @@ EOD;
                         </div>
                     </div>
                    <div id="toolbar" class="btn-group" style="margin-bottom:10px">
-                      <button id="btn_add" type="button" class="btn btn-default" >
+                      <button id="btn_add" type="button" class="btn btn-default" onclick="add()">
                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                       </button>
-                      <button id="btn_edit" type="button" class="btn btn-default">
+                      <button id="btn_edit" type="button" class="btn btn-default" onclick="edit()">
                          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
                       </button>
-                      <button id="btn_delete" type="button" class="btn btn-default">
+                      <button id="btn_delete" type="button" class="btn btn-default" onclick="del()">
                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                       </button>
                   </div>  
