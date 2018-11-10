@@ -45,6 +45,7 @@ if(less_than_ie9()) {
           url: 'include/includedPHP/member.php?type=1',
           classes:'table table-hover table-bordered',
           sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+          toolbar: '#toolbar',  
           pagination: true,
           pageNumber: 1,                       //初始化加载第一页，默认第一页
           pageSize: 10,                       //每页的记录行数（*）
@@ -56,8 +57,13 @@ if(less_than_ie9()) {
           showRefresh: true,                  //是否显示刷新按钮
           minimumCountColumns: 2, 
           columns: [{
-            field: 'id',
-            title: '序号'
+            checkbox: true
+          },{
+            field: 'uid',
+            title: '序号',
+            formatter:function(value, row, index){
+                return (index+1);
+            }
           }, {
              field: 'unit',
              title: '单位'
@@ -116,7 +122,31 @@ EOD;
                     }*/
                     
                     ?>
-                  <table id="member" ></table>
+                    <div class="form-group col-xs-12" style="margin-top:15px">
+                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_departmentname">单位</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" style="text-align:left;" id="txt_search_departmentname">
+                        </div>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_statu">分会职务</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" style="text-align:left;" id="txt_search_statu">
+                        </div>
+                        <div class="col-sm-2" style="text-align:right;">
+                            <button type="button"  id="btn_query" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                   <div id="toolbar" class="btn-group" style="margin-bottom:10px">
+                      <button id="btn_add" type="button" class="btn btn-default">
+                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                      </button>
+                      <button id="btn_edit" type="button" class="btn btn-default">
+                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+                      </button>
+                      <button id="btn_delete" type="button" class="btn btn-default">
+                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+                      </button>
+                  </div>  
+                  <table id="member" style="margin-top:20px"></table>
                     <!-- <table width="100%" cellpadding="0" cellspacing="0" class="style1">
                 <tbody>
                 <tr>
