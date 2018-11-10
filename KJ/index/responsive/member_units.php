@@ -23,6 +23,7 @@ if(less_than_ie9()) {
     <link href="css/footer-rsp.css" rel="stylesheet">
     <link href="css/index-rsp.css" rel="stylesheet">
     <link href="css/content-page.css" rel="stylesheet">
+    <link href="../../space2/bootstrap-3.3.5-dist/css/bootstrap-table.css"/>
     <LINK rel="shortcut icon" type="image/x-icon" href="../image/favicon_2.ico" media="screen"/>
 
 
@@ -30,14 +31,50 @@ if(less_than_ie9()) {
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="scripts/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
-
+    <script src="../../space2/bootstrap-3.3.5-dist/js/bootstrap-table.min.js"></script>
+    <script src="../../space2/bootstrap-3.3.5-dist/js/bootstrap-table-zh-CN.min.js"></script>
     <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
     <!--[if IE 9]>
     <script src="bootstrap/js/respond.min.js"></script>
     <script src="bootstrap/js/html5shiv.js"></script>
     <![endif]-->
-
+    <script>
+    $(function(){
+      $('#member').bootstrapTable({
+          url: 'include/includedPHP/member.php?type=1',
+          classes:'table table-hover table-bordered',
+          sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
+          pagination: true,
+          pageNumber: 1,                       //初始化加载第一页，默认第一页
+          pageSize: 10,                       //每页的记录行数（*）
+          pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+          search: false,                       
+          striped: true,
+          showFullscreen:true,
+          showColumns: true,                  //是否显示所有的列
+          showRefresh: true,                  //是否显示刷新按钮
+          minimumCountColumns: 2, 
+          columns: [{
+            field: 'id',
+            title: '序号'
+          }, {
+             field: 'unit',
+             title: '单位'
+          }, {
+            field: 'unit_represent',
+            title: '单位代表'
+          },{
+            field: 'post',
+            title: '分会职务'
+          },{
+            field: 'unit_properties',
+            title: '分会职务'
+          }],
+      });
+    })
+    
+    </script>
 
 </head>
 
@@ -79,7 +116,8 @@ EOD;
                     }*/
                     
                     ?>
-                    <table width="100%" cellpadding="0" cellspacing="0" class="style1">
+                  <table id="member" ></table>
+                    <!-- <table width="100%" cellpadding="0" cellspacing="0" class="style1">
                 <tbody>
                 <tr>
                   <td width="281" height="30" class="xl61">深圳市云光空间结构设计工程有限责任公司 </td>
@@ -1348,7 +1386,7 @@ EOD;
                   <td height="30" class="xl61">山东红三叶钢结构工程有限公司</td>
                 </tr>      
 				            
-              </tbody></table>
+              </tbody></table> -->
                 </div>
             </div>
         </div>
