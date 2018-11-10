@@ -371,7 +371,10 @@ EOD;
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
                         </div>
                     </div>
-                   <div id="toolbar" class="btn-group" style="margin-bottom:10px">
+                    <?php
+                    if($_SESSION['category']=='5'){
+                  echo <<<EOD
+                      <div id="toolbar" class="btn-group" style="margin-bottom:10px">
                       <button id="btn_add" type="button" class="btn btn-default" onclick="add()">
                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                       </button>
@@ -381,7 +384,11 @@ EOD;
                       <button id="btn_delete" type="button" class="btn btn-default" onclick="del()">
                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
                       </button>
-                  </div>  
+                  </div>
+EOD;
+                    }
+                    ?>
+                  
                   <table id="member" style="margin-top:20px"></table>
                     <!-- <table width="100%" cellpadding="0" cellspacing="0" class="style1">
                 <tbody>
