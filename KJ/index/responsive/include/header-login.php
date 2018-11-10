@@ -148,8 +148,10 @@
   cancelButtonText:'关闭',
   closeOnConfirm: false,
   confirmButtonText:'加入我们',
-  },function(){
-      window.location.href = '../../space2/login/index.html';
+}).then(function(data){
+      if(data){
+        window.location.href = '../../space2/login/index.html';
+      }
   })
 }
    var list = $('#supnav li');
