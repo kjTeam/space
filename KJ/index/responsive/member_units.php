@@ -159,7 +159,7 @@ EOD;
                         </div>
                     </div>
                    <div id="toolbar" class="btn-group" style="margin-bottom:10px">
-                      <button id="btn_add" type="button" class="btn btn-default">
+                      <button id="btn_add" type="button" class="btn btn-default" >
                          <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
                       </button>
                       <button id="btn_edit" type="button" class="btn btn-default">

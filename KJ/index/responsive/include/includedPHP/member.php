@@ -3,8 +3,9 @@
 $db = connect_mysql();
 $type = $_GET['type'];
 if($type == 1){
-    $unit = $_GET['unit'];
-    $properties = $_GET['properties'];
+    //去所有空格，用正则 preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$content);
+    $unit = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['unit']);
+    $properties = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['properties']);
     if($unit=="" && $properties==""){
         $query = "select * from index_huiyuan where 1";
     }else{
