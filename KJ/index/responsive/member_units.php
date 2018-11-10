@@ -362,9 +362,9 @@ EOD;
                                 <option value='高校'>高校</option>
                                 <option value='企业-支座'>企业-支座</option>
                                 <option value='企业-幕墙'>企业-幕墙</option>
-                                <option value='企业-幕墙'>企业-钢膜</option>
-                                <option value='企业-幕墙'>企业-膜材</option>
-                                <option value='企业-幕墙'>工程咨询</option>  
+                                <option value='企业-钢膜'>企业-钢膜</option>
+                                <option value='企业-膜材'>企业-膜材</option>
+                                <option value='工程咨询'>工程咨询</option>  
                             </select>
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
