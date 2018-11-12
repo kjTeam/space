@@ -35,7 +35,6 @@ if(less_than_ie9()) {
                 break;
         }
         ?></title>
-
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -174,5 +173,6 @@ EOD;
 </div>
 
 <?php include "include/footer.php";?>
-
+<div>
+</div>
 </body>
