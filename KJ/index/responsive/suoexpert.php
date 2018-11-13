@@ -350,7 +350,7 @@ else
         <div class="col-md-2 left-col">
             <div class="left">
                 <div class="left-title">
-                    <span>理事会名单</span>
+                    <span>索结构</span>
                 </div>
             </div>
         </div>
