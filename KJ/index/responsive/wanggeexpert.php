@@ -59,7 +59,7 @@ if(less_than_ie9()) {
       var unit1 = (unit==undefined?"":unit);
       var properties1 = (properties==undefined?"":properties);
       $('#member').bootstrapTable({
-          url: 'include/includedPHP/sixthcouncil.php?type=1&unit='+unit1+'&properties='+properties1+'',
+          url: 'include/includedPHP/second_wanggeexpert.php?type=1&unit='+unit1+'&properties='+properties1+'',
           classes:'table table-hover table-bordered',
           sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
           toolbar: '#toolbar',  
@@ -82,26 +82,23 @@ if(less_than_ie9()) {
                 return (index+1);
             }
           }, {
-             field: 'company',
-             title: '单位'
+             field: 'name',
+             title: '姓名'
           }, {
-            field: 'daibiao',
-            title: '单位代表'
-          },{
             field: 'position',
-            title: '单位职务/职称'
+            title: '职务/职称'
           },{
-            field: 'councilposition',
-            title: '六届理事会职务'
+            field: 'company',
+            title: '单   位'
           },{
-            field: 'nature',
-            title: '单位性质'
+            field: 'zhuanjia_position',
+            title: '专业组职务'
           }],
       });
     }
     function search(){
       var unit = $('#txt_search_unit').val();
-      var post = $('#post').val();
+      var post = $('#txt_search_name').val();
       return initTable(unit,post);
     }
     function add(){
@@ -111,33 +108,27 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_company" class="col-sm-4 control-label"  >单位</label>
+    <label for="edit_name" class="col-sm-4 control-label"  >姓名</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_company">
+      <input type="text" class="form-control" id="edit_name">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_daibiao" class="col-sm-4 control-label">单位代表</label>
-    <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_daibiao" >
-    </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">单位职务/职称</label>
+       <label for="edit_position" class="col-sm-4 control-label">职务/职称</label>
        <div class="col-sm-7">
           <input type="text" class="form-control" id="edit_position">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_councilposition" class="col-sm-4 control-label">六届理事会职务</label>
+       <label for="edit_company" class="col-sm-4 control-label">工作单位</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_councilposition">
+          <input type="text" class="form-control" id="edit_company">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_nature" class="col-sm-4 control-label">单位性质</label>
+       <label for="edit_nature" class="col-sm-4 control-label">专业组职务</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_nature">
+          <input type="text" class="form-control" id="zhuanjia_position">
        </div>
   </div>
 </form>`,
@@ -147,14 +138,13 @@ if(less_than_ie9()) {
          confirmButtonText:'确定',
          cancelButtonText:'取消'
     }).then(function(data){
-      var company = $('#edit_company').val();
-      var daibiao = $('#edit_daibiao').val();
+      var name = $('#edit_name').val();
       var position = $('#edit_position').val();
-      var councilposition = $('#edit_councilposition').val();
-      var nature = $('#edit_nature').val();
+      var company = $('#edit_company').val();
+      var zhuanjia_position = $('#zhuanjia_position').val();
       if(data){
         $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=3&company='"+company+"'&daibiao='"+daibiao+"'&position='"+position+"'&councilposition='"+councilposition+"'&nature='"+nature+"'",
+            url: "include/includedPHP/second_wanggeexpert.php?type=3&company='"+company+"'&name='"+name+"'&position='"+position+"'&zhuanjia_position='"+zhuanjia_position+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -202,33 +192,27 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_company" class="col-sm-4 control-label">单位</label>
+    <label for="edit_name" class="col-sm-4 control-label">姓名</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_company" value="`+select[0]['company']+`">
+      <input type="text" class="form-control" id="edit_name" value="`+select[0]['name']+`">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_daibiao" class="col-sm-4 control-label">单位代表</label>
+    <label for="edit_position" class="col-sm-4 control-label">职务/职称</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_daibiao" value="`+select[0]['daibiao']+`">
+      <input type="text" class="form-control" id="edit_position" value="`+select[0]['position']+`">
     </div>
   </div>
   <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">单位职务/职称</label>
+       <label for="edit_company" class="col-sm-4 control-label">单位</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_position" value="`+select[0]['position']+`">
+          <input type="text" class="form-control" id="edit_company" value="`+select[0]['company']+`">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_councilposition" class="col-sm-4 control-label">六届理事会职务</label>
+       <label for="zhuanjia_position" class="col-sm-4 control-label">专业组职务</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_councilposition" value="`+select[0]['councilposition']+`">
-       </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_nature" class="col-sm-4 control-label">单位性质</label>
-       <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_nature" value="`+select[0]['nature']+`">
+          <input type="text" class="form-control" id="zhuanjia_position" value="`+select[0]['zhuanjia_position']+`">
        </div>
   </div>
 </form>`,
@@ -240,12 +224,11 @@ if(less_than_ie9()) {
     }).then(function(data){
       if(data){
       var company = $('#edit_company').val();
-      var daibiao = $('#edit_daibiao').val();
+      var name = $('#edit_name').val();
       var position = $('#edit_position').val();
-      var councilposition = $('#edit_councilposition').val();
-      var nature = $('#edit_nature').val();
+      var zhuanjia_position = $('#zhuanjia_position').val();
       $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=2&id='"+select[0]['id']+"'&company='"+company+"'&daibiao='"+daibiao+"'&position='"+position+"'&councilposition='"+councilposition+"'&nature='"+nature+"'",
+            url: "include/includedPHP/second_wanggeexpert.php?type=2&id='"+select[0]['id']+"'&company='"+company+"'&name='"+name+"'&position='"+position+"'&zhuanjia_position='"+zhuanjia_position+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -290,7 +273,7 @@ if(less_than_ie9()) {
       }else{
         swal({
             title: '提示',
-            text: '您确定删除'+select[0]['company']+'的纪录吗？删除后将不能恢复！',
+            text: '您确定删除'+select[0]['name']+'的纪录吗？删除后将不能恢复！',
             width: 400,
             confirmButtonText:'确定',
             cancelButtonText:'取消',
@@ -298,7 +281,7 @@ if(less_than_ie9()) {
         }).then(function(data){
            if(data){
             $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=4&id='"+select[0]['id']+"'",
+            url: "include/includedPHP/second_wanggeexpert.php?type=4&id='"+select[0]['id']+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -372,32 +355,19 @@ EOD;
                     }*/
                     
                     ?>
-                    <div class="form-group col-xs-12" style="margin-top:15px">
+                                   <div class="form-group col-xs-12" style="margin-top:15px">
                         <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">单位</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="post">单位性质</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_name">姓名</label>
                         <div class="col-sm-3">
-                            <select class="form-control" style="text-align:left;" id="post">
-                                <option value=''>全部</option>
-                                <option value='设计院'>设计院</option>
-                                <option value='企业-钢'>企业-钢</option>
-                                <option value='企业-膜'>企业-膜</option>
-                                <option value='企业-索具'>企业-索具</option>
-                                <option value='研究院'>研究院</option>
-                                <option value='高校'>高校</option>
-                                <option value='质检'>质检</option>
-                                <option value='企业-支座'>企业-支座</option>
-                                <option value='企业-幕墙'>企业-幕墙</option>
-                                <option value='企业-钢膜'>企业-钢膜</option>
-                                <option value='企业-膜材'>企业-膜材</option> 
-                            </select>
+                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_name">
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
                         </div>
-                    </div>                  
+                    </div>                 
                     <?php
                     if($_SESSION['category']=='5'){
                   echo <<<EOD

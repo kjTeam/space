@@ -86,7 +86,7 @@
         <li><a>专业组 <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
             <div style="display:none"> <a href="more.php?pagename=wanggejiegou">网格结构专业组</a> <a href="more.php?pagename=mojiegou">膜结构专业组</a> <a href="more.php?pagename=suojiegou">索结构专业组</a></div>    
         </li>
-        <li><a href="announcement_content.php?id=1&&pagename=zhuanjiaku">专家库</a></li>
+        <li><a href="firstexpertgroup.php">专家库</a></li>
         <li><a href="more.php?pagename=tongzhiwenjian">通知文件</a></li>
         <li><a href="index.php">简讯书刊</a></li>
         <li><a href="more.php?pagename=youxiugongcheng">空间结构奖</a></li>
@@ -109,7 +109,7 @@
         <li><a href="index.php">专业组</a>
             <div> <a href="more.php?pagename=wanggejiegou">网格结构专业组</a> <a href="more.php?pagename=mojiegou">膜结构专业组</a> <a href="more.php?pagename=suojiegou">索结构专业组</a></div>    
         </li>
-        <li><a href="index.php">专家库</a></li>
+        <li><a href="firstexpertgroup.php">专家库</a></li>
         <li><a href="more.php?pagename=tongzhiwenjian">通知文件</a></li>
         <li><a href="index.php">简讯书刊</a></li>
         <li><a href="more.php?pagename=youxiugongcheng">空间结构奖</a></li>
