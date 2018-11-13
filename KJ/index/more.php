@@ -103,12 +103,13 @@ else
             if($_GET["pagename"]=="youxiugongcheng")
                 echo <<<EOD
 <table class="youxiugongcheng-table">
-    <tr>
+    <tr  >
         <td>
             <a href="/index/pingshenbanfa.php"> “空间结构奖”评审办法</a>
         </td>
     </tr>
-    <tr>
+    <br/>
+    <tr >
         <td>
             <a href="/index/download.php?file_name=空间结构奖申请表.doc&file_dir=file/shenqingbiao.doc" >“空间结构奖”申请表下载</a>
         </td>
