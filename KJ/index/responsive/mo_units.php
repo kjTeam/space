@@ -59,7 +59,7 @@ if(less_than_ie9()) {
       var unit1 = (unit==undefined?"":unit);
       var properties1 = (properties==undefined?"":properties);
       $('#member').bootstrapTable({
-          url: 'include/includedPHP/third_suoexpert.php?type=1&unit='+unit1+'&properties='+properties1+'',
+          url: 'include/includedPHP/mo_dengjiunits.php?type=1&unit='+unit1+'&properties='+properties1+'',
           classes:'table table-hover table-bordered',
           sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
           toolbar: '#toolbar',  
@@ -82,26 +82,27 @@ if(less_than_ie9()) {
                 return (index+1);
             }
           }, {
-             field: 'name',
-             title: '姓名'
+             field: 'company',
+             title: '单位名称'
           }, {
-            field: 'male',
-            title: '性别'
+            field: 'chengbo',
+            title: '承包'
           },{
-            field: 'position',
-            title: '职务/职称'
+            field: 'chengbao_id',
+            title: '承包编号'
           },{
-            field: 'company',
-            title: '工作单位'
+            field: 'sheji',
+            title: '设计'
           },{
-            field: 'zhuanjia_position',
-            title: '专业组职务'
+            field: 'sheji_id',
+            title: '设计编号'
           }],
       });
     }
     function search(){
       var unit = $('#txt_search_unit').val();
-      var post = $('#txt_search_name').val();
+      var post = $('#txt_search_bianhao').val();
+
       return initTable(unit,post);
     }
     function add(){
@@ -111,33 +112,33 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_name" class="col-sm-4 control-label"  >姓名</label>
+    <label for="edit_company" class="col-sm-4 control-label"  >单位名称</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_name">
+      <input type="text" class="form-control" id="edit_company">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_male" class="col-sm-4 control-label">性别</label>
+    <label for="edit_chengbo" class="col-sm-4 control-label">承包</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_male" >
+      <input type="text" class="form-control" id="chengbo" >
     </div>
   </div>
   <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">职务/职称</label>
+       <label for="chengbao_id" class="col-sm-4 control-label">承包编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_position">
+          <input type="text" class="form-control" id="chengbao_id">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_company" class="col-sm-4 control-label">工作单位</label>
+       <label for="edit_sheji" class="col-sm-4 control-label">设计</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_company">
+          <input type="text" class="form-control" id="edit_sheji">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_nature" class="col-sm-4 control-label">专业组职务</label>
+       <label for="edit_sheji_id" class="col-sm-4 control-label">设计编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="zhuanjia_position">
+          <input type="text" class="form-control" id="sheji_id">
        </div>
   </div>
 </form>`,
@@ -147,14 +148,14 @@ if(less_than_ie9()) {
          confirmButtonText:'确定',
          cancelButtonText:'取消'
     }).then(function(data){
-      var name = $('#edit_name').val();
-      var male = $('#edit_male').val();
-      var position = $('#edit_position').val();
       var company = $('#edit_company').val();
-      var zhuanjia_position = $('#zhuanjia_position').val();
+      var chengbo = $('#chengbo').val();
+      var chengbao_id = $('#chengbao_id').val();
+      var sheji = $('#edit_sheji').val();
+      var sheji_id = $('#sheji_id').val();
       if(data){
         $.ajax({
-            url: "include/includedPHP/third_suoexpert.php?type=3&name='"+name+"'&male='"+male+"'&position='"+position+"'&company='"+company+"'&zhuanjia_position='"+zhuanjia_position+"'",
+            url: "include/includedPHP/mo_dengjiunits.php?type=3&company='"+company+"'&chengbo='"+chengbo+"'&chengbao_id='"+chengbao_id+"'&sheji='"+sheji+"'&sheji_id='"+sheji_id+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -202,33 +203,33 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_name" class="col-sm-4 control-label">姓名</label>
+    <label for="edit_company" class="col-sm-4 control-label">单位名称</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_name" value="`+select[0]['name']+`">
+      <input type="text" class="form-control" id="edit_company" value="`+select[0]['company']+`">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_male" class="col-sm-4 control-label">性别</label>
+    <label for="edit_chengbo" class="col-sm-4 control-label">承包</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_male" value="`+select[0]['male']+`">
+      <input type="text" class="form-control" id="edit_chengbo" value="`+select[0]['chengbo']+`">
     </div>
   </div>
   <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">单位职务/职称</label>
+       <label for="edit_chengbao_id" class="col-sm-4 control-label">承包编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_position" value="`+select[0]['position']+`">
+          <input type="text" class="form-control" id="edit_chengbao_id" value="`+select[0]['chengbao_id']+`">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_company" class="col-sm-4 control-label">工作单位</label>
+       <label for="edit_sheji" class="col-sm-4 control-label">设计</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_company" value="`+select[0]['company']+`">
+          <input type="text" class="form-control" id="edit_sheji" value="`+select[0]['sheji']+`">
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_zhuanjia_position" class="col-sm-4 control-label">专业组职务</label>
+       <label for="edit_sheji_id" class="col-sm-4 control-label">设计编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_zhuanjia_position" value="`+select[0]['zhuanjia_position']+`">
+          <input type="text" class="form-control" id="edit_sheji_id" value="`+select[0]['sheji_id']+`">
        </div>
   </div>
 </form>`,
@@ -239,13 +240,13 @@ if(less_than_ie9()) {
           cancelButtonText:'取消'
     }).then(function(data){
       if(data){
-      var name = $('#edit_name').val();
-      var male = $('#edit_male').val();
-      var position = $('#edit_position').val();
       var company = $('#edit_company').val();
-      var zhuanjia_position = $('#edit_zhuanjia_position').val();
+      var chengbo = $('#edit_chengbo').val();
+      var chengbao_id = $('#edit_chengbao_id').val();
+      var sheji = $('#edit_sheji').val();
+      var sheji_id = $('#edit_sheji_id').val();
       $.ajax({
-            url: "include/includedPHP/third_suoexpert.php?type=2&id='"+select[0]['id']+"'&name='"+name+"'&male='"+male+"'&position='"+position+"'&company='"+company+"'&zhuanjia_position='"+zhuanjia_position+"'",
+        url: "include/includedPHP/mo_dengjiunits.php?type=2&id='"+select[0]['id']+"'&company='"+company+"'&chengbo='"+chengbo+"'&chengbao_id='"+chengbao_id+"'&sheji='"+sheji+"'&sheji_id='"+sheji_id+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -290,7 +291,7 @@ if(less_than_ie9()) {
       }else{
         swal({
             title: '提示',
-            text: '您确定删除'+select[0]['company']+':'+select[0]['name']+'的纪录吗？删除后将不能恢复！',
+            text: '您确定删除'+select[0]['company']+'的纪录吗？删除后将不能恢复！',
             width: 400,
             confirmButtonText:'确定',
             cancelButtonText:'取消',
@@ -298,7 +299,7 @@ if(less_than_ie9()) {
         }).then(function(data){
            if(data){
             $.ajax({
-            url: "include/includedPHP/third_suoexpert.php?type=4&id='"+select[0]['id']+"'",
+            url: "include/includedPHP/mo_dengjiunits.php?type=4&id='"+select[0]['id']+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -377,9 +378,9 @@ EOD;
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_name">姓名</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_bianhao">编号</label>
                         <div class="col-sm-3">
-                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_name">
+                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_bianhao">
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
