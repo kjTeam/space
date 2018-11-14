@@ -104,7 +104,7 @@ else
                 <option value="mojiegou">膜结构</option>
                 <option value="wanggejiegou">网格结构</option>
                 <option value="suojiegou">索结构</option>
-                <option value="zhuanjia">专家委员会</option>
+                <option value="zhuanjia">专业组</option>
 EOD;
                                     break;
                                 case 'youxiugongcheng':
@@ -114,7 +114,7 @@ EOD;
                 <option value="mojiegou">膜结构</option>
                 <option value="wanggejiegou">网格结构</option>
                 <option value="suojiegou">索结构</option>
-                <option value="zhuanjia">专家委员会</option>
+                <option value="zhuanjia">专业组</option>
 EOD;
                                     break;
                                 case 'mojiegou':
@@ -124,7 +124,7 @@ EOD;
                 <option value="mojiegou" selected="selected">膜结构</option>
                 <option value="wanggejiegou">网格结构</option>
                 <option value="suojiegou">索结构</option>
-                <option value="zhuanjia">专家委员会</option>
+                <option value="zhuanjia">专业组</option>
 EOD;
                                     break;
                                 case 'wanggejiegou':
@@ -134,7 +134,7 @@ EOD;
                 <option value="mojiegou">膜结构</option>
                 <option value="wanggejiegou" selected="selected">网格结构</option>
                 <option value="suojiegou">索结构</option>
-                <option value="zhuanjia">专家委员会</option>
+                <option value="zhuanjia">专业组</option>
 EOD;
                                     break;
                                 case 'suojiegou':
@@ -144,7 +144,7 @@ EOD;
                 <option value="mojiegou">膜结构</option>
                 <option value="wanggejiegou">网格结构</option>
                 <option value="suojiegou" selected="selected">索结构</option>
-                <option value="zhuanjia">专家委员会</option>
+                <option value="zhuanjia">专业组</option>
 EOD;
                                     break;
                          case 'zhuanjia':
@@ -154,7 +154,7 @@ EOD;
                 <option value="mojiegou">膜结构</option>
                 <option value="wanggejiegou">网格结构</option>
                 <option value="suojiegou">索结构</option>
-                <option value="zhuanjia" selected="selected">专家委员会</option>
+                <option value="zhuanjia" selected="selected">专业组</option>
 EOD;
                                     break;           
                             }

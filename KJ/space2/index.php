@@ -547,7 +547,7 @@ textarea{outline:none;resize:none;}
 		        switch ($i1)
 		        {
 			      case 1:echo"<h5 class='list-group-item'>已提交申请</h5>";break;
-				  case 2:echo"<h5 class='list-group-item'>专家委员会反馈</h5>";break;
+				  case 2:echo"<h5 class='list-group-item'>专业组反馈</h5>";break;
 			      case 3:echo"<a class='list-group-item' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=-2'>投递给理事会</a>";break;
 			      case 4:
 			      echo"<h5 class='list-group-item'>理事会反馈</h5>";break;

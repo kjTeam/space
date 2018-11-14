@@ -50,7 +50,7 @@ $row=$result->fetch_assoc(); //council_inform这个表
                           </td>
                    </table>
 	                 <div style='margin-top:3em'>
-                      <h4 class='text-center' style='line-height:20px'>中国钢协空间结构分会专家委员会专家审批名单</h3>
+                      <h4 class='text-center' style='line-height:20px'>中国钢协空间结构分会专业组专家审批名单</h3>
                       <table data-toggle='table'
                              data-pagination='ture'
                              data-classes='table table-hover'

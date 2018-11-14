@@ -111,14 +111,14 @@ for ($i = 0; $i < 8; $i++) {
 
 //索结构
 $suojiegoutitle = get_num_of_column_form_datatable('index_suojiegou', 'title', 8);
-//专家委员会id
+//专业组id
 $zhuanjiaid = get_num_of_column_form_datatable('index_zhuanjia', 'id', 8);
-//专家委员会链接
+//专业组链接
 $zhuanjialink = array();
 for ($i = 0; $i < 8; $i++) {
     $zhuanjialink[$i] = "announcement_content.php?id=" . $zhuanjiaid[$i] . "&&pagename=zhuanjia";
 }
-//专家委员会的title
+//专业组的title
 $zhuanjiatitle = get_num_of_column_form_datatable('index_zhuanjia', 'title', 8);
 
 ?>
@@ -314,7 +314,7 @@ EOD;
         <div class="col-sm-3 index-col">
             <div class="col-div">
                 <div class="col-div-title">
-                    <span><a href="more.php?pagename=zhuanjia"><img src="../../index/image/titlebarbefore.gif">专家委员会</a></span>
+                    <span><a href="more.php?pagename=zhuanjia"><img src="../../index/image/titlebarbefore.gif">专业组</a></span>
                      <span class="more"><a href="more.php?pagename=zhuanjia">more...</a> </span>
                 </div>
                 <table class="table_bottom" width="328px">

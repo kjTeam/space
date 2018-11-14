@@ -116,7 +116,7 @@ EOD;
                           </td>
                    </table>
 	                 <div style='margin-top:3em'>
-                      <h4 class='text-center' style='line-height:20px'>中国钢协空间结构分会专家委员会专家审批名单</h3>
+                      <h4 class='text-center' style='line-height:20px'>中国钢协空间结构分会专业组专家审批名单</h3>
                       <table data-toggle='table'
                              data-pagination='ture'
                              data-classes='table table-hover'
@@ -178,7 +178,7 @@ EOD;
   echo<<< EOD
   <div class='container-fluid hidden-xs noprint' style="margin-bottom:30px">
 		<input id='btnPrint' class='noprint btn btn-info' type='button' value='打印' onclick='javascript:window.print();' style='font-weight:bold; margin-right:2em;text-decoration:none;cursor:pointer;float:right;!important; cursor:hand'/>
-	<h3 class='text-center'>专家委员会专家申请表</h3>
+	<h3 class='text-center'>专业组专家申请表</h3>
 	<br/>
     <table  class='table table-bordered table-responsive text-center'>
     <tbody>
@@ -381,7 +381,7 @@ EOD;
     <div class="col-md-7">
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
 							<option value='1'>提交待验证</option>
-							<option value='2'>投递给专家委员会</option>
+							<option value='2'>投递给专业组</option>
 							<option value='3'>投递给理事会</option>
 							<option value='4'>理事会意见反馈</option>
 							<option value='5'>已通过审核</option>

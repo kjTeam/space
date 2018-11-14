@@ -31,7 +31,7 @@ if(less_than_ie9()) {
                 echo "索结构";
                 break;
             case "zhuanjia":
-                echo "专家委员会";
+                echo "专业组";
                 break;
         }
         ?></title>
@@ -96,7 +96,7 @@ else
                                 echo "索结构";
                                 break;
                             case "zhuanjia":
-                                echo "专家委员会";
+                                echo "专业组";
                                 break;
                         }
                         ?></span>
@@ -133,7 +133,7 @@ EOD;
                             case "mojiegou":echo "膜结构";break;
                             case "wanggejiegou":echo "网格结构";break;
                             case "suojiegou":echo "索结构";break;
-                            case "zhuanjia":echo "专家委员会";break;
+                            case "zhuanjia":echo "专业组";break;
                         }
                         ?>
                     </p>

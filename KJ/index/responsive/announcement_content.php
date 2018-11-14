@@ -31,7 +31,7 @@ if (less_than_ie9()) {
                 echo "索结构";
                 break;
             case"zhuanjia":
-                echo"专家委员会";
+                echo"专业组";
                 break;
         }
         ?>
