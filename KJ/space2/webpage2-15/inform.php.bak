@@ -10,7 +10,7 @@
 <?php
 $content=$_POST['content'];
 $category=$_POST['category'];
-$db=new mysqli('localhost:3306','root','','index');
+$db=new mysqli('localhost','root','','index');
 		if(mysqli_connect_errno()){
 			//echo 'Connection to datebase failed:'.mysqli_connect_error();
 			exit();

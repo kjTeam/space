@@ -115,7 +115,7 @@ else
 <div class='container-fluid hidden-xs'>
 <form enctype='multipart/form-data' action='' method='post'>
     <h3 class='text-center'>中国钢结构协会空间结构分会</h3>
-  <h3 class='text-center'>膜结构工程项目经理培训班报名表</h3>
+  <h3 class='text-center'>培训班报名表</h3>
   <table class='table table-bordered text-center table-responsive'>
             <tbody>
             <tr>
