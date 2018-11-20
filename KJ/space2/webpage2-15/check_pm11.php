@@ -246,7 +246,7 @@ else
 <div class='visible-xs container-fluid'>
 <form enctype='multipart/form-data' action='' method='post'>
 <h5 class='text-center'><strong>中国钢结构协会空间结构分会</strong></h5>
-<h5 class='text-center'><strong>膜结构工程项目经理申请表</strong></h5>
+<h5 class='text-center'><strong>申请表</strong></h5>
 <table class='table table-bordered text-center table-responsive' style='font-size:14px'>
  <tbody>
  <tr>
