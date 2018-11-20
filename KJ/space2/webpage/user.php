@@ -1,3 +1,4 @@
+
 <?php
 		//这里判断是否可以get到index，如果获得，说明这是管理员发来的消息，改变的id是别人的
 		if(isset($_GET['index']))
