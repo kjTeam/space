@@ -41,6 +41,7 @@ function send_message($content){
         $json
     );
     post($url, $json);
+}
 //下面这个函数的编码方式好像有问题，改变之后不能使用
 function post($url, $data) {
 
@@ -88,4 +89,5 @@ function get($url) {
     curl_close($ch);
 
     return $output;
-}
+    }
+?>
