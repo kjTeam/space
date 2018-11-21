@@ -77,20 +77,25 @@ if(less_than_ie9()) {
           },{
             field: 'id',
             title: '序号',
+            align: 'center',
             formatter:function(value, row, index){
                 return (index+1);
             }
           }, {
              field: 'year',
+             align: 'center',
              title: '年份'
           }, {
             field: 'month',
+            align: 'center',
             title: '月份'
           },{
             field: 'jl_dengji',
+            align: 'center',
             title: '经理等级'
           },{
             field: 'name',
+            align: 'center',
             title: '名字'
           }],
       });

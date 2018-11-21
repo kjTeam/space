@@ -13,7 +13,7 @@ if(less_than_ie9()) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>理事会</title>
+    <title>网格专项资质单位</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="renderer" content="webkit">
@@ -59,7 +59,7 @@ if(less_than_ie9()) {
       var unit1 = (unit==undefined?"":unit);
       var properties1 = (properties==undefined?"":properties);
       $('#member').bootstrapTable({
-          url: 'include/includedPHP/sixthcouncil.php?type=1&unit='+unit1+'&properties='+properties1+'',
+          url: 'include/includedPHP/wangge_qualified.php?type=1&unit='+unit1+'&properties='+properties1+'',
           classes:'table table-hover table-bordered',
           sidePagination: "client",           //分页方式：client客户端分页，server服务端分页（*）
           toolbar: '#toolbar',  
@@ -78,30 +78,27 @@ if(less_than_ie9()) {
           },{
             field: 'id',
             title: '序号',
+            align:'center',
             formatter:function(value, row, index){
                 return (index+1);
             }
           }, {
              field: 'company',
-             title: '单位'
-          }, {
-            field: 'daibiao',
-            title: '单位代表'
+             title: '单位名称',
+             width:'30%'
           },{
-            field: 'position',
-            title: '单位职务/职称'
+            field: 'pingdingdengji',
+            title: '评定等级',
+            width:'30%'
           },{
-            field: 'councilposition',
-            title: '六届理事会职务'
-          },{
-            field: 'nature',
-            title: '单位性质'
+            field: 'qualified_id',
+            title: '资质编号'
           }],
       });
     }
     function search(){
       var unit = $('#txt_search_unit').val();
-      var post = $('#post').val();
+      var post = $('#txt_search_id').val();
       return initTable(unit,post);
     }
     function add(){
@@ -111,33 +108,21 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_company" class="col-sm-4 control-label"  >单位</label>
+    <label for="edit_company" class="col-sm-4 control-label"  >单位名称</label>
     <div class="col-sm-7">
       <input type="text" class="form-control" id="edit_company">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_daibiao" class="col-sm-4 control-label">单位代表</label>
+    <label for="edit_daibiao" class="col-sm-4 control-label">评定等级</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_daibiao" >
+      <input type="text" class="form-control" id="edit_pingdingdengji" >
     </div>
   </div>
   <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">单位职务/职称</label>
+       <label for="edit_councilposition" class="col-sm-4 control-label">资质编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_position">
-       </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_councilposition" class="col-sm-4 control-label">六届理事会职务</label>
-       <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_councilposition">
-       </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_nature" class="col-sm-4 control-label">单位性质</label>
-       <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_nature">
+          <input type="text" class="form-control" id="edit_id">
        </div>
   </div>
 </form>`,
@@ -148,13 +133,11 @@ if(less_than_ie9()) {
          cancelButtonText:'取消'
     }).then(function(data){
       var company = $('#edit_company').val();
-      var daibiao = $('#edit_daibiao').val();
-      var position = $('#edit_position').val();
-      var councilposition = $('#edit_councilposition').val();
-      var nature = $('#edit_nature').val();
+      var dengji = $('#edit_pingdingdengji').val();
+      var qualified_id = $('#edit_id').val();
       if(data){
         $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=3&company='"+company+"'&daibiao='"+daibiao+"'&position='"+position+"'&councilposition='"+councilposition+"'&nature='"+nature+"'",
+            url: "include/includedPHP/wangge_qualified.php?type=3&company='"+company+"'&dengji='"+dengji+"'&qualified_id='"+qualified_id+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -202,33 +185,21 @@ if(less_than_ie9()) {
            `
            <form class="form-horizontal">
   <div class="form-group">
-    <label for="edit_company" class="col-sm-4 control-label">单位</label>
+    <label for="edit_company" class="col-sm-4 control-label">单位名称</label>
     <div class="col-sm-7">
       <input type="text" class="form-control" id="edit_company" value="`+select[0]['company']+`">
     </div>
   </div>
   <div class="form-group">
-    <label for="edit_daibiao" class="col-sm-4 control-label">单位代表</label>
+    <label for="edit_daibiao" class="col-sm-4 control-label">评定等级</label>
     <div class="col-sm-7">
-      <input type="text" class="form-control" id="edit_daibiao" value="`+select[0]['daibiao']+`">
+      <input type="text" class="form-control" id="edit_dengji" value="`+select[0]['pingdingdengji']+`">
     </div>
   </div>
   <div class="form-group">
-       <label for="edit_position" class="col-sm-4 control-label">单位职务/职称</label>
+       <label for="edit_position" class="col-sm-4 control-label">资质编号</label>
        <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_position" value="`+select[0]['position']+`">
-       </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_councilposition" class="col-sm-4 control-label">六届理事会职务</label>
-       <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_councilposition" value="`+select[0]['councilposition']+`">
-       </div>
-  </div>
-  <div class="form-group">
-       <label for="edit_nature" class="col-sm-4 control-label">单位性质</label>
-       <div class="col-sm-7">
-          <input type="text" class="form-control" id="edit_nature" value="`+select[0]['nature']+`">
+          <input type="text" class="form-control" id="zizhi_id" value="`+select[0]['qualified_id']+`">
        </div>
   </div>
 </form>`,
@@ -240,12 +211,10 @@ if(less_than_ie9()) {
     }).then(function(data){
       if(data){
       var company = $('#edit_company').val();
-      var daibiao = $('#edit_daibiao').val();
-      var position = $('#edit_position').val();
-      var councilposition = $('#edit_councilposition').val();
-      var nature = $('#edit_nature').val();
+      var dengji = $('#edit_dengji').val();
+      var zizhi_id = $('#zizhi_id').val();
       $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=2&id='"+select[0]['id']+"'&company='"+company+"'&daibiao='"+daibiao+"'&position='"+position+"'&councilposition='"+councilposition+"'&nature='"+nature+"'",
+            url: "include/includedPHP/wangge_qualified.php?type=2&id='"+select[0]['id']+"'&company='"+company+"'&dengji='"+dengji+"'&zizhi_id='"+zizhi_id+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -298,7 +267,7 @@ if(less_than_ie9()) {
         }).then(function(data){
            if(data){
             $.ajax({
-            url: "include/includedPHP/sixthcouncil.php?type=4&id='"+select[0]['id']+"'",
+            url: "include/includedPHP/wangge_qualified.php?type=4&id='"+select[0]['id']+"'",
             type: "get",
             cache: false,
             contentType: false,
@@ -350,14 +319,14 @@ else
         <div class="col-md-2 left-col">
             <div class="left">
                 <div class="left-title">
-                    <span>理事会名单</span>
+                    <span>网格结构</span>
                 </div>
             </div>
         </div>
         <div class="col-md-10 right-col">
             <div class="right">
                 <div class="right-title">
-                    <p><strong>中国钢结构协会空间结构分会第六届理事会名单</strong></p>
+                    <p><strong>中国钢结构制造企业网格专项资质单位</strong></p>
                 </div>
                 <hr/>
                 <div class="right-content">
@@ -377,22 +346,9 @@ EOD;
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="post">单位性质</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="post">资质编号</label>
                         <div class="col-sm-3">
-                            <select class="form-control" style="text-align:left;" id="post">
-                                <option value=''>全部</option>
-                                <option value='设计院'>设计院</option>
-                                <option value='企业-钢'>企业-钢</option>
-                                <option value='企业-膜'>企业-膜</option>
-                                <option value='企业-索具'>企业-索具</option>
-                                <option value='研究院'>研究院</option>
-                                <option value='高校'>高校</option>
-                                <option value='质检'>质检</option>
-                                <option value='企业-支座'>企业-支座</option>
-                                <option value='企业-幕墙'>企业-幕墙</option>
-                                <option value='企业-钢膜'>企业-钢膜</option>
-                                <option value='企业-膜材'>企业-膜材</option> 
-                            </select>
+                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_id">
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
@@ -415,7 +371,8 @@ EOD;
 EOD;
                     }
                     ?>
-                <table id="member" style="margin-top:20px"></table>
+                <table id="member" style="margin-top:20px">                    
+                </table>
                 </div>
             </div>
         </div>

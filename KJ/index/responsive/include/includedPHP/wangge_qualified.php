@@ -7,20 +7,16 @@ if($type == 1){
     $unit = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['unit']);
     $properties = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['properties']);
     if($unit=="" && $properties==""){
-        $query = "select * from sixth_council where 1";
+        $query = "select * from wangge_qualified where 1";
     }else{
         $str ='where';
         if($unit!=""){
             $str = $str." company like '%".$unit."%'";
         }
         if($properties!=""){
-            if($str=='where'){
-                $str = $str." nature = '".$properties."'";
-            }else{
-                $str = $str." and nature = '".$properties."'";
-            }
+            $str = $str." qualified_id like '%".$properties."%'";        
         }
-        $query = "select * from sixth_council ".$str;
+        $query = "select * from wangge_qualified ".$str;
        
     }
     $result = $db->query($query);
@@ -28,7 +24,7 @@ if($type == 1){
     $project = [];
     for($i=0;$i<$num_results;$i++){
       $row=$result->fetch_assoc();
-      $arr = array ('id'=>"$row[id]",'company'=>"$row[company]",'daibiao'=>"$row[daibiao]",'position'=>"$row[position]",'councilposition'=>"$row[councilposition]",'nature'=>"$row[nature]"); 
+      $arr = array ('id'=>"$row[id]",'company'=>"$row[company]",'pingdingdengji'=>"$row[pingdingdengji]",'qualified_id'=>"$row[qualified_id]"); 
       array_push($project,$arr);
     }
     echo json_encode($project);  
@@ -36,11 +32,9 @@ if($type == 1){
     //编辑代码
     $editID = $_GET['id'];
     $company = $_GET['company'];
-    $daibiao = $_GET['daibiao'];
-    $position = $_GET['position'];
-    $councilposition = $_GET['councilposition'];
-    $nature = $_GET['nature'];
-    $query = "update sixth_council set company=$company,daibiao=$daibiao,position=$position,councilposition=$councilposition,nature=$nature where id=$editID";
+    $dengji = $_GET['dengji'];
+    $qualified_id = $_GET['zizhi_id'];
+    $query = "update wangge_qualified set company=$company,pingdingdengji=$dengji,qualified_id=$qualified_id where id=$editID";
     $result = $db->query($query);
     if($result){
         echo "edit_success";
@@ -50,11 +44,9 @@ if($type == 1){
 }else if($type == 3){
     //添加
     $company = $_GET['company'];
-    $daibiao = $_GET['daibiao'];
-    $position = $_GET['position'];
-    $councilposition = $_GET['councilposition'];
-    $nature = $_GET['nature'];
-    $query = "insert into sixth_council (company,daibiao,position,councilposition,nature) values ($company,$daibiao,$position,$councilposition,$nature)";
+    $dengji = $_GET['dengji'];
+    $qualified_id = $_GET['qualified_id'];
+    $query = "insert into wangge_qualified (company,pingdingdengji,qualified_id) values ($company,$dengji,$qualified_id)";
     $result = $db->query($query);
     if($result){
         echo "add_success";
@@ -64,7 +56,7 @@ if($type == 1){
 }else if($type == 4){
     //删除
     $id = $_GET['id'];
-    $query = "delete from sixth_council where id=$id";
+    $query = "delete from wangge_qualified where id=$id";
     $result = $db->query($query);
     if($result){
         echo "del_success";
