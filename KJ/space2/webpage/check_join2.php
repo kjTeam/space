@@ -81,7 +81,8 @@ if ($_POST['send'] == 'yes')//管理员的意见
 	$info = $_POST['info'];
 	$info = addslashes($info);
 	$number = $_POST['number'];
-	$date = date('Y-m-d');
+	$date = date('Y-m-d');	
+	$opinion = $_POST['gly_opinion'];
 	if ($state == '8') {
 		$query2 = "insert into company_result (id_p,company,join_result,pay_result) values ('" . $row['id_p'] . "','" . $row['c1'] . "','已入会','已缴费')";
 
@@ -93,7 +94,7 @@ if ($_POST['send'] == 'yes')//管理员的意见
 	}
 
 		//此处是自刷新，还带着index	
-	$query = "update join_form set state='$state',info='$info',num='$number' where id=$index";
+	$query = "update join_form set state='$state',info='$info',num='$number',opinion='$opinion' where id=$index";
 	$result = $db->query($query);
 	if ($result)
 		echo "<script language=javascript>
@@ -512,33 +513,11 @@ if ($index > 0 || ($nav1 == 3 & $nav2 == 10))//如果是用户点击企业资料
 	echo "
     </table></div>";
 
-	include_once 'print_joinform.php';
-	if ($category == '5')//如果是管理员身份且本企业没有入会，那么这个表格后面将输出：
-	{
-		echo "<div class='container-fluid noprint'>
-     <form enctype='multipart/form-data' action='' method='post'>
-		<table class='table table-bordered table-responsive text-center noprint'>
-			<tr>
-				<td colspan='2' >下一进度：</td>
-				<td colspan='10'>
-					<select class='form-control' data-style='btn-primary' name='state' id='state'>
-							<option value='1'> 提交待验证</option>
-							<option value='2'> 秘书处意见反馈</option>
-							<option value='3'> 秘书处意见反馈</option>
-							<option value='4'> 投递给理事会汇总名单</option>
-							<option value='5'> 理事会意见反馈</option>
-							<option value='6'> 等待缴费申请</option>
-							<option value='7'> 缴费申请提交待审核</option>
-							<option value='8'> 已入会</option>
-							<option value='9'> 未通过审核</option>
-					</select>
-					<script  type='text/javascript'> document.getElementById('state').value = " . ($select + 2) . "; </script > 
-				</td>
-			</tr></table>";
+	
 		if ($select >= '2')//如果秘书处投递了意见，这块应该输出秘书处的意见和管理员的意见 秘书处有多人，所以用FOR循环。
 		{
 			echo "
-			    <table class='table table-bordered table-responsive text-center noprint'  style='display:table'>	
+			    <table class='table table-bordered table-responsive text-center noprint'  style='display:table;width:97.2%;float:right;margin-right:1.4%'>	
 			    <th id='tab2' colspan='4' onclick='removeElement()'>
 				<span class='glyphicon glyphicon-th-list' aria-hidden='true'> 
 				 秘书处意见</th>
@@ -575,6 +554,31 @@ if ($index > 0 || ($nav1 == 3 & $nav2 == 10))//如果是用户点击企业资料
 				   </tr>";
 			}
 			echo "<tbody></table>";
+			include_once 'print_joinform.php';
+	if ($category == '5')//如果是管理员身份且本企业没有入会，那么这个表格后面将输出：
+	{
+		echo "<div class='container-fluid noprint'>
+     <form enctype='multipart/form-data' action='' method='post'>
+		<table class='table table-bordered table-responsive text-center noprint'>
+			<tr>
+				<td colspan='2' >下一进度：</td>
+				<td colspan='10'>
+					<select class='form-control' data-style='btn-primary' name='state' id='state' onchange='gly_changeState(this);' >
+							<option value='1'> 提交待验证</option>
+							<option value='2'> 秘书处意见反馈</option>
+							<option value='3'> 秘书处意见反馈</option>
+							<option value='4'> 投递给理事会汇总名单</option>
+							<option value='5'> 理事会意见反馈</option>
+							<option value='6'> 等待缴费申请</option>
+							<option value='7'> 缴费申请提交待审核</option>
+							<option value='8'> 已入会</option>
+							<option value='9'> 未通过审核</option>
+					</select>
+					<script  type='text/javascript'> document.getElementById('state').value = " . ($select + 2) . "; </script > 
+				</td>
+			</tr>
+			<tr id='gly_option' class='hidden'><td colspan='2'>管理员意见：</td><td colspan='10'><input name='gly_opinion' id='gly_opinion' type='text' style='width:100%' /></td></tr>
+			</table>";
 			if ($select >= '5') {
 				echo "<table class='table table-bordered table-responsive text-center noprint'  style='display:table'>	
 			    <th colspan='4' onclick='removeElement1()'>

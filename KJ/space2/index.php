@@ -153,6 +153,15 @@ function changeState(a)
   if(selectedValue==2)
 	  alert('您选择的是不同意，必须填写意见');
 }
+function gly_changeState(a)
+ {
+  var obj = document.getElementById(a.id);
+  var index=obj.selectedIndex ;
+  var selectedValue=obj.options[index].value;
+
+  if(selectedValue==9)
+	  document.getElementById('gly_option').className='block';
+}
 function DP() {
 if (window.print)
 {
