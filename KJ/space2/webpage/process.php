@@ -254,7 +254,7 @@ if ($location == '2') {
             $query = "select * from $sheet where id=$index";
             $result = $db->query($query);
             $row = $result->fetch_assoc();
-            $select = $row['state']-1;
+            $select = $row['state'];
             echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form enctype='' action='' method='post'>
 				<table class='table table-bordered table-responsive text-center noprint'>
@@ -262,13 +262,15 @@ if ($location == '2') {
 				<td colspan='2' >下一进度：</td>
 				<td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
-							<option value='1'> 分配给秘书处</option>
-							<option value='2'> 秘书处意见反馈</option>
-							<option value='3'> 分配给专家</option>
-							<option value='4'> 专家意见反馈</option>
-							<option value='5'> 投递给理事会</option>
-							<option value='6'> 理事会意见反馈</option>
-							<option value='7'> 审核成功</option>
+                        <option value='1'> 提交待审核</option>
+                        <option value='2'> 分配给秘书处</option>
+                        <option value='3'> 秘书处意见反馈</option>
+                        <option value='4'> 分配给专家</option>
+						<option value='5'> 专家意见反馈</option>
+						<option value='6'> 投递给理事会</option>
+						<option value='7'> 理事会意见反馈</option>
+                        <option value='8'> 审核成功</option>
+                        <option value='10'> 未通过</option>
 					</select>
 					<script  type='text/javascript'> document.getElementById('state')[" . $select . "].selected=true; </script >
 				</td>

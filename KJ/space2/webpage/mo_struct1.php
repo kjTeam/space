@@ -157,7 +157,8 @@ if($_POST['mo1_chengbao'] == 'yes'){
 
 echo "
 <div class='container-fluid hidden-xs' style='margin-top:30px'>
-<div style='border:solid 1px #ccc; padding:5px 10px 50px 10px'>";
+<div style='border:solid 1px #ccc; padding:5px 10px 50px 10px'>
+<p style='color:#ccc;margin:5px;'>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</p>";
 //获取专项设计审核状态
 $db=create_database();
 $query="select * from mo1_zhuanxiang where id_p=$id ";
@@ -172,19 +173,20 @@ if($num_results)
 	switch ($row['state'])
 	{       
 			case 1: echo "提交待审核";break;//提交待审核，这个时候可以更新表单
-			case 2:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";exit();break;//等待专家打分
-			case 3:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";exit();break;//专家意见反馈
-			case 4:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";exit();break;//投递给理事会
-			case 5:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";exit();break;//理事会意见反馈
-            case 6:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";exit();break;//理事会意见反馈
-            case 7:	echo "已通过审核";exit();break;//通过审核
+			case 2:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//等待专家打分
+			case 3:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//专家意见反馈
+			case 4:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//投递给理事会
+			case 5:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//理事会意见反馈
+            case 6:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//理事会意见反馈
+            case 7:	echo "已通过审核,请前往查看菜单查看";$flag=1;break;//通过审核
             case 8:	echo "未通过审核，请按照意见重新填写";break;//未通过审核，这个时候可以更新表单
-            default: echo "出错";exit();break;
+            default: echo "出错";$flag=1;break;
 	}
 	echo"</span></h3>";
 }
+if($flag!=1){
 echo"
-   <form enctype='multipart/form-data' action='' method='post'>
+   <form enctype='multipart/form-data' action='' method='post' id='mo_zhuanxiang'>
         <table class='table table-bordered text-center table-responsive' name='design' >
             <tbody>
 			<h3 class='text-center'>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</h3>
@@ -368,8 +370,10 @@ echo"
         <input type='hidden' value='$flag1' name='flag1'>
         <button type='submit' style='float: right' class='btn btn-md btn-primary'>&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>		
     </form>
-  </div>
-    <div style='border:solid 1px #ccc; padding:5px 10px 50px 10px;margin:20px 0 10px 0'>";
+  </div>";
+}
+    echo"<div style='border:solid 1px #ccc; padding:5px 10px 50px 10px;margin:20px 0 10px 0'>
+        <p style='color:#ccc;margin:5px;'>中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</p>";
     //获取专项设计审核状态
 $db=create_database();
 $query="select * from mo1_chengbao where id_p=$id ";
@@ -395,7 +399,7 @@ if($num_results)
 	}
 	echo"</span></h3>";
 }
-    echo"<form enctype='multipart/form-data' action='' method='post'>
+    echo"<form enctype='multipart/form-data' action='' method='post' id='mo_chengbao'>
         <table class='table table-bordered text-center table-responsive' name='chengbao' >
             <tbody>
 			<h3 class='text-center'>中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</h3>
@@ -404,7 +408,7 @@ if($num_results)
                <td colspan='2'>单位名称</td>
                 <td colspan='3'><input type='text' class='form-control' name='t1' value=".$row_z[c1]."> </td>
                 <td colspan='2'>成立时间</td>
-                <td colspan='5'><input type='text' class='form-control' placeholder='格式：X年X月X日' name='t2' value=".$row[c2]."></td>
+                <td colspan='5'><input type='text' class='form-control' placeholder='格式：X年X月X日' name='t2' value=".$row_z[c2]."></td>
             </tr>
             <tr>
                 <td colspan='2'>单位地址</td>
@@ -636,7 +640,8 @@ echo"</td>
 </div>
 
 <div class='container-fluid visible-xs' width='100%'>
-<div style='border:solid 1px #ccc; padding:5px 10px 50px 10px'>";
+<div style='border:solid 1px #ccc; padding:5px 10px 50px 10px'>
+<p style='color:#ccc;margin:5px;'>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</p>";
 //获取专项设计审核状态
 $db=create_database();
 $query="select * from mo1_zhuanxiang where id_p=$id ";
@@ -663,7 +668,7 @@ if($num_results)
 	echo"</span></h3>";
 }
 echo"<h5 class='text-center'><strong>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</strong></h5>
-<form class='form-horizontal' enctype='multipart/form-data' action='' method='post'>
+<form class='form-horizontal' enctype='multipart/form-data' action='' method='post' id='mo_zhuanxiang'>
  <div class='form-group text-center'>
     <label class='col-xs-4 control-label'>单位名称</label>
     <div class='col-xs-7'>
@@ -855,7 +860,8 @@ echo"<h5 class='text-center'><strong>中国钢结构协会空间结构分会膜�
   <button type='submit' style='float: right' class='btn btn-md btn-primary'>&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>		
   </form>
   </div>
-  <div style='border:solid 1px #ccc; padding:5px 10px 50px 10px;margin:20px 0 10px 0'>";
+  <div style='border:solid 1px #ccc; padding:5px 10px 50px 10px;margin:20px 0 10px 0'>
+  <p style='color:#ccc;margin:5px;'>中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</p>";
    //获取专项设计审核状态
 $db=create_database();
 $query="select * from mo1_chengbao where id_p=$id ";
@@ -882,7 +888,7 @@ if($num_results)
 	echo"</span></h3>";
 }
   echo"<h5 class='text-center'><strong>中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</strong></h5>
-  <form class='form-horizontal' enctype='multipart/form-data' action='' method='post'>
+  <form class='form-horizontal' enctype='multipart/form-data' action='' method='post' id='mo_chengbao'>
   <div class='form-group text-center'>
     <label class='col-xs-4 control-label'>单位名称</label>
     <div class='col-xs-7'>
@@ -1123,9 +1129,5 @@ echo"</div>
   </div>
    </div>";
   
-		//if($flag==1) echo "<input type='hidden' value='yes' name='flag'> "; 
-
-
-
-
+ 
   ?>
