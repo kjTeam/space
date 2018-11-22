@@ -293,7 +293,6 @@ textarea{outline:none;resize:none;}
 			<div class='navbar-brand' style='padding-top:20px'>空间结构分会
 			<?php
 			$category=$_SESSION['category'];
-			 
 			 ?></div></div>
 			<?php 
 			if($category!=5)
@@ -592,7 +591,7 @@ textarea{outline:none;resize:none;}
 			$row_r=$result1->fetch_assoc();
 			echo $row_r[result];
 			if($row_r['result']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
@@ -610,7 +609,70 @@ textarea{outline:none;resize:none;}
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
 			if($row_r['result']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+	}else if($row['query']=='needDone'){
+		echo" <div class='list-group'style='margin-top:15px;'>";
+		$query="select * from join_form where state <4 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."30"."&nav2="."22"."&index=".$row2[0]."' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[2].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<span class='badge'>入会申请</span>";
+			$query1="select form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['form_status']=='1'){
+				echo"<span style='float:right'><img src='right.png' >已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+
+
+		$query="select * from mo1_zhuanxiang where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."25"."&nav2="."71"."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>专项设计</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			echo $row_r[result];
+			if($row_r['result']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+
+
+
+        $query="select * from mo1_chengbao where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."25"."&nav2="."71"."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>工程承包</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['result']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
@@ -630,7 +692,7 @@ textarea{outline:none;resize:none;}
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
 			if($row_r['s1']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
@@ -648,7 +710,7 @@ textarea{outline:none;resize:none;}
 			$num_results1=$result1->num_rows;
 			$row_r=$result->fetch_assoc();
 			if($row_r['s1']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
