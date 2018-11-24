@@ -14,7 +14,7 @@ if($type == 1){
             $str = $str." year like '%".$unit."%'";
         }
         if($properties!=""){
-          $str = $str." month like '%".$properties."%' ";
+          $str = $str." name like '%".$properties."%' ";
         }
         $query = "select * from gc_manager ".$str;
        

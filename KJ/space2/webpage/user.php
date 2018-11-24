@@ -16,6 +16,7 @@
 		$tel=$row['tel'];
 		$psw=$row['psw'];
 		$email=$row['email'];
+		$danwei=$row['danwei'];
 		$uid=$row['uid'];
 
 		if($_POST['change']=='yes')
@@ -26,13 +27,14 @@
 			if($psw==$psw2) //判断两个密码是否相同
 			{
 				$email=$_POST['email'];
+				$danwei=$_POST['danwei'];
 				$name=$_POST['name'];
 				$tel=$_POST['tel'];
 				$db=create_database();
 				$query="select * from user where id='$id_index'";
 				$result=$db->query($query);
 			
-					$query="update user set name='$name',tel='$tel',psw='$psw',email='$email',uid='$uid' where id=$id_index";
+					$query="update user set name='$name',tel='$tel',psw='$psw',email='$email',danwei='$danwei',uid='$uid' where id=$id_index";
 					$result=$db->query($query);
 					if($result)
 				{
@@ -81,8 +83,8 @@ echo "
             <th colspan='12' style='text-align:center;'><lead>用户资料</lead></th>
         </tr>
         <tr>
-            <td colspan='2'> 用户名</td>
-            <td colspan='10'> <input type='text' id='uid' name='uid' class='form-control' value='$uid' ></td>
+            <td colspan='2'> 姓名</td>
+            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value='$name' ></td>
         </tr>
 		<tr>
             <td colspan='2'> 密码</td>
@@ -93,12 +95,13 @@ echo "
             <td colspan='10'> <input type='password' id='psw2' name='psw2' class='form-control' value='$psw'></td>
         </tr>
 		<tr>
+		
             <td colspan='2'> 邮箱</td>
             <td colspan='10'> <input type='text' id='email' name='email' class='form-control' value='$email'></td>
         </tr>
 		<tr>
-            <td colspan='2'> 真实姓名</td>
-            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value='$name'></td>
+            <td colspan='2'>单位</td>
+            <td colspan='10'> <input type='text' id='danwei' name='danwei' class='form-control' value='$danwei'></td>
         </tr>
 		<tr>
             <td colspan='2'> 电话</td>

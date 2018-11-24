@@ -359,7 +359,7 @@ EOD;
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">月份</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">名字</label>
                         <div class="col-sm-3">
                         <input type="text" class="form-control" style="text-align:left;" id="txt_search_properties">
                         </div>

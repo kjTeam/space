@@ -3,8 +3,9 @@ if($_POST['addsend']=='yes')
 {
 	$uid=$_POST['uid'];
 	 $tel=$_POST['tel'];
-	 $eamil=$_POST['email'];
-	 $name=$_POST['name'];
+     $email=$_POST['email'];
+     $name=$_POST['name'];
+     $danwei=$_POST['danwei'];
 	 $category=$_POST['usercategory'];
 	 $catestr=implode(',',$category); //将复选框选中的数组值转化为以逗号格式隔开的字符串。
 	 $password=$_POST['password'];
@@ -12,9 +13,8 @@ if($_POST['addsend']=='yes')
     $result=$db->query($query);
 	$num_results1=$result->num_rows;
 	if($num_results1!==0)
-	echo"<script lanuage='javasript'>alert('已存在相同的用户名');location.href='';</script>";
-	 $query2="insert into user (uid,tel,email,name,category,psw) values ('$uid','$tel'
-	 ,'$eamil','$name','$catestr','$password')";
+	 $query2="insert into user (uid,tel,email,name,category,psw,danwei) values ('$uid','$tel'
+	 ,'$email','$name','$catestr','$password','$danwei')";
 	 $result2=$db->query($query2);
 	 if($result2)
 		echo"<script lanuage='javasript'>alert('插入成功');location.href='';</script>";
@@ -31,12 +31,13 @@ if($_POST['change']=='yes')
 			{
 				$email=$_POST['email'];
 				$name=$_POST['name'];
-				$tel=$_POST['tel'];
+                $tel=$_POST['tel'];
+                $danwei=$_POST['danwei'];
 				$db=create_database();
 				$query="select * from user where id='$id_index'";
 				$result=$db->query($query);
 			
-					$query="update user set name='$name',tel='$tel',psw='$psw',email='$email',uid='$uid' where id=$edit_id";
+					$query="update user set name='$name',tel='$tel',psw='$psw',danwei='$danwei',email='$email',uid='$uid' where id=$edit_id";
 					$result=$db->query($query);
 					if($result)
 				{
@@ -76,8 +77,8 @@ echo "
             <th colspan='12' style='text-align:center;'><lead>用户资料</lead></th>
         </tr>
         <tr>
-            <td colspan='2'> 用户名</td>
-            <td colspan='10'> <input type='text' id='uid' name='uid' class='form-control' value=".$row['uid']." ></td>
+            <td colspan='2'> 姓名</td>
+            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value=".$row['name']." ></td>
         </tr>
 		<tr>
             <td colspan='2'> 密码</td>
@@ -92,8 +93,8 @@ echo "
             <td colspan='10'> <input type='text' id='email' name='email' class='form-control' value=".$row['email']."></td>
         </tr>
 		<tr>
-            <td colspan='2'> 真实姓名</td>
-            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value=".$row['name']."></td>
+            <td colspan='2'> 单位</td>
+            <td colspan='10'> <input type='text' id='danwei' name='danwei' class='form-control' value=".$row['danwei']."></td>
         </tr>
 		<tr>
             <td colspan='2'> 电话</td>
@@ -141,7 +142,7 @@ $paper_id3=$paper_id1+$num_results;
 if($_POST['check']=='yes')
 {
   $check=$_POST['p1'];
-	 $query="select * from user where uid like '%".$check."%' or name='%".$check."%'";
+	 $query="select * from user where name like '%".$check."%' or name='%".$check."%'";
      $result1=$db->query($query);
      $num_results=$result1->num_rows;
 	 if($num_results<=10)
@@ -158,10 +159,11 @@ $category=str_replace(3,专家用户,$category);
 $category=str_replace(4,理事会用户,$category);
 $category=str_replace(5,管理,$category);
 $category=str_replace(6,企业膜经理,$category);
-$PA[$i]=$row['id'];
-$PS[$i]=$row['uid'];
-$PD[$i]=$row['name'];
+$Pc[$i]=$row['id'];
+$PA[$i]=$row['name'];
+$PS[$i]=$row['danwei'];
 $PF[$i]=$category;
+$PD[$i]=$row['tel'];
 //rename(iconv('UTF-8','GBK',"../index/upload/paper/".$PA[$i].""),iconv('UTF-8','GBK',"../index/upload/paper/".$PJ[$i].""));
 }
 echo"
@@ -196,9 +198,9 @@ echo"<div class='container-fluid hidden-xs noprint text-center' style='margin-to
 <tbody>
 <tr>
 <td><strong>序号</strong></td>
-<td><strong>唯一标识</strong></td>
-<td><strong>用户名</strong></td>
 <td><strong>姓名</strong></td>
+<td><strong>单位</strong></td>
+<td><strong>电话</strong></td>
 <td><strong>用户类别</strong></td>
 <td colspan='2'><strong>操作</strong></td>
 </tr>
@@ -215,13 +217,13 @@ echo"
 <td>".$PF[$i]."</td>
 <td><form enctype='multipart/form-data' action='' method='post' >
 <input type='hidden' value='yes' name='edit' id='edit'>
-<input type='hidden' value='".$PA[$i]."' name='edit_id' id='edit_id'>
+<input type='hidden' value='".$Pc[$i]."' name='edit_id' id='edit_id'>
 <button type='submit' class='btn'>修改</button>
 </form>
 </td>
 <td><form enctype='multipart/form-data' action='' method='post' >
 <input type='hidden' value='yes' name='del' id='del'>
-<input type='hidden' value='".$PA[$i]."' name='del_id' id='del_id'>
+<input type='hidden' value='".$Pc[$i]."' name='del_id' id='del_id'>
 <button type='submit' class='btn'>删除</button>
 </form>
 </td>
@@ -261,7 +263,7 @@ echo"</tbody>
                             <div class='modal-body'>
                                <form enctype='multipart/form-data' action='' method='post'>
                                     <div class='form-group'>
-                                        <input type='text' class='form-control' id='uid' name='uid' placeholder='用户名'>
+                                        <input type='text' class='form-control' id='name' name='name' placeholder='姓名'>
                                     </div>
                                     <div class='form-group'>
                                         <input type='text' class='form-control' id='password' placeholder='密码' name='password'>
@@ -273,28 +275,28 @@ echo"</tbody>
                                         <input type='text' class='form-control' id='tel' placeholder='电话' name='tel'>
                                     </div>
 									<div class='form-group'>
-                                        <input type='text' class='form-control' id='name' placeholder='真实姓名' name='name'>
+                                        <input type='text' class='form-control' id='danwei' placeholder='单位' name='danwei'>
                                     </div>
 									<div class='form-group'>
                                   <label class='control-label'><strong>身份选择</strong></label>
                                   <div>
                              <label class='checkbox-inline''>
-                                <input type='checkbox' id='inlineCheckbox1' value='1' name='usercategory[]'> 企业
+                                <input type='radio' id='inlineCheckbox1' value='1' name='usercategory[]'> 企业
                              </label>
                              <label class=checkbox-inline>
-                                <input type='checkbox' id='inlineCheckbox2' value='2' name='usercategory[]'> 秘书处
+                                <input type='radio' id='inlineCheckbox2' value='2' name='usercategory[]'> 秘书处
                              </label>
                              <label class='checkbox-inline'>
-                                <input type='checkbox' id='inlineCheckbox3' value='3' name='usercategory[]'> 专家
+                                <input type='radio' id='inlineCheckbox3' value='3' name='usercategory[]'> 专家
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='checkbox' id='inlineCheckbox3' value='4' name='usercategory[]'> 理事会
+                                <input type='radio' id='inlineCheckbox3' value='4' name='usercategory[]'> 理事会
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='checkbox' id='inlineCheckbox3' value='5' name='usercategory[]'> 管理员
+                                <input type='radio' id='inlineCheckbox3' value='5' name='usercategory[]'> 管理员
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='checkbox' id='inlineCheckbox3' value='6' name='usercategory[]'> 膜经理
+                                <input type='radio' id='inlineCheckbox3' value='6' name='usercategory[]'> 膜经理
                             </label>
                             </div></div>
 							<input type='hidden' name='addsend' value='yes'> 
