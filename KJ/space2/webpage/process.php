@@ -54,12 +54,14 @@ if ($location == 1) //用location取出四张表中相同的部分
     if ($_POST['send_toSecretary'] == 'yes') //管理员分配给秘书处形式审查
     {
         $secretary = $_POST['secretary'];
+        $state_tos = $_POST['state'];
+        $info = $_POST['info'];
         if (count($secretary) != 0) {
             for ($i = 0; $i < count($secretary); $i++) {
-                $query = "insert into secret (id_p,id_f,form_category) values (" . $secretary[$i] . ",$index,'$category_f')"; //注意这个表名没有s
+                $query = "insert into secret (id_p,id_f,form_status,form_category) values (" . $secretary[$i] . ",$index,'1','$category_f')"; //注意这个表名没有s
                 $db->query($query);
             }
-            $query = "update $sheet set state=2 where id=$index";
+            $query = "update $sheet set state='$state_tos',info1='$info' where id=$index";
             $db->query($query);
             echo "<script language=javascript>alertAtuoClose();</script>";
             exit();
@@ -72,7 +74,7 @@ if ($location == 1) //用location取出四张表中相同的部分
     if($_POST['secret_commit']=='yes'){
         $secret_isok = $_POST['secret_isok'];
         $secret_opinion = $_POST['secret_opinion'];
-        $query = "update secret set result = '$secret_isok',info = '$secret_opinion' where id_p = $id and id_f = $index and form_category = '$category_f'";
+        $query = "update secret set result = '$secret_isok',info = '$secret_opinion',form_status = '2' where id_p = $id and id_f = $index and form_category = '$category_f'";
         $result = $db->query($query);
         $query = "update $sheet set state=3 where id=$index";
         $result = $db ->query($query);
@@ -87,12 +89,14 @@ if ($location == 1) //用location取出四张表中相同的部分
     {
         $experts = $_POST['experts'];
         $name = $_POST['name'];
+        $state_toe = $_POST['state'];
+        $info = $_POST['info'];
         if (count($experts) != 0) {
             for ($i = 0; $i < count($experts); $i++) {
                 $query = "insert into expert (id_p,id_f,form_category,state,name) values (" . $experts[$i] . ",$index,'$category_f',1,'$name')"; //注意这个表名没有s
                 $db->query($query);
             }
-            $query = "update $sheet set state=4 where id=$index";
+            $query = "update $sheet set state='$state_toe',info1='$info' where id=$index";
             $db->query($query);
             echo "<script language=javascript>alertAtuoClose();</script>";
             exit();
@@ -124,17 +128,19 @@ if ($_POST['send3'] == 'yes') //管理员将专家的结果提交至理事会。
 {
     $info = $_POST['info'];
     $info = addslashes($info);
-    $query = "update $sheet set state=6,info1='$info' where id=$index";
+    $state_tolishi = $_POST['state'];
+    $query = "update $sheet set state='$state_tolishi',info1='$info' where id=$index";
     $db->query($query);
     echo "<script language=javascript>alertAtuoClose();</script>";
     exit();
 }
 if ($_POST['send4'] == 'yes') {
-    $p3 = $_POST['p3'];
-    $p4 = $_POST['p4'];
+    $num = $_POST['num'];
+    $num_c = $_POST['num_c'];
     $p1 = $_POST['p1'];
     $p2 = $_POST['p2'];
-    $num = $_POST['num'];
+    $p3 = $_POST['p3'];
+    $p4 = $_POST['p4'];
     if($nav1 ==6){
         $category_f_d = '1';
     }else if($nav1 ==7){
@@ -143,20 +149,34 @@ if ($_POST['send4'] == 'yes') {
     $sheet_z = "mo".$category_f_d."_zhuanxiang";
     $sheet_c = "mo".$category_f_d."_chengbao";
     for ($i = 1; $i <= $num; $i++) {
-        $str = "cid" . $i;
+        $str = "id" . $i;
         $PA[$i] = $_POST[$str];
         $PA[$i] = addslashes($PA[$i]);
-        $r = "r" . $i;
+        $r = "z" . $i;
         $RA[$i] = $_POST[$r];
         $RA[$i] = addslashes($RA[$i]);
-        $t = "t" . $i;
+        $t = "z1" . $i;
         $TA[$i] = $_POST[$t];
         $TA[$i] = addslashes($TA[$i]);
         $query1 = "update $sheet_z set state='7',result1='" . $RA[$i] . "',result2='" . $TA[$i] . "'  where id=" . $PA[$i] . "";
-        $query2 = "update $sheet_c set state='7',result1='" . $RA[$i] . "',result2='" . $TA[$i] . "'  where id=" . $PA[$i] . "";
-        $db->query($query1);$db->query($query2);
+        $db->query($query1);
+        $db->query($query2);
     }
-    $query = "update council_inform set headline1='$p1',headline2='$p2',preface='$p4',remark='$p3',state='1' where form_category='1'";
+    for ($i = ($num+1); $i <= ($num_c+$num); $i++) {
+        $str = "cid" . $i;
+        $PA[$i] = $_POST[$str];
+        $PA[$i] = addslashes($PA[$i]);
+        $r = "c" . $i;
+        $RA[$i] = $_POST[$r];
+        $RA[$i] = addslashes($RA[$i]);
+        $t = "c1" . $i;
+        $TA[$i] = $_POST[$t];
+        $TA[$i] = addslashes($TA[$i]);
+        $query2 = "update $sheet_c set state='7',result1='" . $RA[$i] . "',result2='" . $TA[$i] . "'  where id=" . $PA[$i] . "";
+        $db->query($query1);
+        $db->query($query2);
+    }
+    $query = "update council_inform set headline1='$p1',headline2='$p2',preface='$p4',remark='$p3',state='1' where form_category='$category_f_d'";//在coucil_inform中，form_category入会为0，膜初审为1，膜复审为2
     $result = $db->query($query);
     if ($result) {
         echo "<script language=javascript>alertAtuoClose();</script>";
@@ -166,40 +186,31 @@ if ($_POST['send4'] == 'yes') {
     exit();
 }
 if ($_POST['send5'] == 'yes') {
-    $query = "select * from $sheet where state='5'";
-    $result = $db->query($query);
-    $num_results = $result->num_rows;
-    for ($i = 1; $i <= $num_results; $i++) {
-        $companyid1 = "companyid" . $i;
-        $companyid[$i] = $_POST[$companyid1];
-        $companyid[$i] = addslashes($companyid[$i]);
-        $result = "result" . $i;
-        $RE[$i] = $_POST[$result];
-        $RE[$i] = addslashes($RE[$i]);
-        $state2 = "state2" . $i;
-        $state2[$i] = $_POST[$state2];
-        $state2[$i] = addslashes($state2[$i]);
-        $query1 = "update $sheet set state = 6 where id='" . $companyid[$i] . "'";
-        $result1 = $db->query($query1);
-        $query2 = " update join_form set level2 = '$RE[$i]' where $sheet.id = '" . $companyid[$i] . "' and join_form.id_p = $sheet.id_p";
-        //if($state2[$i]=='6')
-        //{
-        // $query1 = "select * from $sheet where id='".$companyid[$i]."'";
-        //$result=$db->query($query1);
-        //$row=$result->fetch_assoc();
-        //$result1=$row['c16'];
-        // $result2=$row['c17'];
-        // $query2 = "update $sheet set result1='".$row['c16']."',result2='".$row['c17']."' where id='$companyid[$i]'";
-        //$db->query($query2);
-        // echo $query2;
-        // }
-    }
-    $query2 = "update council_inform set state = '3' where form_category='$category_f'";
-    $result2 = $db->query($query2);
-    if ($result2) {
-        echo "<script language=javascript>alertAtuoClose();</script>";
-    } else {
-        echo "<script language=javascript>alert('出错！'); </script>";
+    $sheetType = ($nav1==6)?'mo1':'mo2';
+    for($i=0;$i<=2;$i++){
+        $num = "num".$i;
+        $sheetName = (($i==0)?'zhuanxiang':'chengbao');
+        $sheetFinal = $sheetType."_".$sheetName;
+        $result_num = $_POST[$num];
+        echo $result_num;
+        for($i1=1;$i1<=$result_num;$i1++){
+            $companyidd="companyidd".$i.$i1;
+            $state="state".$i.$i1;
+            $opinion="opinion".$i.$i1; 
+            $pc =  $_POST[$companyidd];
+            $pc = addslashes($pc);
+            $ps = $_POST[$state];
+            $ps = addslashes($ps);
+            $po = $_POST[$$opinion];
+            $query = "update $sheetFinal set state='$ps',info1='$po' where id='$pc'";
+            echo $query;
+            // $result2 = $db->query($query);
+            // if ($result2) {
+            //     echo "<script language=javascript>alertAtuoClose();</script>";
+            // } else {
+            //     echo "<script language=javascript>alert('出错！'); </script>";
+            // }
+        }
     }
     exit();
 }
@@ -257,10 +268,10 @@ if ($location == '2') {
             $select = $row['state'];
             echo "<div class='container-fluid noprint' style='padding:0px 15px'>
 				<form enctype='' action='' method='post'>
-				<table class='table table-bordered table-responsive text-center noprint'>
-			 <tr>
-				<td colspan='2' >下一进度：</td>
-				<td colspan='10'>
+				    <table class='table table-bordered table-responsive text-center noprint'>
+			          <tr>
+				        <td colspan='2' >下一进度：</td>
+				           <td colspan='10'>
 					<select class='form-control' data-style='btn-primary' name='state' id='state'>
                         <option value='1'> 提交待审核</option>
                         <option value='2'> 分配给秘书处</option>
@@ -274,12 +285,18 @@ if ($location == '2') {
 					</select>
 					<script  type='text/javascript'> document.getElementById('state')[" . $select . "].selected=true; </script >
 				</td>
-            </tr></table></form>";
+               </tr> 
+				<tr>
+                    <td colspan='2'> 管理员意见及留言</td>
+                    <td colspan='10'>
+						<textarea  type='text' class='form-control' name='info' placeholder='您的留言将反馈给用户'></textarea>
+					</td>
+				</tr>
+            </table>";
             //选择秘书处进行形式审查
             if($row['state'] == '1'){
                 echo "
-				<form class='noprint' enctype='' action='' method='post'>
-					<select  name='secretary[]' class='selectpicker show-tick form-control' multiple data-live-search='true'>";
+				<select  name='secretary[]' id='secretary' class='selectpicker show-tick form-control' multiple data-live-search='true'>";
                 //这里展开秘书处列表，这种格式：<option value='秘书处的id'> 秘书处的name</option >
                 $query = "select id,name from user where category=2";
                 $db->query($query);
@@ -292,8 +309,7 @@ if ($location == '2') {
                 echo "  </select>
 					<div style='text-align: right;margin:10px 0'>
 						<input type='hidden' value='yes' name='send_toSecretary'>
-						<button type='submit' class='btn btn-sm btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;
-						</button>
+						<button type='submit' class='btn btn-sm btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>
 					</div>
 				</form>";
             }else if ($row['state'] == '3') //nav==1 评审分组
@@ -310,11 +326,8 @@ if ($location == '2') {
                     </tr>";
                 for($i=0;$i<$num_results;$i++){
                     $row_info = $result_info->fetch_assoc();
-                    if($row_info[result]==1){
-                        $opinion_s = '同意';
-                    }else if($row_info[result]==2){
-                        $opinion_s = '不同意';
-                    }
+                    $opinion_s='';
+                    $opinion_s = ($row_info[result]==1)?'同意':(($row_info[result]==2)?'不同意':'');
                     echo"<tr>
                     <td>".$row_info[name]."</td>
                     <td>$opinion_s</td>
@@ -349,13 +362,6 @@ if ($location == '2') {
                 print_experts($index, $category_f); //注意这个函数里面是一个table
                 echo "
 					<form enctype='multipart/form-data' action='' method='post'>
-						<table class='table table-bordered table-responsive text-center'>
-													<tr>
-														<td colspan='12'>
-														<textarea  type='text' class='form-control' name='info' placeholder='管理员意见及留言'></textarea>
-														</td>
-													</tr>
-						</table>
 						<div style='text-align: right;margin-bottom: 2%'>
 							<input type='hidden' value='yes' name='send3'>
 							<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 投递至理事会 &nbsp; &nbsp;</button>
@@ -369,16 +375,17 @@ if ($location == '2') {
                 $query = "select * from mo1_zhuanxiang  where state='6'";
                 $query1 = "select * from mo1_chengbao  where state='6'";
                 $result = $db->query($query);
-                $num_results = $result->num_rows;
                 $result1 = $db->query($query1);
+                $num_results = $result->num_rows;
                 $num_results1 = $result1->num_rows;
-                if (($num_results+$num_results1) == 0) {
+                $num = $num_results + $num_results1;
+                if ($num == 0) {
                 echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
                 exit();
                 } 
             }else if($nav2==7){
                 $query = "select * from mo2_zhuanxiang  where state='6'";
-                $query1 = "select * from mo3_chengbao  where state='6'";
+                $query1 = "select * from mo2_chengbao  where state='6'";
                 $result = $db->query($query);
                 $num_results = $result->num_rows;
                 $result1 = $db->query($query1);
@@ -407,25 +414,28 @@ if ($location == '2') {
 			  <th colspan='6' style='text-align:center;'>申报等级</th>
               <th colspan='6' style='text-align:center;'>评审结果</th>
         </tr>";
-            //这里从mo1表中查找要投递给理事会的企业
-            $num = $num_results;
             for ($i = 1; $i <= $num_results; $i++) {
-                $r = "r" . $i; //两个评审结果
-                $t = "t" . $i; //需要问孙老师，用不用修改评审结果。
                 $row2 = $result->fetch_assoc();
-                $p = "cid" . $i;
-                echo "<input type='hidden' name='$p' value='" . $row2['id'] . "'>
-				<input type='hidden' name='num' value='$num'>";
+                $z = "z" . $i; //专项设计
+                $z1 = "z1" . $i; 
+                $cid = "id".$i;
+                echo"<input type='hidden' name='num' value='$num_results'/>
+                <input type='hidden' name='$cid' value='".$row2[id]."'/>
+                ";
                 if ($row2['c16'] != null && $row2['c17'] != null) {
                     echo "
 				<tr>
             <td colspan='1' rowspan='2' style='text-align:center;'>$i</td>
-			 <td colspan='6' rowspan='2' style='text-align:center;'>
+			<td colspan='6' rowspan='2' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
-			 <td colspan='6'> " . $row2['c16'] . " </td>
-			<td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>  </td>
-			  <tr><td colspan='6'>" . $row2['c17'] . " </td>
-			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  </td></tr>
+			<td colspan='6'> " . $row2['c16'] . " </td>
+            <td colspan='6'> 
+                <input type='text' name='$z' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>  
+            </td>
+			<tr><td colspan='6'>" . $row2['c17'] . " </td>
+            <td colspan='6'> 
+                <input type='text' name='$z1' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  
+            </td></tr>
         </tr> ";
                 } else {
                     echo "
@@ -434,18 +444,19 @@ if ($location == '2') {
 			 <td colspan='6' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
 			 <td colspan='6'> " . $row2['c16'] . " </td>
-			 <td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>
-			 <input type='hidden' name='$t'></td>
+			 <td colspan='6'> <input type='text' name='$z' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>
+			 <input type='hidden' name='$z1'></td>
         </tr> ";
                 }
             }
             for ($i = ($num_results+1); $i <= ($num_results+$num_results1); $i++) {
-                $r = "r" . $i; //两个评审结果
-                $t = "t" . $i; //需要问孙老师，用不用修改评审结果。
-                $row2 = $result->fetch_assoc();
+                $row2 = $result1->fetch_assoc();
+                $c = "c" . $i; //工程承包
+                $c1 = "c1" . $i; 
                 $p = "cid" . $i;
-                echo "<input type='hidden' name='$p' value='" . $row2['id'] . "'>
-				<input type='hidden' name='num' value='$num'>";
+                echo"<input type='hidden' name='num_c' value='$num_results1'/>
+                <input type='hidden' name='$p' value='".$row2[id]."'/>
+                ";
                 if ($row2['c16'] != null && $row2['c17'] != null) {
                     echo "
 				<tr>
@@ -453,9 +464,9 @@ if ($location == '2') {
 			 <td colspan='6' rowspan='2' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
 			 <td colspan='6'> " . $row2['c16'] . " </td>
-			<td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>  </td>
+			<td colspan='6'> <input type='text' name='$c' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c20'] . "'>  </td>
 			  <tr><td colspan='6'>" . $row2['c17'] . " </td>
-			 <td colspan='6'> <input type='text' name='$t' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c17'] . "'>  </td></tr>
+			 <td colspan='6'> <input type='text' name='$c1' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c21'] . "'>  </td></tr>
         </tr> ";
                 } else {
                     echo "
@@ -464,8 +475,8 @@ if ($location == '2') {
 			 <td colspan='6' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
 			 <td colspan='6'> " . $row2['c16'] . " </td>
-			 <td colspan='6'> <input type='text' name='$r' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c16'] . "'>
-			 <input type='hidden' name='$t'></td>
+			 <td colspan='6'> <input type='text' name='$c' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c20'] . "'>
+			 <input type='hidden' name='$c1'></td>
         </tr> ";
                 }
             }
@@ -491,82 +502,211 @@ if ($location == '2') {
 		</form>
 		</div>";
         }
-        $query1 = "select * from council_inform where form_category='1'";
+        if($nav1 == 6){
+            $sheet_mo = ['mo1_zhuanxiang','mo1_chengbao'];
+            $formtcategory = 1;
+        }else if($nav1 == 7){
+            $sheet_mo = ['mo2_zhuanxiang','mo2_chengbao'];
+            $formtcategory = 2;
+        }
+        $query1 = "select * from council_inform where form_category='$formtcategory'";
         $result1 = $db->query($query1);
         $row1 = $result1->fetch_assoc();
         if ($index == '-1') //当点击理事会结果的时候，传来index=-1
         {
-            echo " <div class='container-fluid'>
-	<form enctype='multipart/form-data' action='' method='post'>
-	<table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
-	 <h3 class='text-center'style='line-height:8px'>" . $row1['headline1'] . "</h3>
-<h3 class='text-center' style='line-height:10px'>" . $row1['headline2'] . "</h3>
-   <tbody>
-   <tr>
-   <td colspan='1'>序号</td>
-   <td colspan='6'>公司名称</td>
-   ";
-            $query2 = "select name,id from user where category=4"; //查找所有的常务理事
-            $result2 = $db->query($query2);
-            $num_results2 = $result2->num_rows;
-            for ($i2 = 1; $i2 <= $num_results2; $i2++) {
-                $row2 = $result2->fetch_assoc();
-                $p[$i2] = $row2['id']; //将理事会的id依次存放在$p[]中。
-                echo " <td colspan='6'>常务理事" . $row2['name'] . "意见</td>";
-            }
-            echo "<td>审批结果</td></tr>";
-//找出理事会已经给出意见的企业
-            if($nav1 == 6){
-                $sheet = ['mo1_zhuanxiang','mo1_chengbao'];
-            }else if($nav1 == 7){
-                $sheet = ['mo2_zhuanxiang','mo2_chengbao'];
-            }
+            echo <<< EOD
+            <div class='container-fluid'>
+		   <form enctype='multipart/form-data' action='' method='post'>
+            <script type='text/javascript'>
+            function checkOption(id,str_accept,str_reject){ 
+               var acc_one=new Array();
+               var rej_one=new Array();
+               rej_one=str_reject.split('!');
+               acc_one=str_accept.split('!');
+               var tb_start="<div style='margin-left:2.5%;height:150px	;overflow:auto'><table style='border:1px solid 	#666666;text-align: center;width:95%'><tr style='border:1px solid #666666;'><td style='border:1px solid #666666;'>姓名</td><td style='border:1px solid #666666;'>是否同意</td><td style='border:1px solid #666666;'>意见</td></tr>";
+               var tb_row='';
+               for(var i=0;i<rej_one.length-1;i++){
+                   var rej_two=new Array();
+                   rej_two=rej_one[i].split(';');
+                   tb_row +="<tr style='border:1px solid #666666;'><td style='border:1px solid #666666;'>"+rej_two[0]+"</td><td style='border:1px solid 	#666666;'>"+rej_two[1]+"</td><td style='border:1px solid #666666;'>"+rej_two[2]+"</td></tr>"
+      }
+      for(var i=0;i<acc_one.length-1;i++){
+          var acc_two=new Array();
+          acc_two=acc_one[i].split(";");
+          tb_row +='<tr style="border:1px solid #666666;"><td style="border:1px solid #666666;">'+acc_two[0]+'</td><td style="border:1px solid 	#666666;">'+acc_two[1]+'</td><td style="border:1px solid #666666;">'+acc_two[2]+'</td></tr>'
+      }			
+      var tb_end='</table></div>';
+      var string = tb_start+tb_row+tb_end;
+      swal({
+          title: '意见显示',
+          html:string,
+          showCloseButton: true,
+          confirmButtonText:
+            '<i class="fa fa-thumbs-up"></i> 确定',
+        });
+  }
+  </script>
+EOD;
+            
+		       echo"<h3 class='text-center'style='line-height:8px'>" . $row1['headline1'] . "</h3>
+               <h3 class='text-center' style='line-height:10px'>" . $row1['headline2'] . "</h3>
+		       <br>
+               <table id='expertTable'
+			   data-toggle='table'
+			   data-striped='ture'
+			   data-search='ture'
+			   data-pagination='ture'
+			   data-show-columns='true'
+			   class='text-center'
+               >
+               <tr>
+				 <td>序号</td>
+				 <td>公司名称</td>
+				 <td>审批结果</td>
+                 <td>人数</td>
+                 <td>意见</td>					
+				 <td>审核</td>
+                 <td>管理员意见</td>
+                 <td>查看申请表格</td>
+			   </tr>";		      
+
             for($i_e=0;$i_e<2;$i_e++){
-                $query = "select id,c1 from $sheet[$i] where state='7'";
+                //在council_inform中膜结构评审中的两个表是一起的，所以form_category就是1，但是在秘书处评审（secret）,专家评审（expert）,
+                //理事会评审（director）里都是分开审核，所以form_category 分别为2_1(膜结构评审专项设计)2_2 (膜结构评审工程承包) 3_1(膜结构复审专项设计)3_2(膜结构复审工程承包) 
+                $formtcategory_d = ($formtcategory+1).'_'.($i_e+1);
+                $query = "select id,c1,result1,result2 from $sheet_mo[$i_e] where state='7'";
                 $resultTotal = $db->query($query);
                 $num_results = $resultTotal->num_rows;
-                for ($i = 1; $i <= $num_results; $i++) { //大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
-                    $row = $resultTotal->fetch_assoc();
-                    $companyid1 = "companyid" . $i;
-                    $state2 = "state2" . $i;
-                    $result = "result" . $i;
-                    $moID = $row['id'];
-                    echo "<tr>
-               <td colspan='1'>$i</td>
-               <td colspan='6'>" . $row['c1'] . "</td>";
-                    for ($i2 = 1; $i2 <= $num_results2; $i2++) {
-                        $id2 = $p[$i2];
-                        $query1 = "select result from director where form_category=1 and id_f='$id' and id_p='$id2'"; //id是企业的id ,id2是常务理事的id
-                        $result1 = $db->query($query1);
-                        $row1 = $result1->fetch_assoc();
-                        $re = $row1['result']; //为了和之前的result分开避免混淆。
-                        echo "<td colspan='6'>";
-                        if ($re == 1) {
-                            echo "同意";
-                        } else if ($re == 2) {
-                            echo "不同意";
-                        }
-                        echo "</td>";
+                for($i=1;$i<=$num_results;$i++){
+                    $row2 = $resultTotal->fetch_assoc();
+                    $id_f = $row2['id'];
+                    $query_accept = "select a.*,u.name from director a, user u where a.form_category='$formtcategory_d' and a.id_f='$id_f' and a.result = 1 and a.id_p =u.id";
+                    $query_reject = "select a.*,u.name from director a, user u where a.form_category='$formtcategory_d' and a.id_f='$id_f' and a.result = 2 and a.id_p =u.id";
+                    $accept = $db->query($query_accept);
+                    $reject = $db->query($query_reject);
+                    $num_accept = $accept->num_rows;
+                    $num_reject = $reject->num_rows;
+                    $string_accept = "";
+                    $string_reject = "";
+                    while ($row3 = $reject->fetch_assoc()) {
+                        $string_reject = $string_reject . $row3["name"] . ";不同意;" . $row3["info"] . ";!";
                     }
-                    echo "
-              <td colspan='4'>
-                 <input type='text' class='form-control' name='$result'>
-              </td>
-            </tr>
-               <input type='hidden' value='$moID' name='$companyid1'>
-            ";
-         }
-        }
+                    $string_reject = "'" . $string_reject . "'";
+                    while ($row4 = $accept->fetch_assoc()) {
+                        $string_accept = $string_accept . $row4["name"] . ";同意;" . $row4["info"] . "!";
+                    }
+                    $string_accept = "'" . $string_accept . "'";
+			        $c1 = "'" . $row2['id'] . "'";
+			        $companyidd="companyidd".$i_e.$i;
+			        $state="state".$i_e.$i;
+                    $opinion="opinion".$i_e.$i; 
+                    $num = "num".$i_e;
+                    echo"
+                    <input type='hidden' value='$num_results' name='$num'></input>
+                    <tr>
+		                 <td>$i</td>
+		                 <td>" . $row2['c1'] . "</td>
+                         <td>" . $row2['result1'] . " ".$row2['result2']."</td>
+                         <td>同意:$num_accept 人;不同意:$num_reject 人</td>
+		                 <td><input type='button' value='查看意见' onclick=checkOption($c1,$string_accept,$string_reject)></td>
 
-            echo "
-			</tbody>
-</table>
-<div style='text-align: right;margin-bottom: 2%'>
-				<input type='hidden' value='yes' name='send5'>
-				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
-				</button>
-			</div></form></div>";
-        }if ($index == '-2') {
+                         <td width='12%'>
+			                <select class='form-control' data-style='btn-primary' name='$state'>
+					            <option value='8'> 通过审核，等待缴费证明</option>
+					            <option value='10'> 未通过审核</option>
+				            </select>
+				         <input type='hidden' value='".$row2['id']."' name='$companyidd'>
+		                </td>
+		                <td>
+		                     <input type='text'  style='width:100%;height:100%' value='".$row2['info1']."' name='$opinion' > 
+		                </td>
+                        <td>
+                           <input type='button' value='查看'>
+                        </td>
+                    </tr>" ;
+                }
+            }
+            echo <<< EOD
+            </table>
+            <input type='hidden' value='yes' name='send5'>
+ 			<button type='submit' class='btn btn-md btn-primary' style='margin:10px 0 10px 0 ;float:right'>&nbsp;&nbsp; 提交&nbsp; &nbsp;
+             </button>
+             </form></div>
+             
+             
+EOD;
+//             echo " <div class='container-fluid'>
+// 	<form enctype='multipart/form-data' action='' method='post'>
+// 	<table class='table table-bordered table-responsive text-center' style='margin-top:2em;font-size:1em;'>
+// 	 <h3 class='text-center'style='line-height:8px'>" . $row1['headline1'] . "</h3>
+// <h3 class='text-center' style='line-height:10px'>" . $row1['headline2'] . "</h3>
+//    <tbody>
+//    <tr>
+//    <td colspan='1'>序号</td>
+//    <td colspan='6'>公司名称</td>
+//    ";
+//             $query2 = "select name,id from user where category=4"; //查找所有的常务理事
+//             $result2 = $db->query($query2);
+//             $num_results2 = $result2->num_rows;
+//             for ($i2 = 1; $i2 <= $num_results2; $i2++) {
+//                 $row2 = $result2->fetch_assoc();
+//                 $p[$i2] = $row2['id']; //将理事会的id依次存放在$p[]中。
+//                 echo " <td colspan='6'>常务理事" . $row2['name'] . "意见</td>";
+//             }
+//             echo "<td>审批结果</td></tr>";
+// //找出理事会已经给出意见的企业
+//             if($nav1 == 6){
+//                 $sheet = ['mo1_zhuanxiang','mo1_chengbao'];
+//             }else if($nav1 == 7){
+//                 $sheet = ['mo2_zhuanxiang','mo2_chengbao'];
+//             }
+//             for($i_e=0;$i_e<2;$i_e++){
+//                 $query = "select id,c1 from $sheet[$i] where state='7'";
+//                 $resultTotal = $db->query($query);
+//                 $num_results = $resultTotal->num_rows;
+//                 for ($i = 1; $i <= $num_results; $i++) { //大循环作为输出每一行的循环，小循环作为将常务理事会的名称和结果输出循环。
+//                     $row = $resultTotal->fetch_assoc();
+//                     $companyid1 = "companyid" . $i;
+//                     $state2 = "state2" . $i;
+//                     $result = "result" . $i;
+//                     $moID = $row['id'];
+//                     echo "<tr>
+//                <td colspan='1'>$i</td>
+//                <td colspan='6'>" . $row['c1'] . "</td>";
+//                     for ($i2 = 1; $i2 <= $num_results2; $i2++) {
+//                         $id2 = $p[$i2];
+//                         $query1 = "select result from director where form_category=1 and id_f='$id' and id_p='$id2'"; //id是企业的id ,id2是常务理事的id
+//                         $result1 = $db->query($query1);
+//                         $row1 = $result1->fetch_assoc();
+//                         $re = $row1['result']; //为了和之前的result分开避免混淆。
+//                         echo "<td colspan='6'>";
+//                         if ($re == 1) {
+//                             echo "同意";
+//                         } else if ($re == 2) {
+//                             echo "不同意";
+//                         }
+//                         echo "</td>";
+//                     }
+//                     echo "
+//               <td colspan='4'>
+//                  <input type='text' class='form-control' name='$result'>
+//               </td>
+//             </tr>
+//                <input type='hidden' value='$moID' name='$companyid1'>
+//             ";
+//          }
+//         }
+
+//             echo "
+// 			</tbody>
+// </table>
+// <div style='text-align: right;margin-bottom: 2%'>
+// 				<input type='hidden' value='yes' name='send5'>
+// 				<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交&nbsp; &nbsp;
+// 				</button>
+// 			</div></form></div>";
+   }
+    if ($index == '-2') {
             $searchStateResultj = json_encode($searchStateResult);
             $select_table="";
 			if($nav1==6){

@@ -577,12 +577,11 @@ textarea{outline:none;resize:none;}
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>专项设计</span>";
-			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
-			echo $row_r[result];
-			if($row_r['result']!=''){
+			if($row_r['form_status']==2){
 				echo"<span><img src='right.png'>已审核</span>";
 			}
 			echo"</a>";
@@ -594,11 +593,11 @@ textarea{outline:none;resize:none;}
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>工程承包</span>";
-			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
-			if($row_r['result']!=''){
+			if($row_r['form_status']=='2'){
 				echo"<span><img src='right.png'>已审核</span>";
 			}
 			echo"</a>";
@@ -612,11 +611,12 @@ textarea{outline:none;resize:none;}
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>专项设计</span>";
-			$query1="select s1 from expert where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			echo $query1;
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
-			if($row_r['s1']!=''){
+			if($row_r['state']==2){
 				echo"<span><img src='right.png'>已审核</span>";
 			}
 			echo"</a>";
@@ -628,11 +628,11 @@ textarea{outline:none;resize:none;}
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>工程承包</span>";
-			$query1="select result from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
-			$row_r=$result->fetch_assoc();
-			if($row_r['s1']!=''){
+			$row_r=$result1->fetch_assoc();
+			if($row_r['state']==2){
 				echo"<span><img src='right.png'>已审核</span>";
 			}
 			echo"</a>";		

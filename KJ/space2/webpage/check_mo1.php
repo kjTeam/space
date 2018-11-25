@@ -38,7 +38,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2 || $cate
               <input id='btnPrint' class='noprint btn btn-info' type='button' value='打印' onclick='javascript:window.print();' style='font-weight:bold; text-decoration:none;cursor:pointer;float:right;!important; cursor:hand'/>
             </div>
             <div class='container-fluid hidden-xs ' style='margin-top:10px' >
-               <form enctype='multipart/form-data' action='' method='post'>
                    <table class='table table-bordered text-center table-responsive noprint' name='design' >
                       <tbody>
 			          <h3 class='text-center'>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</h3>
@@ -211,7 +210,6 @@ if ($_GET['index'] != 0 && $_GET['index'] != -1 && $_GET['index'] != -2 || $cate
     //手机端代码
     echo "
     <div class='container-fluid visible-xs noprint'>
-    <form enctype='multipart/form-data'  action='' method='post'>
      <h5 class='text-center noprint'><strong>中国钢结构协会空间结构分会膜结构专项设计企业等级会员申请表</strong></h5>
      <table class='table table-bordered text-center noprint' style='font-size:14px'>
      <tbody>
@@ -521,7 +519,6 @@ if($sheet =='mo1_chengbao' || $category == 1){
 echo "</div>";
 //手机端代码
 echo"<div class='container-fluid visible-xs noprint' >
-<form enctype='multipart/form-data'  action='' method='post'>
 <h5 class='text-center noprint'><strong>中国钢结构协会空间结构分会膜结构工程承包企业等级会员申请表</strong></h5>   
 <table class='table table-bordered text-center table-responsive noprint' name='chengbao' >
         <tbody>

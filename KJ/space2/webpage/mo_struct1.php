@@ -168,6 +168,7 @@ $flag1='';
 if($num_results)	
 {
     $flag1='yes';
+    $flag_m = '';
 	$row=$result->fetch_assoc(); 
 	echo"<h3><span class='label label-info'>";
 	switch ($row['state'])
@@ -178,11 +179,19 @@ if($num_results)
 			case 4:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//投递给理事会
 			case 5:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//理事会意见反馈
             case 6:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//理事会意见反馈
-            case 7:	echo "已通过审核,请前往查看菜单查看";$flag=1;break;//通过审核
-            case 8:	echo "未通过审核，请按照意见重新填写";break;//未通过审核，这个时候可以更新表单
+            case 7:	echo "秘书处正在审核，您无法更改表单,请前往查看菜单查看";$flag=1;break;//通过审核
+            case 8:	echo "已通过审核,请前往查看菜单查看";$flag=1;break;//未通过审核，这个时候可以更新表单
+            case 10: echo "未通过审核，请按照意见重新填写";$flag_m=1;break;//未通过审核，这个时候可以更新表单
             default: echo "出错";$flag=1;break;
 	}
 	echo"</span></h3>";
+}
+if($flag_m == 1){
+    echo"<table class='table table-bordered text-center table-responsive noprint' >
+        <tr><td><b style='color:red'>管理员意见</b></td>
+        <td>".$row['info1']."</td>
+        </tr>
+    </table>";
 }
 if($flag!=1){
 echo"
