@@ -490,7 +490,7 @@ textarea{outline:none;resize:none;}
 		    switch ($row['query'])
 				{
 				case 3:judge('mo1_zhuanxiang;mo1_chengbao');break;
-                case 4:judge(mo2);break;
+                case 4:judge('mo2_zhuanxiang;mo2_chengbao');break;
 				case 5:judge(wang1);break;
 				case 6:judge(wang2);break;
 				}
@@ -568,16 +568,22 @@ textarea{outline:none;resize:none;}
 			echo"</div>";
 		    }
      echo"</div>";
-	}else if($row['query']=='sercret_checkmo1'){
+	}else if($row['query']=='sercret_checkmo1' || $row['query']=='secret_checkmo2'){
+		$formCategory = ($row['query']=='sercret_checkmo1')?'mo1':'mo2';
+		$formCategory_c = $formCategory . "_chengbao";
+		$formCategory_z = $formCategory . "_zhuanxiang";
+		$formNum = ($row['query']=='sercret_checkmo1')?'2':'3';
+		$formNum_z = $formNum."_1";
+		$formNum_c = $formNum."_2";
 		echo" <div class='list-group'style='margin-top:15px;'>";
-		$query="select * from mo1_zhuanxiang where state = 2 or state = 3 ";
+		$query="select * from $formCategory_z where state = 2 or state = 3 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
         for($i=0;$i<$num_results;$i++){
 			$row2=$result->fetch_row();
-			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=$formCategory_z' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>专项设计</span>";
-			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '$formNum_z'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
@@ -586,14 +592,14 @@ textarea{outline:none;resize:none;}
 			}
 			echo"</a>";
 		}
-        $query="select * from mo1_chengbao where state = 2 or state = 3 ";
+        $query="select * from $formCategory_c where state = 2 or state = 3 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
         for($i=0;$i<$num_results;$i++){
 			$row2=$result->fetch_row();
-			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=$formCategory_c' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>工程承包</span>";
-			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$query1="select result,form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '$formNum_c'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
@@ -602,17 +608,22 @@ textarea{outline:none;resize:none;}
 			}
 			echo"</a>";
 		}
-	}else if($row['query'] == 'expert_check'){
+	}else if($row['query'] == 'expert_check' || $row['query'] == 'expert_check_mo2'){
+		$formCategory = ($row['query']=='expert_check')?'mo1':'mo2';
+		$formCategory_c = $formCategory . "_chengbao";
+		$formCategory_z = $formCategory . "_zhuanxiang";
+		$formNum = ($row['query']=='expert_check')?'2':'3';
+		$formNum_z = $formNum."_1";
+		$formNum_c = $formNum."_2";
 		echo" <div class='list-group'style='margin-top:15px;'>";
-		$query="select * from mo1_zhuanxiang where state = 4 or state = 5 ";
+		$query="select * from $formCategory_z where state = 4 or state = 5 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
         for($i=0;$i<$num_results;$i++){
 			$row2=$result->fetch_row();
-			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=$formCategory_z' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>专项设计</span>";
-			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
-			echo $query1;
+			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '$formNum_z'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
@@ -621,14 +632,14 @@ textarea{outline:none;resize:none;}
 			}
 			echo"</a>";
 		}
-        $query="select * from mo1_chengbao where state = 4 or state = 5 ";
+        $query="select * from $formCategory_c where state = 4 or state = 5 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
         for($i=0;$i<$num_results;$i++){
 			$row2=$result->fetch_row();
-			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=$formCategory_c' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>工程承包</span>";
-			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$query1="select state from expert where id_p=$id and id_f=$row2[0] and form_category = '$formNum_c'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
@@ -678,7 +689,7 @@ textarea{outline:none;resize:none;}
 					}
 					echo"</div>";
 					}
-			echo"</div>";	}
+				}
 			}
 			
 		  ?>

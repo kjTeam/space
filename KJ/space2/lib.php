@@ -414,6 +414,8 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 			switch ($sheetArray[$i2]){
 				case 'mo1_zhuanxiang':$span = '专项设计';break;
 				case 'mo1_chengbao':$span = '工程承包';break;
+				case 'mo2_zhuanxiang':$span = '专项设计';break;
+				case 'mo2_chengbao':$span = '工程承包';break;
 				default：break;
 			}
 			for($i=0;$i<$num_results;$i++) 
@@ -462,7 +464,7 @@ function print_experts3($index,$category_f,$q) //打印专家的评审意见，�
 		 case 6:return '<span class="label label-warning">投递给理事会</span>'; break;
 		 case 7:return '<span class="label label-warning">理事会意见反馈</span>'; break;
 		 case 8:return '<span class="label label-success">审核成功</span>'; break;
-		 //case 9:return '<span class="label label-danger">未通过审核</span>'; break;
+		 case 10:return '<span class="label label-danger">未通过审核</span>'; break;
 		 defalut:break;
         }
 	}

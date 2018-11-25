@@ -1,11 +1,19 @@
 <?php
 $index = $_GET['index'];
 $stateSelected = '';
-if($_POST['serachByState'] == 'yes'){
+if($_POST['chengbao'] == 'yes'){
 	$searchStateResult = $_POST['searchState'];
 	if(sizeof($searchStateResult)>0){
 	    if(array_search("all",$searchStateResult)===false){
-			$stateSelected = ' where state in ('.implode(',',$searchStateResult).')';
+			$stateSelected_c = ' where state in ('.implode(',',$searchStateResult).')';
+	}
+}
+}
+if($_POST['zhuanxiang'] == 'yes'){
+	$searchStateResult = $_POST['searchState'];
+	if(sizeof($searchStateResult)>0){
+	    if(array_search("all",$searchStateResult)===false){
+			$stateSelected_z = ' where state in ('.implode(',',$searchStateResult).')';
 	}
 }
 }
@@ -185,6 +193,7 @@ if ($_POST['send4'] == 'yes') {
     }
     exit();
 }
+//理事会意见反馈后管理员选择
 if ($_POST['send5'] == 'yes') {
     $sheetType = ($nav1==6)?'mo1':'mo2';
     for($i=0;$i<=2;$i++){
@@ -192,7 +201,6 @@ if ($_POST['send5'] == 'yes') {
         $sheetName = (($i==0)?'zhuanxiang':'chengbao');
         $sheetFinal = $sheetType."_".$sheetName;
         $result_num = $_POST[$num];
-        echo $result_num;
         for($i1=1;$i1<=$result_num;$i1++){
             $companyidd="companyidd".$i.$i1;
             $state="state".$i.$i1;
@@ -201,18 +209,17 @@ if ($_POST['send5'] == 'yes') {
             $pc = addslashes($pc);
             $ps = $_POST[$state];
             $ps = addslashes($ps);
-            $po = $_POST[$$opinion];
+            $po = $_POST[$opinion];
+            $po = addslashes($po);
             $query = "update $sheetFinal set state='$ps',info1='$po' where id='$pc'";
-            echo $query;
-            // $result2 = $db->query($query);
-            // if ($result2) {
-            //     echo "<script language=javascript>alertAtuoClose();</script>";
-            // } else {
-            //     echo "<script language=javascript>alert('出错！'); </script>";
-            // }
+            $result2 = $db->query($query);
+            if ($result2) {
+                echo "<script language=javascript>alertAtuoClose();</script>";
+            } else {
+                echo "<script language=javascript>alert('出错！'); </script>";
+            }
         }
     }
-    exit();
 }
 //if($_POST['send4']=='yes') //理事会提交，内容是从check_join.php 沾过来的
 //{
@@ -383,7 +390,7 @@ if ($location == '2') {
                 echo "<h3><span class='label label-warning'>尚未有企业提交</span></h3>";
                 exit();
                 } 
-            }else if($nav2==7){
+            }else if($nav1==7){
                 $query = "select * from mo2_zhuanxiang  where state='6'";
                 $query1 = "select * from mo2_chengbao  where state='6'";
                 $result = $db->query($query);
@@ -457,15 +464,15 @@ if ($location == '2') {
                 echo"<input type='hidden' name='num_c' value='$num_results1'/>
                 <input type='hidden' name='$p' value='".$row2[id]."'/>
                 ";
-                if ($row2['c16'] != null && $row2['c17'] != null) {
+                if ($row2['c20'] != null && $row2['c21'] != null) {
                     echo "
 				<tr>
             <td colspan='1' rowspan='2' style='text-align:center;'>$i</td>
 			 <td colspan='6' rowspan='2' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
-			 <td colspan='6'> " . $row2['c16'] . " </td>
+			 <td colspan='6'> " . $row2['c20'] . " </td>
 			<td colspan='6'> <input type='text' name='$c' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c20'] . "'>  </td>
-			  <tr><td colspan='6'>" . $row2['c17'] . " </td>
+			  <tr><td colspan='6'>" . $row2['c21'] . " </td>
 			 <td colspan='6'> <input type='text' name='$c1' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c21'] . "'>  </td></tr>
         </tr> ";
                 } else {
@@ -474,7 +481,7 @@ if ($location == '2') {
             <td colspan='1' style='text-align:center;'>$i</td>
 			 <td colspan='6' style='text-align:center;'>
 			 " . $row2['c1'] . "</td>
-			 <td colspan='6'> " . $row2['c16'] . " </td>
+			 <td colspan='6'> " . $row2['c20'] . " </td>
 			 <td colspan='6'> <input type='text' name='$c' class='form-control noborder-input text-center' style='font-size:14px;' value='" . $row2['c20'] . "'>
 			 <input type='hidden' name='$c1'></td>
         </tr> ";
@@ -621,7 +628,7 @@ EOD;
 		                     <input type='text'  style='width:100%;height:100%' value='".$row2['info1']."' name='$opinion' > 
 		                </td>
                         <td>
-                           <input type='button' value='查看'>
+                        <a class='btn btn-xs btn-default' href='index.php?nav1=$nav1&nav2=$nav2&index=$row2[id]&type=$sheet_mo[$i_e]'>查看</a>
                         </td>
                     </tr>" ;
                 }
@@ -715,7 +722,10 @@ EOD;
 				$select_table=['mo2_zhuanxiang','mo2_chengbao'];
             }
         for($i_t=0;$i_t<2;$i_t++){
-                echo <<< EOD
+              $apply_level =  ($i_t==0)?'c16':'c20';
+              $apply_level1 = ($i_t==0)?'c17':'c21';
+              $button_flag =  ($i_t==0)?'zhuanxiang':'chengbao';
+              echo <<< EOD
                 <div style="padding:10px;border:solid 1px #ccc;margin-top:20px">
                 <div class="container-fluid"  >
                     <form enctype='multipart/form-data' action='' method='post'>
@@ -723,18 +733,33 @@ EOD;
                           <input  type="checkbox" id="inlineCheckbox1" name='searchState[]' value="1" > 提交待审核
                         </label>
                         <label class="checkbox-inline">
-                          <input type="checkbox" id="inlineCheckbox2" name='searchState[]' value="3"> 秘书处意见反馈
+                          <input  type="checkbox" id="inlineCheckbox2" name='searchState[]' value="2" > 等待秘书处反馈
                         </label>
                         <label class="checkbox-inline">
-                          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="5"> 专家意见反馈
+                          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="3"> 秘书处意见反馈
                         </label>
                         <label class="checkbox-inline">
-                          <input type="checkbox" id="inlineCheckbox1" name='searchState[]' value="7"> 理事会意见反馈
+                          <input type="checkbox" id="inlineCheckbox4" name='searchState[]' value="4"> 等待专家审核
                         </label>
                         <label class="checkbox-inline">
-                          <input type="checkbox" id="inlineCheckbox3" name='searchState[]' value="all"> 全部状态
+                          <input type="checkbox" id="inlineCheckbox5" name='searchState[]' value="5"> 专家意见反馈
                         </label>
-                        <input type='hidden' value='yes' name='serachByState'/>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox6" name='searchState[]' value="6"> 投递给理事会
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox7" name='searchState[]' value="7"> 理事会意见反馈
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox7" name='searchState[]' value="8"> 审核成功
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox7" name='searchState[]' value="10"> 审核未通过
+                        </label>
+                        <label class="checkbox-inline">
+                          <input type="checkbox" id="inlineCheckbox8" name='searchState[]' value="all"> 全部状态
+                        </label>
+                        <input type='hidden' value='yes' name='$button_flag'/>
                         <button type='submit' class="btn btn-primary btn-xs" style="float:right"> 查询</button>
                     </form>
                 </div>
@@ -749,8 +774,11 @@ EOD;
                 })
                 </script>
 EOD;
-                        
-                        $query = "select *from $select_table[$i_t]" . $stateSelected;                        
+                        if($i_t==0){
+                            $query = "select *from $select_table[0]" . $stateSelected_z;                        
+                        }else if($i_t==1){
+                            $query = "select *from $select_table[1]" . $stateSelected_c;                        
+                        }
                         $result = $db->query($query);
                         $num_results = $result->num_rows;
                         echo <<< EOD
@@ -784,8 +812,8 @@ EOD;
                         <td>$row[c1]</td>
                         <td>$row[c3]</td>
                         <td>$row[c4]</td>
-                        <td>$row[c16]</td>
-                        <td>$row[c17]</td>
+                        <td>$row[$apply_level]</td>
+                        <td>$row[$apply_level1]</td>
                         <td>$stateshow</td>
                         <td><a class="btn btn-xs btn-default" href="index.php?nav1=$nav1&nav2=$nav2&index=$row[id]&type=$select_table[$i_t]">查看</a>
                     </tr>
