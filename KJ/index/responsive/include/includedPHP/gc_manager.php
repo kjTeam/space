@@ -7,16 +7,16 @@ if($type == 1){
     $unit = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['unit']);
     $properties = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$_GET['properties']);
     if($unit=="" && $properties==""){
-        $query = "select * from  gc_manager where 1";
+        $query = "select * from  gc_manager where 1 order by  year desc ";
     }else{
-        $str ='where';
+        $str ='where 1';
         if($unit!=""){
-            $str = $str." jl_dengji like '%".$unit."%'";
+            $str = $str." and name like '%".$unit."%'";
         }
         if($properties!=""){
-          $str = $str." name like '%".$properties."%' ";
+          $str = $str." and jl_dengji like '%".$properties."%' ";
         }
-        $query = "select * from gc_manager ".$str;
+        $query = "select * from gc_manager ".$str."order by year desc";
        
     }
     $result = $db->query($query);
