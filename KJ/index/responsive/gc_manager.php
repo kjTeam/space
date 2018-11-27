@@ -92,7 +92,17 @@ if(less_than_ie9()) {
           },{
             field: 'jl_dengji',
             align: 'center',
-            title: '经理等级'
+            title: '经理等级',
+            formatter:function(value,row,index){
+                if(row.jl_dengji==3){
+                  return "三 级";
+                }else if(row.jl_dengji==2){
+                  return "二 级";
+                }else if(row.jl_dengji==1){
+                  return "一 级";
+                }
+
+            }
           },{
             field: 'name',
             align: 'center',
@@ -102,8 +112,7 @@ if(less_than_ie9()) {
     }
     function search(){
       var unit = $('#txt_search_unit').val();
-      var properties = $('#txt_search_properties').val();
-
+      var properties = $('#txt_search_properties option:selected').val();
       return initTable(unit,properties);
     }
     function add(){
@@ -360,13 +369,18 @@ EOD;
                     
                     ?>
                     <div class="form-group col-xs-12" style="margin-top:15px">
-                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">年份</label>
+                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">姓名：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">月份</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">等级：</label>
                         <div class="col-sm-3">
-                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_properties">
+                        <select   class="form-control" style="text-align:left;" id="txt_search_properties">
+                        <option value="" > ==请选择==</option>
+                        <option value="1">一级</option>
+                        <option value="2">二级</option>
+                        <option value="3">三级</option>
+                        </select>
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
