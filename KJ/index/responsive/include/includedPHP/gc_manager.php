@@ -11,7 +11,7 @@ if($type == 1){
     }else{
         $str ='where';
         if($unit!=""){
-            $str = $str." year like '%".$unit."%'";
+            $str = $str." jl_dengji like '%".$unit."%'";
         }
         if($properties!=""){
           $str = $str." name like '%".$properties."%' ";

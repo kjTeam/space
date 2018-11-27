@@ -91,7 +91,7 @@ if(less_than_ie9()) {
             title: '经理等级'
           },{
             field: 'name',
-            title: '名字'
+            title: '姓名'
           }],
       });
     }
@@ -209,7 +209,7 @@ if(less_than_ie9()) {
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_name" class="col-sm-4 control-label">名字</label>
+       <label for="edit_name" class="col-sm-4 control-label">姓名</label>
        <div class="col-sm-7">
           <input type="text" class="form-control" id="edit_name" value="`+select[0]['name']+`">
        </div>
@@ -355,11 +355,11 @@ EOD;
                     
                     ?>
                     <div class="form-group col-xs-12" style="margin-top:15px">
-                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">年份</label>
+                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">经理等级</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">名字</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">姓名</label>
                         <div class="col-sm-3">
                         <input type="text" class="form-control" style="text-align:left;" id="txt_search_properties">
                         </div>
