@@ -210,7 +210,7 @@
         <li><a href="index.php">简讯书刊</a></li>
         <li><a href="more.php?pagename=youxiugongcheng">空间结构奖</a></li>
         <li><a href="">培训或评审</a>
-            <div> <a href="../../space2/index.php">膜结构项目经理</a> <a href="../../space2/index.php?nav1=6">膜结构等级会员评审</a><a href="../../space2/index.php?nav1=7">膜结构等级会员复审</a> <a href="../../space2/index.php">网格结构企业专项资质评审</a></div>    
+            <div > <a   href="../../space2/index.php">膜结构项目经理</a> <a   href="../../space2/index.php?nav1=6">膜结构等级会员评审</a><a style="padding:2px 0.5px 2px 0.5px;" href="../../space2/index.php?nav1=7">膜结构等级会员复审</a> <a style="font-size:90%" href="../../space2/index.php">网格结构企业专项资质评审</a></div>    
         </li>
         <li><a href="http://www.cncscs.org/">协会首页</a></li>
     </ul>
