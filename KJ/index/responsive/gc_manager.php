@@ -77,28 +77,42 @@ if(less_than_ie9()) {
           },{
             field: 'id',
             title: '序号',
+            align: 'center',
             formatter:function(value, row, index){
                 return (index+1);
             }
           }, {
              field: 'year',
+             align: 'center',
              title: '年份'
           }, {
             field: 'month',
+            align: 'center',
             title: '月份'
           },{
             field: 'jl_dengji',
-            title: '经理等级'
+            align: 'center',
+            title: '经理等级',
+            formatter:function(value,row,index){
+                if(row.jl_dengji==3){
+                  return "三 级";
+                }else if(row.jl_dengji==2){
+                  return "二 级";
+                }else if(row.jl_dengji==1){
+                  return "一 级";
+                }
+
+            }
           },{
             field: 'name',
-            title: '姓名'
+            align: 'center',
+            title: '名字'
           }],
       });
     }
     function search(){
       var unit = $('#txt_search_unit').val();
-      var properties = $('#txt_search_properties').val();
-
+      var properties = $('#txt_search_properties option:selected').val();
       return initTable(unit,properties);
     }
     function add(){
@@ -209,7 +223,7 @@ if(less_than_ie9()) {
        </div>
   </div>
   <div class="form-group">
-       <label for="edit_name" class="col-sm-4 control-label">姓名</label>
+       <label for="edit_name" class="col-sm-4 control-label">名字</label>
        <div class="col-sm-7">
           <input type="text" class="form-control" id="edit_name" value="`+select[0]['name']+`">
        </div>
@@ -355,13 +369,18 @@ EOD;
                     
                     ?>
                     <div class="form-group col-xs-12" style="margin-top:15px">
-                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">经理等级</label>
+                        <label class="control-label col-sm-2" style="text-align:right" for="txt_search_unit">姓名：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" style="text-align:left;" id="txt_search_unit">
                         </div>
-                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">姓名</label>
+                        <label class="control-label col-sm-2" style="text-align:right;" for="txt_search_properties">等级：</label>
                         <div class="col-sm-3">
-                        <input type="text" class="form-control" style="text-align:left;" id="txt_search_properties">
+                        <select   class="form-control" style="text-align:left;" id="txt_search_properties">
+                        <option value="" > ==请选择==</option>
+                        <option value="1">一级</option>
+                        <option value="2">二级</option>
+                        <option value="3">三级</option>
+                        </select>
                         </div>
                         <div class="col-sm-2" style="text-align:right;">
                             <button type="button"  id="btn_query" class="btn btn-primary" onclick="search()">查询</button>
