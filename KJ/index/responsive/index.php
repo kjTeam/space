@@ -235,7 +235,7 @@ EOD;
                 </div>
                 <table class="table_bottom" width="328">
                     <?php
-                    for ($i = 0; $i < 6; $i++)
+                    for ($i = 0; $i < 7; $i++)
                         echo <<<EOD
 <tr>
                     <td class="td_ellipsis" height=30px style="border-bottom:1px dotted #ced6e1;">

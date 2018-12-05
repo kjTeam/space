@@ -18,7 +18,7 @@
         </table>
     </div>  
     <div id="header_ima">
-        <img src="image/background.png">
+        <img src="image/back2.jpg">
     </div>
     <div id="header_link">
         <table cellpadding="0" cellspacing="0" width="100%">
