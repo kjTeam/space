@@ -85,6 +85,7 @@ else
                             <option value="index_mojiegou">膜结构</option>
                             <option value="index_wanggejiegou">网格结构</option>
                             <option value="index_suojiegou">索结构</option>
+                            <option value="index_zhuanjia">专业组</option>
                         </select>
                     </div>
                     <div class="form-group">
