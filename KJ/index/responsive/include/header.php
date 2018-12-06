@@ -145,7 +145,7 @@
 
 <!--背景图-->
 <div class="col-md-12" id="background-img">
-    <img class="img-responsive hidden-xs" src="../image/back2.jpg">
+    <img class="img-responsive hidden-xs" src="../image/back1.jpg">
     <img class="img-responsive visible-xs" src="../image/back2_xs.jpg">
 </div>
 

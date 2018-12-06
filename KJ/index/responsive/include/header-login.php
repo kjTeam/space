@@ -68,7 +68,7 @@
 
 <!--背景图-->
 <div class="col-md-12" id="background-img">
-    <img class="img-responsive hidden-xs" src="../image/back2.jpg"><!--用户登录后首页背景图片-->
+    <img class="img-responsive hidden-xs" src="../image/back1.jpg"><!--用户登录后首页背景图片-->
     <img class="img-responsive visible-xs" src="../image/back2_xs.jpg">
 </div>
 
