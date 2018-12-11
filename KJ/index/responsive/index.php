@@ -243,7 +243,7 @@ EOD;
                     </td>
                 </tr>
 EOD;
-                    for ($i = 0; $i < 2; $i++)
+                    for ($i = 0; $i < 0; $i++)
                         echo <<<EOD
 <tr>
                     <td class="td_ellipsis" height=30px>
@@ -271,7 +271,7 @@ EOD;
                     </td>
                 </tr>
 EOD;
-                    for ($i = 0; $i < 5; $i++)
+                    for ($i = 0; $i < 4; $i++)
                         echo <<<EOD
 <tr>
                     <td class="td_ellipsis" height=30px>
@@ -299,7 +299,7 @@ EOD;
                     </td>
                 </tr>
 EOD;
-                    for ($i = 0; $i < 6; $i++)
+                    for ($i = 0; $i < 5; $i++)
                         echo <<<EOD
 <tr>
                     <td class="td_ellipsis" height=30px>
@@ -334,7 +334,7 @@ EOD;
 //                     </td>
 //                 </tr>          
 // EOD;
-                    for ($i = 0; $i < 6; $i++)
+                    for ($i = 0; $i < 5; $i++)
                         echo <<<EOD
 <tr>
                     <td class="td_ellipsis" height=30px>
