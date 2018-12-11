@@ -8,14 +8,14 @@ if($_POST['addsend']=='yes')
      $danwei=$_POST['danwei'];
 	 $category=$_POST['usercategory'];
 	 $catestr=implode(',',$category); //将复选框选中的数组值转化为以逗号格式隔开的字符串。
-	 $password=$_POST['password'];
+     $password=$_POST['password'];
 	 $query="select * from user where uid='$uid'";
     $result=$db->query($query);
 	$num_results1=$result->num_rows;
 	if($num_results1!==0)
 	 $query2="insert into user (uid,tel,email,name,category,psw,danwei) values ('$uid','$tel'
 	 ,'$email','$name','$catestr','$password','$danwei')";
-	 $result2=$db->query($query2);
+     $result2=$db->query($query2);
 	 if($result2)
 		echo"<script lanuage='javasript'>alert('插入成功');location.href='';</script>";
 	 else
@@ -281,22 +281,22 @@ echo"</tbody>
                                   <label class='control-label'><strong>身份选择</strong></label>
                                   <div>
                              <label class='checkbox-inline''>
-                                <input type='radio' id='inlineCheckbox1' value='1' name='usercategory[]'> 企业
+                                <input type='checkbox' id='inlineCheckbox1' value='1' name='usercategory[]'> 企业
                              </label>
                              <label class=checkbox-inline>
-                                <input type='radio' id='inlineCheckbox2' value='2' name='usercategory[]'> 秘书处
+                                <input type='checkbox' id='inlineCheckbox2' value='2' name='usercategory[]'> 秘书处
                              </label>
                              <label class='checkbox-inline'>
-                                <input type='radio' id='inlineCheckbox3' value='3' name='usercategory[]'> 专家
+                                <input type='checkbox' id='inlineCheckbox3' value='3' name='usercategory[]'> 专家
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='radio' id='inlineCheckbox3' value='4' name='usercategory[]'> 理事会
+                                <input type='checkbox' id='inlineCheckbox3' value='4' name='usercategory[]'> 理事会
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='radio' id='inlineCheckbox3' value='5' name='usercategory[]'> 管理员
+                                <input type='checkbox' id='inlineCheckbox3' value='5' name='usercategory[]'> 管理员
                             </label>
                             <label class='checkbox-inline'>
-                                <input type='radio' id='inlineCheckbox3' value='6' name='usercategory[]'> 膜经理
+                                <input type='checkbox' id='inlineCheckbox3' value='6' name='usercategory[]'> 膜经理
                             </label>
                             </div></div>
 							<input type='hidden' name='addsend' value='yes'> 
