@@ -153,6 +153,15 @@ function changeState(a)
   if(selectedValue==2)
 	  alert('您选择的是不同意，必须填写意见');
 }
+function gly_changeState(a)
+ {
+  var obj = document.getElementById(a.id);
+  var index=obj.selectedIndex ;
+  var selectedValue=obj.options[index].value;
+
+  if(selectedValue==9)
+	  document.getElementById('gly_option').className='block';
+}
 function DP() {
 if (window.print)
 {
@@ -260,9 +269,9 @@ textarea{outline:none;resize:none;}
 		{
 			case 1:$nav1=2;break;
 			case 2:$nav1=30;break;
-			case 3:$nav1=40;break;
+			case 3:$nav1=69;break;
 			case 4:$nav1=50;break;
-			case 5:$nav1=57;break; 
+			case 5:$nav1=5;break; 
 			case 6:$nav1=60;break;//其实应该进发布通知页面
 			default:break;
 		}
@@ -284,7 +293,6 @@ textarea{outline:none;resize:none;}
 			<div class='navbar-brand' style='padding-top:20px'>空间结构分会
 			<?php
 			$category=$_SESSION['category'];
-			 
 			 ?></div></div>
 			<?php 
 			if($category!=5)
@@ -324,10 +332,10 @@ textarea{outline:none;resize:none;}
 </div></div></div>
 <!-- 巨幕-->
 <div class="jumbotron masthead visible-xs noprint">
-		<img class='noprint' src="back2_xs.jpg" style="width:100%;margin:0px;padding:0px;"/>
+		<img class='noprint' src="background_xs.jpg" style="width:100%;margin:0px;padding:0px;"/>
 </div>
 <div class="jumbotron masthead hidden-xs noprint">
-		<img class='noprint' src="back2.jpg" style="width:100%;margin:0px;padding:0px;"/>
+		<img class='noprint' src="2.jpg" style="width:100%;margin:0px;padding:0px;"/>
 </div>
 
 <!-- 下面是导航栏-->
@@ -583,7 +591,7 @@ textarea{outline:none;resize:none;}
 			$row_r=$result1->fetch_assoc();
 			echo $row_r[result];
 			if($row_r['result']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
@@ -601,7 +609,109 @@ textarea{outline:none;resize:none;}
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
 			if($row_r['result']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+	}else if($row['query']=='needDone'){
+		echo" <div class='list-group'style='margin-top:15px;'>";
+		$query="select * from join_form where state <4 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."30"."&nav2="."22"."&index=".$row2[0]."' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[2].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+			echo"<span class='badge'>入会申请</span>";
+			$query1="select form_status from secret where id_p=$id and id_f=$row2[0] and form_category = '1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['form_status']=='1'){
+				echo"<span style='float:right'><img src='right.png' >已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+
+
+		$query="select * from mo1_zhuanxiang where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."25"."&nav2="."71"."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>专项设计</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			echo $row_r[result];
+			if($row_r['result']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+
+
+
+        $query="select * from mo1_chengbao where state = 2 or state = 3 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."25"."&nav2="."71"."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>工程承包</span>";
+			$query1="select result from secret where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['result']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+	}else if($row['query'] == 'expertDaiban'){              //专家待办事项(只有膜结构评审待办事项)
+		echo" <div class='list-group'style='margin-top:15px;'>";
+		$query="select * from mo1_zhuanxiang where state = 4 or state = 5 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."33"."&nav2="."33"."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>专项设计</span>";
+			$query1="select s1 from expert where id_p=$id and id_f=$row2[0] and form_category = '2_1'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['s1']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
+			}else{
+				echo"<span style='float:right'>未审核</span>";
+			}
+			echo"</a>";
+		}
+
+        $query="select * from mo1_chengbao where state = 4 or state = 5 ";
+        $result=$db->query($query);
+		$num_results=$result->num_rows;
+        for($i=0;$i<$num_results;$i++){
+			$row2=$result->fetch_row();
+			echo"<a href='index.php?nav1="."33"."&nav2="."33"."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
+		    echo"<span class='badge'>工程承包</span>";
+			$query1="select s1 from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$result1=$db->query($query1);					
+			$num_results1=$result1->num_rows;
+			$row_r=$result1->fetch_assoc();
+			if($row_r['s1']!=''){
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
@@ -621,12 +731,13 @@ textarea{outline:none;resize:none;}
 			$num_results1=$result1->num_rows;
 			$row_r=$result1->fetch_assoc();
 			if($row_r['s1']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
 		}
+
         $query="select * from mo1_chengbao where state = 4 or state = 5 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
@@ -634,22 +745,17 @@ textarea{outline:none;resize:none;}
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_chengbao' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
 		    echo"<span class='badge'>工程承包</span>";
-			$query1="select result from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
+			$query1="select s1 from expert where id_p=$id and id_f=$row2[0] and form_category = '2_2'";
 			$result1=$db->query($query1);					
 			$num_results1=$result1->num_rows;
-			$row_r=$result->fetch_assoc();
+			$row_r=$result1->fetch_assoc();
 			if($row_r['s1']!=''){
-				echo"<span><img src='right.png'>已审核</span>";
+				echo"<span style='float:right'><img src='right.png'>已审核</span>";
 			}else{
 				echo"<span style='float:right'>未审核</span>";
 			}
-			echo"</a>";		
+			echo"</a>";
 		}
-		
-		
-		echo"</div>";
-	
-	
 	}
 	else{
 				$query=$row['query'];//得到检索语句	 现在没有用了	

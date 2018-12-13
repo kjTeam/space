@@ -336,6 +336,7 @@ textarea{outline:none;resize:none;}
 							//foreach ($row as $key=>$age) { echo $key,': ',$age,'<br />'; } 
 							if(isset($row['link'])) echo "<li><a href='".$row['link']."'>".$row['func1_name']."</a></li>";
 							else echo "<li style='white-space:nowrap'><a href='index.php?nav1=".$row['id_n1']."'>".$row['func1_name']."</a></li>"; //此处用#是不行的
+ 
 						}
 					?>
 				</ul>

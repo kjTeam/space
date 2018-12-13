@@ -1,4 +1,15 @@
 <link href="css/sweetalert2.min.css" rel="stylesheet">
+<!--导航栏字体加粗-->
+<style>
+ #nav a{
+    font-weight:bold;
+    font-size:105%;
+ }
+ #xiala a{
+    font-weight:normal;
+     font-size:97%;
+ }
+ </style>
 <!--标题栏-->
 <div class="navbar navbar-default navbar-fixed-top" id="navbar-title">
     <div class="container-fluid">
@@ -30,7 +41,7 @@
                           <ul class='dropdown-menu'>
                              <li><a href='../manage-res.php'>发布通知</a></li>
                              <li role='separator' class='divider'></li>
-                             <li><a href='../../space2/index.php?nav1=10'>后台管理</a></li>
+                             <li><a href='../../space2/index.php?nav1=5'>后台管理</a></li>
                              <li role='separator' class='divider'></li>
                              <li><a href='../logout.php'>退出</a></li>
                           </ul>
@@ -38,7 +49,7 @@
                     else{
                         echo "
                         <li class='dropdown'>
-                            <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>欢迎您,{$_SESSiON['username']}<span class='caret'></span></a>
+                            <a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>欢迎您,{$_SESSION['username']}<span class='caret'></span></a>
                             <ul class='dropdown-menu'>
 		                       <li role='separator' class='divider'></li>
                                <li><a href='../../space2/index.php'>后台管理</a></li>
@@ -98,23 +109,24 @@
 </div>
 
 
+
 <div><hr class="header-hr visible-xs"></div>
 
 <div class="col-md-12 nav-menu-div-lg hidden-xs" id="nav">
 <ul class="nav nav-pills nav-justified" id="supnav">
         <li><a href="index.php">首页</a></li>
         <li><a href='index.php'>关于分会</a>
-            <div> <a href="fenhuijianjie.php">分会简介</a> <a href="fenhuijianzhang.php">分会简章</a> <a href="mishuchu.php">秘书处</a> <a href="member_units.php">会员单位名单</a> <a href="lishihui.php">理事会名单</a> </div>
+            <div id="xiala"> <a href="fenhuijianjie.php">分会简介</a> <a href="fenhuijianzhang.php">分会简章</a> <a href="mishuchu.php">秘书处</a> <a href="member_units.php">会员单位名单</a> <a href="lishihui.php">理事会名单</a> </div>
         </li>
         <li><a href="index.php">专业组</a>
-            <div> <a href="more.php?pagename=wanggejiegou">网格结构专业组</a> <a href="more.php?pagename=mojiegou">膜结构专业组</a> <a href="more.php?pagename=suojiegou">索结构专业组</a></div>    
+            <div id="xiala"> <a href="more.php?pagename=wanggejiegou">网格结构专业组</a> <a href="more.php?pagename=mojiegou">膜结构专业组</a> <a href="more.php?pagename=suojiegou">索结构专业组</a></div>    
         </li>
         <li><a href="firstexpertgroup.php">专家库</a></li>
         <li><a href="more.php?pagename=tongzhiwenjian">通知文件</a></li>
         <li><a href="index.php">简讯书刊</a></li>
         <li><a href="more.php?pagename=youxiugongcheng">空间结构奖</a></li>
-        <li><a href="">培训或评审</a>
-            <div> <a href="../../space2/index.php">膜结构项目经理</a> <a href="../../space2/index.php?nav1=6">膜结构等级会员评审</a><a href="../../space2/index.php?nav1=7">膜结构等级会员复审</a> <a href="../../space2/index.php" style="font-size:90%">网格结构企业专项资质评审</a></div>    
+        <li><a href="">培训或评审 </a>
+            <div id="xiala"> <a href="../../space2/index.php">膜结构项目经理</a> <a href="../../space2/index.php?nav1=6">膜结构等级会员评审</a><a href="../../space2/index.php?nav1=7">膜结构等级会员复审</a> <a href="../../space2/index.php" style="font-size:90%">网格结构企业专项资质评审</a></div>    
         </li>
         <li><a href="http://www.cncscs.org/">协会首页</a></li>
     </ul>

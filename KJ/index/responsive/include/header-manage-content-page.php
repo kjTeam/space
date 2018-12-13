@@ -28,7 +28,7 @@
           <ul class="dropdown-menu">
             <li><a href="../manage-res.php">发布通知</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="../../space2/index.php?nav1=10">后台管理</a></li>
+            <li><a href="../../space2/index.php?nav1=5">后台管理</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="../logout.php">退出</a></li>
             <li role="separator" class="divider visible-xs"></li>
