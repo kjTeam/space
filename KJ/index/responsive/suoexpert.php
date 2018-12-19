@@ -13,7 +13,7 @@ if(less_than_ie9()) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>理事会</title>
+    <title>索结构</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="renderer" content="webkit">
@@ -350,7 +350,7 @@ else
         <div class="col-md-2 left-col">
             <div class="left">
                 <div class="left-title">
-                    <span>索结构</span>
+                    <span>索结构专业组名单</span>
                 </div>
             </div>
         </div>

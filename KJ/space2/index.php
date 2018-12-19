@@ -290,7 +290,7 @@ textarea{outline:none;resize:none;}
                 <span class="icon-bar"></span>
             </button>
 			<div class='navbar-brand'><img src='logo1.png'></div>
-			<div class='navbar-brand' style='padding-top:20px'>空间结构分会
+			<div class='navbar-brand' style='padding-top:20px;color:black'>空间结构分会
 			<?php
 			$category=$_SESSION['category'];
 			 ?></div></div>

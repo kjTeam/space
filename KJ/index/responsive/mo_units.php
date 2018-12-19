@@ -13,7 +13,7 @@ if(less_than_ie9()) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>理事会</title>
+    <title>膜结构</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="renderer" content="webkit">
@@ -351,7 +351,7 @@ else
         <div class="col-md-2 left-col">
             <div class="left">
                 <div class="left-title">
-                    <span>理事会名单</span>
+                    <span>膜结构等级会员名单</span>
                 </div>
             </div>
         </div>

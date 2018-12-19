@@ -314,7 +314,7 @@ EOD;
         <div class="col-sm-3 index-col">
             <div class="col-div">
                 <div class="col-div-title">
-                    <span><a href="more.php?pagename=zhuanjia"><img src="../../index/image/titlebarbefore.gif">专业组</a></span>
+                    <span><a href="more.php?pagename=zhuanjia"><img src="../../index/image/titlebarbefore.gif">专家组</a></span>
                      <span class="more"><a href="more.php?pagename=zhuanjia">more...</a> </span>
                 </div>
                 <table class="table_bottom" width="328px">

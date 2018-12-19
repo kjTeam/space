@@ -13,7 +13,7 @@ if(less_than_ie9()) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>理事会</title>
+    <title>专家组</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <meta name="renderer" content="webkit">
