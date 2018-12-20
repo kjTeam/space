@@ -1,4 +1,6 @@
+
 <?php
+
 if($_POST['addsend']=='yes')
 {
 	$uid=$_POST['uid'];
@@ -133,16 +135,23 @@ if($_POST['fs1']=='yes')//分页的实现，是对每一个a标签绑定一个js
 $paper_id=$_POST['fs'];
 $paper_id1=$paper_id*10-10;
 $paper_id2=$paper_id*10;
-$query="select *from user limit $paper_id1,$paper_id2";
+$query="select * from user limit $paper_id1,10";
 $result=$db->query($query);
 $num_results=$result->num_rows;
-
 $paper_id3=$paper_id1+$num_results;
+
 }
 if($_POST['check']=='yes')
 {
   $check=$_POST['p1'];
-	 $query="select * from user where name like '%".$check."%' or name='%".$check."%'";
+  $category00=$_POST['p2'];
+     $query="select * from user where 1 ";
+     if($check!=""&&$check!=null){
+         $query=$query."and name like '%".$check."%' or name='%".$check."%'";
+     }
+     if( $category00!=0){
+        $query=$query."and category like '%".$category00."%' or category = '%".$category00."%'";
+     }
      $result1=$db->query($query);
      $num_results=$result1->num_rows;
 	 if($num_results<=10)
@@ -169,31 +178,40 @@ $PD[$i]=$row['tel'];
 echo"
 <script language='javascript'> 
     window.onload = function()
-	{   //表格隔行显示不同颜色 
+	{ 
+        //表格隔行显示不同颜色 
       var tab = document.getElementById('tab'); 
       for(var i=0;i<tab.rows.length;i++)
           tab.rows[i].bgColor = (i%2==0) ? '#f9f9f9' : '#fff' ; 
-    } 
+          console.log(tab.rows.length);
+    }
 	function fsubmit(obj){
     obj.submit();
      }
-</script> 
+        
+</script>   
 ";
 echo"<div class='container-fluid hidden-xs noprint text-center' style='margin-top:21px'>
 
 <span>
 <form enctype='multipart/form-data' action='' method='post' >
 <div id='toolbar' class='col-xs-1 col-xs-offset-7' >
-                    <div class='btn btn-md btn-primary ' data-toggle='modal'  data-target='#addModal'><i class='glyphicon glyphicon-plus icon-white'></i>添加</div>
-                </div>
-				<div style='float:right;margin:0.1em 0.5em 0.4em 0'>
+    <div class='btn btn-md btn-primary ' data-toggle='modal'  data-target='#addModal'><i class='glyphicon glyphicon-plus icon-white'></i>添加</div>
+    </div>
+<div style='float:right;margin:0.1em 0.5em 0.4em 0'>
 <input type='hidden' value='yes' name='check' id='check' >
-<input type='text' name='p1' id='p1'></span>
-<button class='btn btn-primary' style='margin-left:10px' type='submit' >搜索</button>
-</form></div>
-
-
-  
+<b>姓名：</b><input style='width:25%;margin-right:3%' type='text' name='p1' id='p1'>
+<b>用户类别：</b><select style='width:25%;height:3%' autocomplete='on' name='p2' id='p2' onchange='gradeChange(this.value)'>
+                    <option value='0'> </option>
+                    <option value='1'>企业用户</option>
+                    <option value='2'>秘书处用户 </option>
+                    <option value='3'> 专家用户</option>
+                    <option value='4'>理事会用户 </option>
+                    <option value='6'>企业膜经理 </option>
+                </select></span>
+<input class='btn btn-primary' style='margin-left:10px' type='submit'  value='搜索'>
+</form>
+</div>
 <table class='table table-responsive table-bordered text-center' id='tab' style='font-size:14px' >
 <tbody>
 <tr>
@@ -227,7 +245,6 @@ echo"
 <button type='submit' class='btn'>删除</button>
 </form>
 </td>
-
 </tr>
 ";
 }
@@ -249,6 +266,9 @@ echo"</tbody>
 	}
 	echo"
   </ul>
+
+ 
+
 </nav>
 </div>
  <div class='modal fade' id='addModal' tabindex='-1' role='dialog' aria-hidden='true'>
@@ -315,3 +335,62 @@ echo"</tbody>
 ";
 
 ?>
+<?php
+
+header("Content-type:text/html;charset=utf-8");
+$choseType= $_GET['choseType'];
+echo "你输入的名字为：".$_GET['choseType'];
+?>
+<html>
+
+<script>
+function gradeChange(e){
+ //1.创建ajax对象
+        if(window.XMLHttpRequest)//如果有XMLHttpRequest，那就是非IE6浏览器。()里面加window的原因下面会有描述。
+        {
+            var oAjax = new XMLHttpRequest();//创建ajax对象
+        }
+        else//如果没有XMLHttpRequest，那就是IE6浏览器
+        {
+            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");//IE6浏览器创建ajax对象
+        }
+        
+        //2.连接服务器
+        oAjax.open("GET","index.php?nav1=57&nav2=63&choseType="+e,true);//加上t='+new Date().getTime()"的目的是为了消除缓存，每次的t的值不一样。
+        
+        //3.发送请求
+        oAjax.send();
+        
+        //4.接收返回
+        //客户端和服务器端有交互的时候会调用onreadystatechange
+        oAjax.onreadystatechange=function()
+        {
+            //oAjax.readyState  //浏览器和服务器，进行到哪一步了。
+                //0->（未初始化）：还没有调用 open() 方法。
+                //1->（载入）：已调用 send() 方法，正在发送请求。
+                //2->载入完成）：send() 方法完成，已收到全部响应内容。
+                //3->（解析）：正在解析响应内容。
+                //4->（完成）：响应内容解析完成，可以在客户端调用。
+            if(oAjax.readyState==4)
+            {
+                if(oAjax.status==200)//判断是否成功,如果是200，就代表成功
+                {
+                    //alert("成功"+oAjax.responseText);//读取a.txt文件成功就弹出成功。后面加上oAjax.responseText会输出a.txt文本的内容
+                }
+                else
+                {
+                    alert("失败");
+                }
+            }
+        }
+        console.log(e);
+    }
+
+   
+ 
+</script>
+<body>
+
+</body>
+</html>
+

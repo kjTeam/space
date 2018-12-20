@@ -335,7 +335,7 @@ textarea{outline:none;resize:none;}
 		<img class='noprint' src="background_xs.jpg" style="width:100%;margin:0px;padding:0px;"/>
 </div>
 <div class="jumbotron masthead hidden-xs noprint">
-		<img class='noprint' src="2.jpg" style="width:100%;margin:0px;padding:0px;"/>
+		<img class='noprint' src="back2.jpg" style="width:100%;margin:0px;padding:0px;"/>
 </div>
 
 <!-- 下面是导航栏-->
