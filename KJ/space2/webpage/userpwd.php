@@ -34,7 +34,7 @@
 				$query="select * from user where id='$id_index'";
 				$result=$db->query($query);
 			
-					$query="update user set name='$name',tel='$tel',psw='$psw',email='$email',danwei='$danwei',uid='$uid' where id=$id_index";
+					$query="update user set psw='$psw' where id=$id_index";
 					$result=$db->query($query);
 					if($result)
 				{
@@ -52,7 +52,7 @@
 		}
 		switch ($flag)
 		{
-			case 1: echo "<h3><span class='label label-success'>修改成功！</span></h3>";break;
+			case 1: echo "<h3><span class='label label-success'>修改成功！</span></h3><script language=javascript>location.href='../index/logout.php';</script>";break;
 			case 2: echo "<h3><span class='label label-danger'>用户名占用!</span></h3>";break;
 			case 3: echo "<h3><span class='label label-danger'>密码需相同!</span></h3>";break;
 			default:break;
@@ -80,29 +80,30 @@ echo "
 <form class='form-signin' action='' method='post'  style='margin-top:10px;'>
 <table class='table table-bordered table-responsive text-center'>
         <tr>
-            <th colspan='12' style='text-align:center;'><lead>用户资料</lead></th>
-        </tr>
-        <tr>
-            <td colspan='2'> 姓名</td>
-            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value='$name'  disabled></td>
-        </tr>
-		<tr>		
-            <td colspan='2'> 邮箱</td>
-            <td colspan='10'> <input type='text' id='email' name='email' class='form-control' value='$email' disabled></td>
+            <th colspan='12' style='text-align:center;'><lead>修改密码</lead></th>
         </tr>
 		<tr>
-            <td colspan='2'>单位</td>
-            <td colspan='10'> <input type='text' id='danwei' name='danwei' class='form-control' value='$danwei' disabled></td>
+            <td colspan='2'> 新密码</td>
+            <td colspan='10'> <input type='password' id='psw1'  name='psw1' class='form-control'  ></td>
         </tr>
 		<tr>
-            <td colspan='2'> 电话</td>
-            <td colspan='10'> <input type='text' id='tel' name='tel' class='form-control' value='$tel' disabled></td>
-        </tr>
-		
+            <td colspan='2'> 重复密码</td>
+            <td colspan='10'> <input type='password' id='psw2' name='psw2' class='form-control'  ></td>
+        </tr>		
 </table>
 
 ";
 
+		echo"
+	<div style='position:absolute;left:85%;margin-bottom:10px' class='col-md-1 hidden-xs'>
+	<input type='hidden' value='yes' name='change'>
+		<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>
+	</div>
+	<div style='position:absolute;left:65%;margin-bottom:10px' class='col-md-1 visible-xs'>
+	<input type='hidden' value='yes' name='change'>
+		<button type='submit' class='btn btn-md btn-primary' >&nbsp;&nbsp; 提交 &nbsp; &nbsp;</button>
+	</div>
+	</form></div>";
 	if(isset($_GET['index']))
 		{
 			echo"

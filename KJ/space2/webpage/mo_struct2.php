@@ -1,4 +1,4 @@
-<script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<!-- <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> -->
 
 <?php //共31个参数 
 //注意最下面有一个增加的flag hidden，用来标记是不是要删除数据库的。

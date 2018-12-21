@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <script src="./bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<!--如果不注释，右上角下拉框无法用 <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> -->
 <script type='text/javascript'>
      //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
     function checkForm(){
