@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="./bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
 <script src="./bootstrap-3.3.5-dist/js/jquery-3.0.0.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-<script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<!-- <script src="./bootstrap-3.3.5-dist/js/bootstrap.min.js"></script> -->
 
 </head>
 <?php 
@@ -99,7 +99,7 @@ if($_POST["p44"]=='join') //检测是否是此表单提交
 		for($i=1;$i<43;$i++)
 		{
 			$str="p".$i;
-			$PA[$i]=$_POST[$str];
+      $PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
 		$result=insert("join_form",42,$PA,$id);	
@@ -148,7 +148,7 @@ if($_POST["p43"]=='update')
 		for($i=1;$i<43;$i++)
 		{
 			$str="p".$i;
-			$PA[$i]=$_POST[$str];
+      $PA[$i]=$_POST[$str];
 			$PA[$i]=addslashes($PA[$i]);
 		}
     $result=change2("join_form",43,$PA,1,$id);	
@@ -234,7 +234,7 @@ echo "
         </tr>
         <tr>
             <td colspan='2'>创立时间<span class='must_wirte'>*</span></td>
-            <td colspan='4'><input type='text' class='form-control' name='p19' id='p19' value=".$row[c19]."> </td>
+            <td colspan='4'><input type='date' class='form-control' name='p19' id='p19' value=".$row[c19]."> </td>
             <td colspan='2'>从事空间结构时间<span class='must_wirte'>*</span></td>
             <td colspan='4'><input type='text' class='form-control' name='p20' id='p20' value=".$row[c20]."></td>
         </tr>

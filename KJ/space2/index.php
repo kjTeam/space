@@ -416,7 +416,8 @@ textarea{outline:none;resize:none;}
 				if(isset($row['func2_name'])) //如果这一行有func2_name列
 					echo " 
 					<a class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;' href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."'>".$row['func2_name']."";
-					if(($category==1 || $category==6) && ($nav1!=3 && $nav1!=64))//用户是企业用户或者企业膜经理时，且不是查看那一栏。后面显示该活动是否开通。
+					//此处为业务办理右边的判断，是否已开通！
+					if(($category==1 || $category==3|| $category==4|| $category==6) && ($nav1!=3 && $nav1!=33&& $nav1!=35&& $nav1!=36&& $nav1!=41&& $nav1!=50&&$nav1!=51&& $nav1!=64&& $nav1!=69))//用户是企业用户或者企业膜经理时，且不是查看那一栏。后面显示该活动是否开通。
 				     {
 						 $query="select * from event where title = '$row[func2_name]'";
 						 $result_event=$db->query($query);//这是搜索event数据库中各个事件的状态
@@ -427,6 +428,26 @@ textarea{outline:none;resize:none;}
                              case 1:echo"<span class='badge' style='background:green'>已开通</span>";break;
                              default:null;	
 						 }
+						 
+					  }
+					  if($category==4 && $nav1==50)//用户是企业用户或者企业膜经理时，且不是查看那一栏。后面显示该活动是否开通。
+				     {
+						 $query="select id_n2 from nav_2 where id_n1 = '50'";
+						 $result_event=$db->query($query); 
+						 $num=$result_event->num_rows;
+						  
+						 switch($row['id_n2'])
+						 {
+							 case 39:echo"<span class='badge' >39</span>";break;
+							 case 41:echo"<span class='badge' >41</span>";break;
+							 case 42:echo"<span class='badge' >42</span>";break;
+							 case 43:echo"<span class='badge' >43</span>";break;
+							 case 53:echo"<span class='badge' >53</span>";break;
+                             default:null;	
+						 }
+						 
+					 
+						
 						 
  				     }
 					echo"</a>"; //此处用#是不行的
