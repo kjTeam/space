@@ -44,7 +44,22 @@ if(ifthereis("join_form","id_p=$id and state=7")>0) //入会完成！
 	{
 		echo "<h4><span class='label label-info'>缴费证明审核中！</span></h4>";
 		exit();
-	}
+  }
+
+// 50-60，根据用户id查询所属公司，再将公司从join_form表格查询，如果存在且state=8，表示该公司已经入会！
+$query1="select danwei from user where id = $id";
+$result1=$db->query($query1);
+$row1=$result1->fetch_assoc();
+$exitCompany=$row1["danwei"];      //找到登录用户的公司
+$query="select id from join_form  where c1 = $exitCompany and state=8";
+$result=$db->query($query);
+$num_results=$result->num_rows;
+if($num_results>0){//该公司已经入会完成！
+  echo "<h3><span class='label label-info'>您所属公司已经入会</span></h3>";
+  exit();
+}
+
+
 if(ifthereis("join_form","id_p=$id and state=8")>0) //入会完成！
 	{
 		echo "<h3><span class='label label-info'>您已入会</span></h3>";
@@ -593,6 +608,8 @@ echo "
   <script type='text/javascript'>
      //判断表单带星号的不能为空，判断文件格式只能是jpg，jpeg，pdf,word,大小比如小于2M
     function checkForm(){
+      var h5course = "<?php echo $exitCompany ?>";
+
       var arr = [6,10,15,14,9,33,34,35,36,37,38,39,40];
       for(var i=1;i<=42;i++){
          if(arr.indexOf(i)!=-1){
@@ -603,6 +620,21 @@ echo "
             $('#notice').css('display','inline-block');
             return false;
          }
+      }
+      if($('#p19').val()){
+        var myDate = new Date().getTime();//获取系统当前时间
+        var startTime=$('#p19').val();
+        var date= new Date(Date.parse(startTime.replace(/-/g,  "/")));      //转换成Data();
+         startTime=date.getTime();
+         var total = (myDate - startTime)/1000;
+         var day = parseInt(total / (24*60*60));//计算整数天数
+        if(day<365)  {
+          alert("公司创立时间必须超过一年方可申请！");
+          return false;
+        }  else{
+          return ture;
+        } 
+
       }
       if(!$('#userfile').val()){
             $('#notice').html('必须上传营业执照');

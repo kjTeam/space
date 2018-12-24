@@ -432,23 +432,21 @@ textarea{outline:none;resize:none;}
 					  }
 					  if($category==4 && $nav1==50)//用户是企业用户或者企业膜经理时，且不是查看那一栏。后面显示该活动是否开通。
 				     {
-						 $query="select id_n2 from nav_2 where id_n1 = '50'";
-						 $result_event=$db->query($query); 
-						 $num=$result_event->num_rows;
-						  
+						 $num1=array();
+						 for($j=0;$j<5;$j++){
+							$query="select id from director where result='0' and form_category = $j and id_p=$id";
+						    $result_event=$db->query($query); 
+							$num1[$j]=$result_event->num_rows;
+						 }
 						 switch($row['id_n2'])
 						 {
-							 case 39:echo"<span class='badge' >39</span>";break;
-							 case 41:echo"<span class='badge' >41</span>";break;
-							 case 42:echo"<span class='badge' >42</span>";break;
-							 case 43:echo"<span class='badge' >43</span>";break;
-							 case 53:echo"<span class='badge' >53</span>";break;
+							 case 39:echo"<span class='badge' >$num1[0]</span>";break;
+							 case 41:echo"<span class='badge' >$num1[1]</span>";break;
+							 case 42:echo"<span class='badge' >$num1[2]</span>";break;
+							 case 43:echo"<span class='badge' >$num1[3]</span>";break;
+							 case 53:echo"<span class='badge' >$num1[4]</span>";break;
                              default:null;	
-						 }
-						 
-					 
-						
-						 
+						 } 
  				     }
 					echo"</a>"; //此处用#是不行的
 					
