@@ -2,20 +2,20 @@
 	session_start();
 	include_once 'lib.php';	//这段php用于接收表单提交数据
 		if($_GET['regist']=='0')  //说明是登录表单
-		{
-			
+		{			
 			$uid=$_GET['input'];
 			$psw=$_GET['psw'];
+			$category1=$_GET['category1'];
 			$db=create_database();
-			$query="select * from user where email='$uid' and psw='$psw'"; //查找用户是否存在
+			$query="select * from user where email='$uid' and psw='$psw' and category like '%".$category1."%'"; //查找用户是否存在
 			$result=$db->query($query);
 			$num_results=$result->num_rows;
 			if($num_results!=0) //用户是存在的
-			{
+			{   
 				$row=$result->fetch_assoc();
 				$_SESSION['id']=$row['id'];
 				$_SESSION['username']=$row['name'];
-				$_SESSION['category']=$row['category'];
+				$_SESSION['category']=$category1;
 				setcookie('user_name', $row['name'],time()+9999999,'/');
 				setcookie('user_password', $row['psw'],time()+9999999,'/');
 				$flag=0;

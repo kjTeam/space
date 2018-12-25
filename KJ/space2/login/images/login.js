@@ -73,7 +73,7 @@ $(document).ready(function() {
 		}
 		$.ajax({
 			type: 'get',
-			url: "../login.php?regist=0&input="+$('#email').val()+"&psw="+$('#p').val(),
+			url: "../login.php?regist=0&input="+$('#email').val()+"&psw="+$('#p').val()+"&category1="+$('#category1').val(),
 			cache: false,
 			contentType: false,
 			processData: false,
@@ -81,7 +81,7 @@ $(document).ready(function() {
 				if(result == 0){
 					window.location.href = "../index.php"
 				}else if(result == 1){
-					$('#userCue1').html("<font color='red'><b>×用户名或密码不正确</b></font>");
+					$('#userCue1').html("<font color='red'><b>请检查用户名或密码及选择正确身份！</b></font>");
 				}
 
 			}
