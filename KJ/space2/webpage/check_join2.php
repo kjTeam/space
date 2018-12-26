@@ -160,9 +160,21 @@ if ($_POST['send3'] == 'yes')//管理员投递给理事会的过程
 		$str = "cid" . $i;
 		$PA[$i] = $_POST[$str];
 		$PA[$i] = addslashes($PA[$i]);
-		$query1 = "update join_form set state='5'where id=" . $PA[$i] . "";
+		$query1 = "update join_form set state='5'where id=" . $PA[$i] . ""; //投递给理事会时将join_form的状态改变
 		$result1 = $db->query($query1);
 	}
+	//改变状态后往director添加理事会需要处理的数据！（<wsj-2018.12.26>）
+	$queryCheckRepeat = "select * from director where id_p = '".$id."' and id_f = '".$row2['id']."' and form_category = 0" ;
+	$resulC = $db->query($queryCheckRepeat);
+	$num_resultsC=$resulC->num_rows;
+	if($num_resultsC==0){
+		$query2 = "insert into director (id_p,id_f,result,form_category) values ('".$id."' ,'".$row2['id']."','0','0')";
+	}else{
+		$query2 = "update director set result = '0',info = '".$INFO[$i]."' where  id_p = '".$id."' and id_f = '".$row3['id']."' and form_category = 0";
+	}
+	$result2=$db->query($query2);
+
+	//
 	$query = "update council_inform set preface='$p4',remark='$p3',state='1' where form_category='0'";
 	$result = $db->query($query);
 	if ($result)
@@ -188,11 +200,12 @@ if ($_POST['send4'] == 'yes')//管理员最后通过审核，等待缴费证明�
 		$state2[$i] = addslashes($state2[$i]);
 		$query1 = "update join_form set opinion='".$OP[$i]."', state = '" . $state2[$i] . "' where id='" . $CO[$i] . "'";
 		$result1 = $db->query($query1);
+
 	}
  //$query2 = "update council_inform set state = '3' where form_category=0";
 	//$result2=$db->query($query2);
 	if ($result1)
-		echo "<script language=javascript>alertAtuoClose4();location.href='index.php?nav1=5';</script>";
+		echo "<script language=javascript>alertAtuoClose4();setTimeout('javascript:location.href='index.php?nav1=5'',10000);</script>";
 	else
 		echo "<script language=javascript>swal('提示','保存失败，请联系管理员');</script>";
 

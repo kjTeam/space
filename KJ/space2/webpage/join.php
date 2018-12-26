@@ -62,7 +62,7 @@ if($num_results>0){//该公司已经入会完成！
 
 if(ifthereis("join_form","id_p=$id and state=8")>0) //入会完成！
 	{
-		echo "<h3><span class='label label-info'>您已入会</span></h3>";
+		echo "<h3><span class='label label-info'>公司已入会</span></h3>";
 		exit();
 	}
 if(ifthereis("join_form","id_p=$id and state=9")>0) //未通过审核！

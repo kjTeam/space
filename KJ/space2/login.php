@@ -16,6 +16,7 @@
 				$_SESSION['id']=$row['id'];
 				$_SESSION['username']=$row['name'];
 				$_SESSION['category']=$category1;
+				$_SESSION['danwei']=$row['danwei'];
 				setcookie('user_name', $row['name'],time()+9999999,'/');
 				setcookie('user_password', $row['psw'],time()+9999999,'/');
 				$flag=0;

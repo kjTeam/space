@@ -34,11 +34,12 @@
 <?php
 $no = control(8);
 $id = $_SESSION['id'];
-$query = "select join_result from company_result where id_p = $id"; //从company_result 找出
+$danwei = $_SESSION['danwei'];
+$query = "select join_result from company_result where company = '".$danwei."'"; //从company_result 找出
 $result = $db->query($query);
 $row = $result->fetch_assoc();
 $num_results = $result->num_rows;
-$query1 = "select * from join_form where id_p = $id"; //从join_form找出是否存在正在申请入会的情况
+$query1 = "select * from join_form where c1 = '".$danwei."' "; //从join_form找出是否存在正在申请入会的情况
 $result1 = $db->query($query1);
 $row1 = $result1->fetch_assoc();
 $num_results1 = $result1->num_rows;
