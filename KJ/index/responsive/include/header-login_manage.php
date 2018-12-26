@@ -123,7 +123,7 @@
 <div class="col-md-12 nav-menu-div-lg hidden-xs" id="nav">
 <ul class="nav nav-pills nav-justified" id="supnav">
         <li><a href="../index/responsive/index.php"> 首页 </a></li>
-        <li><a href='../index/responsive/index.php'>关于分会</a>
+        <li><a href='../index/responsive/index.php'>关于分22会</a>
             <div id="xiala"> <a href="../index/responsive/fenhuijianjie.php">分会简介</a> <a href="../index/responsive/fenhuijianzhang.php">分会简章</a> <a href="../index/responsive/mishuchu.php">秘书处</a> <a href="../index/responsive/member_units.php">会员单位名单</a> <a href="../index/responsive/lishihui.php">理事会名单</a> </div>
         </li>
         <li><a href="../index/responsive/index.php">专业组</a>

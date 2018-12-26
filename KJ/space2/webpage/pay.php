@@ -35,7 +35,7 @@
 $no = control(8);
 $id = $_SESSION['id'];
 $danwei = $_SESSION['danwei'];
-$query = "select join_result from company_result where company = '".$danwei."'"; //从company_result 找出
+$query = "select * from company_result where company = '".$danwei."'"; //从company_result 找出
 $result = $db->query($query);
 $row = $result->fetch_assoc();
 $num_results = $result->num_rows;

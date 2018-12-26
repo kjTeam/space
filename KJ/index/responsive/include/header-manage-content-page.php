@@ -80,7 +80,7 @@ EOD;
     </button>
     <ul class="nav nav-pills nav-stacked collapse" id="nav-menu-xs">
         <li><a href="index.php">首页</a></li>
-        <li><a>关于分会  <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
+        <li><a>关于分2会  <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>
             <div style="display:none"> <a href="fenhuijianjie.php">分会简介</a> <a href="fenhuijianzhang.php">分会简章</a> <a href="mishuchu.php">秘书处</a> <a href="member_units.php">会员单位名单</a> <a href="lishihui.php">理事会名单</a> </div>
         </li>
         <li><a>专业组 <span class="glyphicon glyphicon-plus" style="float:right"> </span></a>

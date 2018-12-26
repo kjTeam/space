@@ -47,15 +47,19 @@ if(ifthereis("join_form","id_p=$id and state=7")>0) //入会完成！
   }
 
 // 50-60，根据用户id查询所属公司，再将公司从join_form表格查询，如果存在且state=8，表示该公司已经入会！
-$query1="select danwei from user where id = $id";
-$result1=$db->query($query1);
-$row1=$result1->fetch_assoc();
-$exitCompany=$row1["danwei"];      //找到登录用户的公司
-$query="select id from join_form  where c1 = $exitCompany and state=8";
+$exitCompany=$_SESSION['danwei'];    //找到登录用户的公司
+$query="select id from join_form  where c1 = '".$exitCompany."' and state='8'";
 $result=$db->query($query);
 $num_results=$result->num_rows;
 if($num_results>0){//该公司已经入会完成！
   echo "<h3><span class='label label-info'>您所属公司已经入会</span></h3>";
+  exit();
+}
+$query="select id from join_form  where c1 =  '".$exitCompany."' and state!='8'";
+$result=$db->query($query);
+$num_results=$result->num_rows;
+if($num_results>0){    //该公司已经已经申请但是没有审批完成！
+  echo "<h3><span class='label label-info'>您所属公司已经提交申请，管理员正在处理</span></h3>";
   exit();
 }
 
