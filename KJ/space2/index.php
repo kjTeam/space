@@ -600,6 +600,10 @@ textarea{outline:none;resize:none;}
 		$query="select * from mo1_zhuanxiang where state = 2 or state = 3 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
+		if($num_results==0){
+			echo"暂无膜结构评审事件!";
+		}
+		else{
         for($i=0;$i<$num_results;$i++){
 			$row2=$result->fetch_row();
 			echo"<a href='index.php?nav1=".$nav1."&nav2=".$row['id_n2']."&index=".$row2[0]."&type=mo1_zhuanxiang' class='list-group-item' style='white-space: pre-wrap;word-wrap: break-word;'>".$row2[1].""; //数据库设计时一定要将第一列设置为id,第二列设置为可读的名字";
@@ -615,6 +619,7 @@ textarea{outline:none;resize:none;}
 				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
+		 }
 		}
         $query="select * from mo1_chengbao where state = 2 or state = 3 ";
         $result=$db->query($query);
@@ -639,6 +644,9 @@ textarea{outline:none;resize:none;}
 		$query="select * from join_form where state <4 ";
         $result=$db->query($query);
 		$num_results=$result->num_rows;
+		if($num_results==0){
+			echo "暂无待办事件！";
+		}else{
         for($i=0;$i<$num_results;$i++){
 			
 			$row2=$result->fetch_row();
@@ -654,6 +662,7 @@ textarea{outline:none;resize:none;}
 				echo"<span style='float:right'>未审核</span>";
 			}
 			echo"</a>";
+		    }
 		}
 
 
@@ -777,7 +786,7 @@ textarea{outline:none;resize:none;}
 		}
 	}
 	else{
-				$query=$row['query'];//得到检索语句	 现在没有用了	
+				$query=$row['query'];//得到检索语句	 现在没有用了
 					$query=str_replace('$id',$id,$query);  //数据库语句中有的地方会用到一些变量，用到什么在这里加。
 					//这里接收post数据，如果有key提交，在下段程序中将query改变
 					if($_POST['change_key']=='yes')
@@ -789,6 +798,9 @@ textarea{outline:none;resize:none;}
 					$result=$db->query($query);
 					$num_results=$result->num_rows;
 					echo" <div class='list-group'style='margin-top:15px;'>";
+					if($num_results==0){
+						echo "暂无入会申请事件！";
+					}else{
 					for($i=0;$i<$num_results;$i++) //拾取每一个检索元素
 					{
 						$row2=$result->fetch_row(); //注意这里的读取函数！这个函数返回的数组只可以用下标提取！fetch_assoc只可以用关键字提取！
@@ -811,6 +823,7 @@ textarea{outline:none;resize:none;}
 						
 						echo"</a>";
 					}
+				}
 					echo"</div>";
 					}
 			echo"</div>";	}
