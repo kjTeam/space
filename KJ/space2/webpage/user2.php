@@ -91,11 +91,11 @@ echo "
         </tr>
 		<tr>
             <td colspan='2'> 密码</td>
-            <td colspan='10'> <input type='password' id='psw1'  name='psw1' class='form-control' value=".$row['psw']."></td>
+            <td colspan='10'> <input type='text' id='psw1'  name='psw1' class='form-control' value=".$row['psw']."></td>
         </tr>
 		<tr>
             <td colspan='2'> 重复密码</td>
-            <td colspan='10'> <input type='password' id='psw2' name='psw2' class='form-control' value=".$row['psw']."></td>
+            <td colspan='10'> <input type='text' id='psw2' name='psw2' class='form-control' value=".$row['psw']."></td>
         </tr>
 		<tr>
             <td colspan='2'> 邮箱</td>
@@ -183,7 +183,6 @@ $category=str_replace(5,管理,$category);
 $category=str_replace(6,企业膜经理,$category);
 $Pc[$i]=$row['id'];
 $PA[$i]=$row['name'];
-echo $row['name'];
 $PS[$i]=$row['danwei'];
 $PF[$i]=$category;
 $PD[$i]=$row['tel'];

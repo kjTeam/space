@@ -3,17 +3,18 @@
 $index = $_GET['index'];
 $nav1 = $_GET['nav1'];
 $nav2 = $_GET['nav2'];
+$danwei=$_SESSION['danwei']; //用户id
 // $checkOption='';
 // if($_POST['checkOption']=='查看意见'){
 // 	echo'ssssssssss';
 	
 // }
 if ($category == '1') {
-	$query = "select * from join_form where id_p=$id";
+	$query = "select * from join_form where c1='".$danwei."'";
 	$result = $db->query($query);
 	$row = $result->fetch_assoc();
 	$select = $row['state'] - 1;
-	$query = "select * from join_form where id_p=$id";
+	$query = "select * from join_form where c1='".$danwei."'";
 	$result = $db->query($query);
 	$num_results = $result->num_rows;
 	if ($num_results) //如果有提交
@@ -52,7 +53,7 @@ if ($category == '1') {
 				break;
 		}
 	} else {
-		echo "<script language=javascript>swal('尚未提交申请表');location.href='index.php?nav1=2&nav2=1';</script>"; //没有提交则退出
+		echo "<script language=javascript>swal({title:'尚未提交申请表',timer:2000});</script>"; //没有提交则退出
 		exit();
 	}
 } else {
@@ -652,7 +653,7 @@ if ($index > 0 || ($nav1 == 3 & $nav2 == 10))//如果是用户点击企业资料
 		$num_results = $result->num_rows;
 		$row = $result->fetch_assoc();
 		$select2 = $row['result'] - 1;
-		if ($num_results != 0) {
+		if ($num_results != 0) {			
 			echo "
 <div class='container-fluid noprint'>
  <form enctype='multipart/form-data' action='' method='post'>

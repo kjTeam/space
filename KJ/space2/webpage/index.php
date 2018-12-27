@@ -13,6 +13,7 @@
 	}
 	else{
 	$id=$_SESSION['id']; //用户id
+	$danwei=$_SESSION['danwei']; //用户id
 	if(!isset($id)&&!isset($category)) jump_to('login/index.html'); //检查登录身份
 	else if(isset($id)) {
 		$db=create_database();
