@@ -1,3 +1,4 @@
+
 <?php
 		//这里判断是否可以get到index，如果获得，说明这是管理员发来的消息，改变的id是别人的
 		if(isset($_GET['index']))
@@ -16,7 +17,6 @@
 		$tel=$row['tel'];
 		$psw=$row['psw'];
 		$email=$row['email'];
-		$danwei=$row['danwei'];
 		$uid=$row['uid'];
 
 		if($_POST['change']=='yes')
@@ -27,14 +27,13 @@
 			if($psw==$psw2) //判断两个密码是否相同
 			{
 				$email=$_POST['email'];
-				$danwei=$_POST['danwei'];
 				$name=$_POST['name'];
 				$tel=$_POST['tel'];
 				$db=create_database();
 				$query="select * from user where id='$id_index'";
 				$result=$db->query($query);
 			
-					$query="update user set psw='$psw' where id=$id_index";
+					$query="update user set name='$name',tel='$tel',psw='$psw',email='$email',uid='$uid' where id=$id_index";
 					$result=$db->query($query);
 					if($result)
 				{
@@ -52,7 +51,7 @@
 		}
 		switch ($flag)
 		{
-			case 1: echo "<h3><span class='label label-success'>修改成功！</span></h3><script language=javascript>location.href='../index/logout.php';</script>";break;
+			case 1: echo "<h3><span class='label label-success'>修改成功！</span></h3>";break;
 			case 2: echo "<h3><span class='label label-danger'>用户名占用!</span></h3>";break;
 			case 3: echo "<h3><span class='label label-danger'>密码需相同!</span></h3>";break;
 			default:break;
@@ -80,16 +79,33 @@ echo "
 <form class='form-signin' action='' method='post'  style='margin-top:10px;'>
 <table class='table table-bordered table-responsive text-center'>
         <tr>
-            <th colspan='12' style='text-align:center;'><lead>修改密码</lead></th>
+            <th colspan='12' style='text-align:center;'><lead>用户资料</lead></th>
+        </tr>
+        <tr>
+            <td colspan='2'> 用户名</td>
+            <td colspan='10'> <input type='text' id='uid' name='uid' class='form-control' value='$uid' ></td>
         </tr>
 		<tr>
-            <td colspan='2'> 新密码</td>
-            <td colspan='10'> <input type='password' id='psw1'  name='psw1' class='form-control'  ></td>
+            <td colspan='2'> 密码</td>
+            <td colspan='10'> <input type='password' id='psw1'  name='psw1' class='form-control' value='$psw'></td>
         </tr>
 		<tr>
             <td colspan='2'> 重复密码</td>
-            <td colspan='10'> <input type='password' id='psw2' name='psw2' class='form-control'  ></td>
-        </tr>		
+            <td colspan='10'> <input type='password' id='psw2' name='psw2' class='form-control' value='$psw'></td>
+        </tr>
+		<tr>
+            <td colspan='2'> 邮箱</td>
+            <td colspan='10'> <input type='text' id='email' name='email' class='form-control' value='$email'></td>
+        </tr>
+		<tr>
+            <td colspan='2'> 真实姓名</td>
+            <td colspan='10'> <input type='text' id='name' name='name' class='form-control' value='$name'></td>
+        </tr>
+		<tr>
+            <td colspan='2'> 电话</td>
+            <td colspan='10'> <input type='text' id='tel' name='tel' class='form-control' value='$tel'></td>
+        </tr>
+		
 </table>
 
 ";
