@@ -26,13 +26,13 @@ if($_POST['send']=='yes')
 			$INFO[$i]=$_POST[$str1];
 			$INFO[$i]=addslashes($INFO[$i]);
 			//如果该纪录就插入，如果有的话执行更新命令
-			$queryCheckRepeat = "select * from director where id_p = '".$id."' and id_f = '".$row3['id']."' and form_category = 0" ;
+			$queryCheckRepeat = "select * from director where  id_f = '".$row3['id']."' and form_category = 0" ;
 			$resulC = $db->query($queryCheckRepeat);
 			$num_resultsC=$resulC->num_rows;
 			if($num_resultsC==0){
-				$query2 = "insert into director (id_p,id_f,result,form_category,info) values ('".$id."' ,'".$row3['id']."','".$PA[$i]."','0','".$INFO[$i]."')";
+				$query2 = "insert into director (id_f,result,form_category,info) values ('".$row3['id']."','".$PA[$i]."','0','".$INFO[$i]."')";
 			}else{
-				$query2 = "update director set result = '".$PA[$i]."',info = '".$INFO[$i]."' where  id_p = '".$id."' and id_f = '".$row3['id']."' and form_category = 0";
+				$query2 = "update director set result = '".$PA[$i]."',info = '".$INFO[$i]."' where  id_f = '".$row3['id']."' and form_category = 0";
 			}
 			$result2=$db->query($query2);
 		}

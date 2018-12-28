@@ -165,13 +165,13 @@ if ($_POST['send3'] == 'yes')//管理员投递给理事会的过程
 		$result1 = $db->query($query1);
 	}
 	//改变状态后往director添加理事会需要处理的数据！（<wsj-2018.12.26>）
-	$queryCheckRepeat = "select * from director where id_p = '".$id."' and id_f = '".$row2['id']."' and form_category = 0" ;
+	$queryCheckRepeat = "select * from director where  id_f = '".$row2['id']."' and form_category = 0" ;
 	$resulC = $db->query($queryCheckRepeat);
 	$num_resultsC=$resulC->num_rows;
 	if($num_resultsC==0){
-		$query2 = "insert into director (id_p,id_f,result,form_category) values ('".$id."' ,'".$row2['id']."','0','0')";
+		$query2 = "insert into director (id_f,result,form_category) values ('".$row2['id']."','0','0')";
 	}else{
-		$query2 = "update director set result = '0',info = '".$INFO[$i]."' where  id_p = '".$id."' and id_f = '".$row3['id']."' and form_category = 0";
+		$query2 = "update director set result = '0',info = '".$INFO[$i]."' where  id_f = '".$row3['id']."' and form_category = '0' and result='0'";
 	}
 	$result2=$db->query($query2);
 
